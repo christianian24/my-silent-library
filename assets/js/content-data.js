@@ -69,34 +69,70 @@ const LIBRARY_CONTENT = {
             readingTime: 10
         },
         {
-            id: "novel-002",
-            title: "Where the Jacarandas Bloom",
-            category: "novels",
+            id: 'novel-002',
+            title: 'Where the Jacarandas Bloom',
+            category: 'novels',
             excerpt: "A story of two lifelong best friends, Zev and Celise, who have secretly been in love for years. After a tragic accident forces their feelings into the open, they must navigate the aftermath of shared trauma and learn that the hardest words to say are often the ones that matter most.",
             content: `
-                <h1>Jacarandas Bloom</h1>
-                <p class="chapter-meta">Chapter 1: Zev's POV</p>
-                
-                [cite_start]<p>The sleeves of my hoodie are frayed at the edges, the fabric worn thin from years of nervous fidgeting[cite: 27]. [cite_start]The left cuff has a small hole forming near the seam, and a coffee stain from last Tuesday when my hands shook too much to hold the cup steady[cite: 28]. [cite_start]I pull the sleeves down over my hands now, the familiar softness a comfort against my anxiety[cite: 29]. [cite_start]The fabric smells faintly of lavender detergent and something else-maybe hope, maybe fear[cite: 30]. [cite_start]It's hard to tell the difference anymore[cite: 30].</p>
-                
-                [cite_start]<p>I'm walking the same route I've taken a thousand times before, but today everything feels different[cite: 31]. [cite_start]Heavier[cite: 31]. [cite_start]Like the air itself knows what I'm planning to do[cite: 32]. [cite_start]My backpack feels heavier too, though it's just the usual things-keys, charger, and one folded confession I've carried for too long[cite: 33].</p>
-                
-                <p>Mrs. [cite_start]Chen's bookstore on Maple Street looks exactly the same as it did when Celise and I were eight, pressing our noses against the rain-streaked windows to peer at the new releases we couldn't afford[cite: 34, 36]. [cite_start]The owner, Mrs. Chen, still has that handwritten sign in the window: \"Books are dreams you hold in your hands\"[cite: 37]. [cite_start]Celise always said that was the most beautiful thing she'd ever read[cite: 38]. [cite_start]I never told her I thought the same thing about the way she looked when she read-lips slightly parted, completely lost in whatever world lived between those pages[cite: 39].</p>
-                
-                [cite_start]<p>I should have told her a lot of things[cite: 40]. [cite_start]The wind picks up, carrying the scent of approaching rain and something floral- jacaranda, maybe, though the trees won't bloom until spring[cite: 40]. [cite_start]It reminds me of her perfume, light and sweet, the kind that lingers just long enough to make you lean closer without realizing you're doing it[cite: 41].</p>
-            
-                [cite_start]<p>My phone buzzes in my pocket[cite: 42]. [cite_start]A text from her: \"Wouldn't miss it, See you at 6 under our tree!!\" [cite: 42][cite_start]. her reply to the one I sent a few minutes ago, confirming our 6 PM meeting[cite: 43]. [cite_start]The heart emoji makes my chest tight[cite: 44]. [cite_start]She uses them for everyone-her mom, her sister, the barista at the coffee shop who always remembers her order[cite: 44, 46]. [cite_start]It doesn't mean anything[cite: 46]. [cite_start]I know this[cite: 47]. [cite_start]But I save the message anyway, like I save all of them, because sometimes late at night I scroll through our conversations and pretend the casual affection in her words means more than it does[cite: 47].</p>
-                
-                [cite_start]<p>The bus stop where we used to wait every morning during our senior year of high school is empty now[cite: 48]. [cite_start]We're college sophomores now, but I still find myself walking past this place[cite: 49]. [cite_start]I sit on the same bench where she used to do her homework, legs tucked under her, hair falling like a curtain across her face[cite: 50]. [cite_start]I was always finding excuses to sit close enough to help-reaching over to point out a mistake in her calculus, leaning in to read a passage from her English essay[cite: 51]. [cite_start]Any reason to be near her, to breathe in that faint sweetness that seemed to follow her everywhere[cite: 52]. [cite_start]\"You're so patient with me,\" she'd say, bumping my shoulder with hers[cite: 53]. [cite_start]\"I don't know what I'd do without you, Zev\"[cite: 54].</p>
-                `,
+              <h1>Jacarandas Bloom</h1>
+              <p class="chapter-meta">Chapter 1: Zev's POV</p>
+              
+              <p>The sleeves of my hoodie are frayed at the edges, the fabric worn thin from years of nervous fidgeting. The left cuff has a small hole forming near the seam, and a coffee stain from last Tuesday when my hands shook too much to hold the cup steady. I pull the sleeves down over my hands now, the familiar softness a comfort against my anxiety. The fabric smells faintly of lavender detergent and something else—maybe hope, maybe fear. It's hard to tell the difference anymore.</p>
+              
+              <p>I'm walking the same route I've taken a thousand times before, but today everything feels different. Heavier. Like the air itself knows what I'm planning to do. My backpack feels heavier too, though it's just the usual things—keys, charger, and one folded confession I've carried for too long.</p>
+              
+              <p>Mrs. Chen's bookstore on Maple Street looks exactly the same as it did when Celise and I were eight, pressing our noses against the rain-streaked windows to peer at the new releases we couldn't afford. The owner, Mrs. Chen, still has that handwritten sign in the window: \"Books are dreams you hold in your hands.\" Celise always said that was the most beautiful thing she'd ever read. I never told her I thought the same thing about the way she looked when she read—lips slightly parted, completely lost in whatever world lived between those pages.</p>
+              
+              <p>I should have told her a lot of things. The wind picks up, carrying the scent of approaching rain and something floral— jacaranda, maybe, though the trees won't bloom until spring. It reminds me of her perfume, light and sweet, the kind that lingers just long enough to make you lean closer without realizing you're doing it.</p>
+          
+              <p>My phone buzzes in my pocket. A text from her: \"Wouldn't miss it, See you at 6 under our tree!!❤️\" — her reply to the one I sent a few minutes ago, confirming our 6 PM meeting. The heart emoji makes my chest tight. She uses them for everyone—her mom, her sister, the barista at the coffee shop who always remembers her order. It doesn't mean anything. I know this. But I save the message anyway, like I save all of them, because sometimes late at night I scroll through our conversations and pretend the casual affection in her words means more than it does.</p>
+              
+              <p>The bus stop where we used to wait every morning during our senior year of high school is empty now. We're college sophomores now, but I still find myself walking past this place. I sit on the same bench where she used to do her homework, legs tucked under her, hair falling like a curtain across her face. I was always finding excuses to sit close enough to help—reaching over to point out a mistake in her calculus, leaning in to read a passage from her English essay. Any reason to be near her, to breathe in that faint sweetness that seemed to follow her everywhere.</p>
+          
+              <p>\"You're so patient with me,\" she'd say, bumping my shoulder with hers. \"I don't know what I'd do without you, Zev.\" I wanted to tell her she'd never have to find out.</p>
+          
+              <p>I reach into my backpack and feel the crinkled edges of the letter I've been carrying for three weeks. Twenty-seven drafts, each one thrown away, each one not quite right. This one isn't right either, but it's the closest I've come to saying what I mean:</p>
+          
+              <blockquote>
+                <p>Celise,</p>
+                <p>I've been trying to write this for longer than you know. There are things I should have said years ago, things that have been living in the spaces between our conversations, in the moments when you laugh and I forget how to breathe.</p>
+                <p>I love you. Not the way friends love each other, but the way the ocean loves the shore—constantly, desperately, like I can't exist without touching some part of you. I love the way you hum when you're concentrating, and how you always order extra fries because you know I'll steal half of them.</p>
+                <p>I love that you see magic in ordinary things, and somehow, you've made me believe in it too.</p>
+                <p>I know I'm not brave enough to say this out loud, and I know this might change everything between us. But I can't keep pretending that what I feel for you is anything less than everything. You are my everything, Celise. You always have been.</p>
+                <p>If you're reading this, it means I finally found the courage to give it to you. Or maybe the universe decided for me. Either way, I needed you to know.</p>
+                <p>I love you.<br>Always, Zev</p>
+              </blockquote>
+          
+              <p>I slip the letter into my backpack and zip it shut carefully, like it might fall apart if I move too fast. If I can't say it out loud, maybe this letter can do it for me.</p>
+          
+              <p>The bench under the jacaranda tree is our spot—has been since we were fourteen and Celise declared it the most romantic place in the entire city. \"Look how the branches make a ceiling,\" she'd said, spinning with her arms outstretched. \"It's like nature's cathedral.\" I'd watched her turn in circles until she was dizzy, and when she stumbled, I caught her elbow to steady her. For just a second, she was close enough that I could count the freckles across her nose, close enough that all I would have had to do was lean down and— But I didn't. I never do.</p>
+              
+              <p>The tree is bare now, winter-thin branches reaching toward a sky that's gone gray at the edges. Storm clouds gathering, the way they always seem to when something important is about to happen. Or maybe that's just in movies. Maybe real life doesn't give you that kind of poetry.</p>
+          
+              <p>I check my phone again. 5:52 p.m. Eight more minutes. I'm early, like always. I find a spot on the bench across from our usual meeting place, close enough to see the jacaranda tree but not quite at our bench yet. Celise runs on what she calls \"fashionably late time,\" which usually means five to ten minutes after we agree to meet. It's one of the few things about her that drives me crazy, but I've learned to factor it into my expectations.</p>
+          
+              <p>My hands are shaking, and I shove them deeper into my hoodie pocket, feeling the worn softness of the fabric against my knuckles. There's a hole forming near the left seam, small enough that I can poke my thumb through it. Celise noticed it last week, traced the edge with her fingertip. \"You need a new sweatshirt,\" she'd said, but she was smiling when she said it. \"This one's falling apart.\" \"I like this one,\" I'd told her, which was true. I like it because it was what I was wearing the first time she hugged me— really hugged me, not just the quick side-squeeze she gives everyone. I was seventeen and heartbroken over some girl I barely even remember now, and Celise had just sat beside me on the curb outside school without saying a word. Then, after a long silence, she'd wrapped her arms around me, warm and sure, like she could hold all the cracked pieces together if she just held tight enough. She didn't let go until I stopped shaking. And maybe that was the moment I realized: it was always her.</p>
+          
+              <p>I see the bench across the street—our bench—waiting beneath the jacaranda tree. I check my phone again. 5:58 p.m. Two more minutes. That's when I see her.</p>
+          
+              <p>Celise appears around the corner, walking toward our meeting spot from the other direction. Even from across the street, I can see the burgundy sweater, the cream cardigan. My heart races—this is it. This is when I finally tell her everything. I stand up, raising my hand in a small wave. She sees me and waves back, that radiant smile breaking across her face. I shift the strap of my backpack on my shoulder, fingers brushing the zipper. The letter is still there.</p>
+              
+              <p>Time to be brave. Time to cross this street and change everything.</p>
+          
+              <p>I step off the curb into the crosswalk. And then—</p>
+              
+              <p>Headlights. Brakes.</p>
+              
+              <p>The world tilts.</p>
+            `,
             date: "2025-08-16",
             tags: ["romance", "friends to lovers", "contemporary", "healing", "young adult"],
             downloadUrl: "content/novels/where_the_jacarandas_bloom.pdf",
-            wordCount: 25500,
+            wordCount: 33428,
             readingTime: 100
           },
         {
-            id: 'novel-002',
+            id: 'novel-003',
             title: 'Whispers in the Wind',
             category: 'novels',
             excerpt: 'A young woman discovers she can hear the thoughts of others, leading her on a journey of self-discovery and moral complexity.',
