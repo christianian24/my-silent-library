@@ -130,9 +130,21 @@ const LIBRARY_CONTENT = {
             downloadUrl: "content/novels/https://mega.nz/file/qcEgGITC#VIH-ZY87Y6UBwDXHWRTOs8UcgjdiPrkjr4tgPqyNg0A",
             wordCount: 33428,
             readingTime: 100
-          },
+        },
         {
-            id: 'novel-003',
+            id: "novel-003",
+            title: "When the Sun Fades",
+            category: "novels",
+            excerpt: "A story of quiet love and slow goodbyes. Kael has a secret he's keeping from his best friend, Rhea: he's terminally ill. As he tries to protect her from the truth, Rhea senses him slipping away, forcing a confrontation that unearths buried feelings and the painful, beautiful reality of loving someone you're destined to lose.",
+            content: "<h1>When the Sun Fades</h1>\n<p class=\"chapter-meta\">Chapter 1: A Normal Morning</p>\n<p>The alarm went off at 6:45 AM.</p>\n<p>Kael stared at the ceiling for two minutes before moving. Not out of sleepiness-he'd been awake since 5-but because if he got up too quickly, the dizziness might hit before he even made it to the bathroom. He sat up slowly. One hand braced against the bed frame, the other pressed against the quiet throb in his side. It always started there. A reminder. Today would be fine. Or at least manageable.</p>\n<p>The house was silent except for the soft murmur of the coffee machine downstairs. His mom had already left for her shift at the clinic. She always did. There were sticky notes by the fridge. \"Left you breakfast!\" \"Don't forget your meds!\" Little things. Normal things. He ignored the notes. Ate half a slice of toast. Didn't take the pills. Not yet. They made him drowsy at school.</p>\n<p>The walk to campus wasn't far-fifteen minutes of cracked sidewalks and sleepy traffic-but Kael took the longer way. Past the park. Past the bookstore Rhea loved, the one that always smelled like dust and minty old pages. He didn't go in. Just paused. Then kept walking.</p>\n<p>Rhea was waiting outside the school gate, pretending not to be waiting. She had that look on her face-arms crossed, kicking at the gravel, earbuds in but not playing anything. The moment she saw him, her entire expression changed. Subtle, but warm. The kind of smile that makes it harder to breathe for reasons the lungs don't explain.</p>\n<p>\"You're late,\" she said.</p>\n<p>\"You're early.\"</p>\n<p>\"Shut up.\"</p>\n<p>She fell into step beside him like she always did. Their shoulders didn't touch, but the space between them felt intentionally small-like a promise they didn't know how to word yet. The air smelled like chalk dust and damp earth. Spring trying to claw its way through.</p>\n<p>\"How's your morning?\" she asked.</p>\n<p>He shrugged. \"Same.\"</p>\n<p>\"You eat?\"</p>\n<p>\"Toast.\"</p>\n<p>\"Gross.\"</p>\n<p>\"You asked.\"</p>\n<p>She laughed, and he hated how much he loved the sound of it.</p>\n<p>In class, he sat behind her. Close enough to hear her humming when she thought no one could. Far enough that if he started coughing, she wouldn't look back too fast. He didn't want her to look concerned. Not yet. Not ever, if he could help it.</p>\n<p>His notebook had more scribbles than notes. He was supposed to be writing down formulas, but instead he was sketching the curve of her neck from memory. The way she looked when she tilted her head at something confusing. The sun caught her hair just right today. He wished it didn't.</p>\n<p>Because it made her look too perfect.</p>\n<p>And because he didn't know how many more perfect days he had left.</p>",
+            date: "2025-08-16",
+            tags: ["romance", "young adult", "contemporary", "sad", "illness", "friends to lovers"],
+            downloadUrl: "content/novels/https://mega.nz/file/TAUhBZRR#C1GK38OPnPaSG4NaMH3vCBuoImS51jcTq6nNedbsDho",
+            wordCount: 21000,
+            readingTime: 84
+        },
+        {
+            id: 'novel-004',
             title: 'Whispers in the Wind',
             category: 'novels',
             excerpt: 'A young woman discovers she can hear the thoughts of others, leading her on a journey of self-discovery and moral complexity.',
