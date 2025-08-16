@@ -191,6 +191,9 @@ const LIBRARY_CONTENT = {
         }
     ],
     
+
+
+
     notes: [
         {
             id: 'note-001',
@@ -233,7 +236,6 @@ const LIBRARY_CONTENT = {
             `,
             date: '2024-01-20',
             tags: ['creativity', 'writing', 'reflection', 'digital-age'],
-            downloadUrl: 'content/notes/on-creativity.pdf',
             wordCount: 1200,
             readingTime: 5
         },
@@ -288,7 +290,6 @@ const LIBRARY_CONTENT = {
             `,
             date: '2024-02-10',
             tags: ['observation', 'writing', 'character-development', 'sensory-details'],
-            downloadUrl: 'content/notes/art-of-observation.pdf',
             wordCount: 1500,
             readingTime: 6
         },
@@ -325,9 +326,23 @@ const LIBRARY_CONTENT = {
             tags: ['writing', 'realization', 'life-lessons'],
             wordCount: 800,
             readingTime: 7
-        }
+        },
+        {
+            id: "note-005",
+            title: "The End of Playing Nice",
+            category: "notes",
+            excerpt: "A man's reflection on the moment he realized being the 'good guy' gets you nowhere. After playing by the rules and waiting for his turn, a deep betrayal forges a new, harder identity.",
+            content: "<h1>The End of Playing Nice</h1><p class=\"note-meta\">Personal Reflection • August 2025</p><p>I'm done pretending this doesn't gut me. Where is the victory I was promised? I followed every rule, played the long game, never took a single thing that wasn't earned. I was the patient one, the steady hand, the one who was supposed to win in the end.</p><p>I waited for my time. But when the moment finally arrived, the prize in my sights, she said his name. And just like that, the world tilted. This isn't just pain; it's a fire in my veins, a poison in my blood. My thoughts are a relentless engine, circling the same track of that single moment, that single name. I feel like a masterpiece painting left in the rain, the colors bleeding, the frame warped. And I know exactly who's holding the brush.</p><p>I never saw myself as the villain. I was supposed to be the king, the one who deserved the crown. But I see now there is no middle ground. If I'm not the hero of this story, then I'll be the one who rewrites the ending. The angel on my shoulder has been silenced, and in its place, a devil whispers a new title in my ear. It calls me 'King'—not of a shining castle, but of the darkness and the ashes.</p><p>Being the 'good guy' was a role I played. But I've been burned for the last time. I will never again let someone else dictate my worth or take what is mine. The anger is a furnace, and it's forging something new from the wreckage of the man I used to be.</p>",
+            date: "2025-08-16",
+            tags: ["reflection", "heartbreak", "betrayal", "masculinity", "anger", "power"],
+            wordCount: 278,
+            readingTime: 2
+        }        
     ],
     
+
+
+
     quotes: [
         {
             id: 'quote-001',

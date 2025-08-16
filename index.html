@@ -128,11 +128,33 @@
         <div class="spinner"></div>
     </div>
 
-    <!-- Scripts -->
-    <script src="assets/js/content-data.js"></script>
-    <script src="assets/js/app.js"></script>
-    <script src="assets/js/search.js"></script>
-    <script src="assets/js/modal.js"></script>
-    <script src="assets/js/theme.js"></script>
+               <!-- Scripts -->
+           <script src="assets/js/content-data.js"></script>
+           <script src="assets/js/app.js"></script>
+           <script src="assets/js/search.js"></script>
+           <script src="assets/js/modal.js"></script>
+           <script src="assets/js/theme.js"></script>
+           
+           <!-- Performance & Performance Modules -->
+           <script src="assets/js/lazy-loader.js"></script>
+           <script src="assets/js/virtual-scroller.js"></script>
+           <script src="assets/js/performance-monitor.js"></script>
+           
+
+           
+           <!-- Service Worker Registration -->
+           <script>
+               if ('serviceWorker' in navigator) {
+                   window.addEventListener('load', () => {
+                       navigator.serviceWorker.register('/sw.js')
+                           .then(registration => {
+                               console.log('Service Worker registered successfully:', registration);
+                           })
+                           .catch(error => {
+                               console.log('Service Worker registration failed:', error);
+                           });
+                   });
+               }
+           </script>
 </body>
 </html>
