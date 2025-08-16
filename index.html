@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>My Silent Library - Personal Writings & Novels</title>
+    <meta name="description" content="A personal digital library featuring novels, notes, and writings available for online reading and download.">
+    <link rel="stylesheet" href="assets/css/style.css">
+    <link rel="stylesheet" href="assets/css/dark-mode.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Crimson+Text:ital,wght@0,400;0,600;1,400&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+</head>
+<body>
+    <!-- Header -->
+    <header class="header">
+        <div class="container">
+            <div class="header-content">
+                <h1 class="site-title">
+                    <span class="title-main">My Silent Library</span>
+                    <span class="title-subtitle">Personal Writings & Novels</span>
+                </h1>
+                <button class="theme-toggle" id="themeToggle" aria-label="Toggle dark mode">
+                    <svg class="sun-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <circle cx="12" cy="12" r="5"></circle>
+                        <line x1="12" y1="1" x2="12" y2="3"></line>
+                        <line x1="12" y1="21" x2="12" y2="23"></line>
+                        <line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line>
+                        <line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line>
+                        <line x1="1" y1="12" x2="3" y2="12"></line>
+                        <line x1="21" y1="12" x2="23" y2="12"></line>
+                        <line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line>
+                        <line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line>
+                    </svg>
+                    <svg class="moon-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path>
+                    </svg>
+                </button>
+            </div>
+        </div>
+    </header>
+
+    <!-- Main Navigation -->
+    <nav class="main-nav">
+        <div class="container">
+            <ul class="nav-list">
+                <li><a href="#all" class="nav-link active" data-category="all">All Works</a></li>
+                <li><a href="#novels" class="nav-link" data-category="novels">Novels</a></li>
+                <li><a href="#notes" class="nav-link" data-category="notes">Notes</a></li>
+                <li><a href="#quotes" class="nav-link" data-category="quotes">Quotes</a></li>
+            </ul>
+        </div>
+    </nav>
+
+    <!-- Search and Filters -->
+    <section class="search-section">
+        <div class="container">
+            <div class="search-container">
+                <div class="search-box">
+                    <svg class="search-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <circle cx="11" cy="11" r="8"></circle>
+                        <path d="m21 21-4.35-4.35"></path>
+                    </svg>
+                    <input type="text" id="searchInput" placeholder="Search through your writings..." class="search-input">
+                </div>
+                <div class="filter-controls">
+                    <select id="sortSelect" class="sort-select">
+                        <option value="date">Sort by Date</option>
+                        <option value="title">Sort by Title</option>
+                        <option value="category">Sort by Category</option>
+                        <option value="length">Sort by Length</option>
+                    </select>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Main Content -->
+    <main class="main-content">
+        <div class="container">
+            <!-- Content Grid -->
+            <div class="content-grid" id="contentGrid">
+                <!-- Content will be dynamically loaded here -->
+            </div>
+
+            <!-- No Results Message -->
+            <div class="no-results" id="noResults" style="display: none;">
+                <div class="no-results-content">
+                    <svg class="no-results-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <circle cx="11" cy="11" r="8"></circle>
+                        <path d="m21 21-4.35-4.35"></path>
+                    </svg>
+                    <h3>No writings found</h3>
+                    <p>Try adjusting your search terms or filters.</p>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <p>&copy; 2024 My Silent Library. A personal digital collection.</p>
+        </div>
+    </footer>
+
+    <!-- Reading Modal -->
+    <div class="modal" id="readingModal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2 id="modalTitle">Title</h2>
+                <button class="modal-close" id="modalClose">&times;</button>
+            </div>
+            <div class="modal-body">
+                <div id="modalContent"></div>
+            </div>
+            <div class="modal-footer">
+                <div class="modal-actions">
+                    <button class="btn btn-secondary" id="modalDownload">Download</button>
+                    <button class="btn btn-primary" id="modalCloseBtn">Close</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Loading Spinner -->
+    <div class="loading-spinner" id="loadingSpinner" style="display: none;">
+        <div class="spinner"></div>
+    </div>
+
+    <!-- Scripts -->
+    <script src="assets/js/content-data.js"></script>
+    <script src="assets/js/app.js"></script>
+    <script src="assets/js/search.js"></script>
+    <script src="assets/js/modal.js"></script>
+    <script src="assets/js/theme.js"></script>
+</body>
+</html>
