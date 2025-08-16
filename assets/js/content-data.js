@@ -127,7 +127,7 @@ const LIBRARY_CONTENT = {
             `,
             date: "2025-08-16",
             tags: ["romance", "friends to lovers", "contemporary", "healing", "young adult"],
-            downloadUrl: "content/novels/where_the_jacarandas_bloom.pdf",
+            downloadUrl: "content/novels/https://mega.nz/file/qcEgGITC#VIH-ZY87Y6UBwDXHWRTOs8UcgjdiPrkjr4tgPqyNg0A",
             wordCount: 33428,
             readingTime: 100
           },
