@@ -69,6 +69,33 @@ const LIBRARY_CONTENT = {
             readingTime: 10
         },
         {
+            id: "novel-002",
+            title: "Where the Jacarandas Bloom",
+            category: "novels",
+            excerpt: "A story of two lifelong best friends, Zev and Celise, who have secretly been in love for years. After a tragic accident forces their feelings into the open, they must navigate the aftermath of shared trauma and learn that the hardest words to say are often the ones that matter most.",
+            content: `
+                <h1>Jacarandas Bloom</h1>
+                <p class="chapter-meta">Chapter 1: Zev's POV</p>
+                
+                [cite_start]<p>The sleeves of my hoodie are frayed at the edges, the fabric worn thin from years of nervous fidgeting[cite: 27]. [cite_start]The left cuff has a small hole forming near the seam, and a coffee stain from last Tuesday when my hands shook too much to hold the cup steady[cite: 28]. [cite_start]I pull the sleeves down over my hands now, the familiar softness a comfort against my anxiety[cite: 29]. [cite_start]The fabric smells faintly of lavender detergent and something else-maybe hope, maybe fear[cite: 30]. [cite_start]It's hard to tell the difference anymore[cite: 30].</p>
+                
+                [cite_start]<p>I'm walking the same route I've taken a thousand times before, but today everything feels different[cite: 31]. [cite_start]Heavier[cite: 31]. [cite_start]Like the air itself knows what I'm planning to do[cite: 32]. [cite_start]My backpack feels heavier too, though it's just the usual things-keys, charger, and one folded confession I've carried for too long[cite: 33].</p>
+                
+                <p>Mrs. [cite_start]Chen's bookstore on Maple Street looks exactly the same as it did when Celise and I were eight, pressing our noses against the rain-streaked windows to peer at the new releases we couldn't afford[cite: 34, 36]. [cite_start]The owner, Mrs. Chen, still has that handwritten sign in the window: \"Books are dreams you hold in your hands\"[cite: 37]. [cite_start]Celise always said that was the most beautiful thing she'd ever read[cite: 38]. [cite_start]I never told her I thought the same thing about the way she looked when she read-lips slightly parted, completely lost in whatever world lived between those pages[cite: 39].</p>
+                
+                [cite_start]<p>I should have told her a lot of things[cite: 40]. [cite_start]The wind picks up, carrying the scent of approaching rain and something floral- jacaranda, maybe, though the trees won't bloom until spring[cite: 40]. [cite_start]It reminds me of her perfume, light and sweet, the kind that lingers just long enough to make you lean closer without realizing you're doing it[cite: 41].</p>
+            
+                [cite_start]<p>My phone buzzes in my pocket[cite: 42]. [cite_start]A text from her: \"Wouldn't miss it, See you at 6 under our tree!!\" [cite: 42][cite_start]. her reply to the one I sent a few minutes ago, confirming our 6 PM meeting[cite: 43]. [cite_start]The heart emoji makes my chest tight[cite: 44]. [cite_start]She uses them for everyone-her mom, her sister, the barista at the coffee shop who always remembers her order[cite: 44, 46]. [cite_start]It doesn't mean anything[cite: 46]. [cite_start]I know this[cite: 47]. [cite_start]But I save the message anyway, like I save all of them, because sometimes late at night I scroll through our conversations and pretend the casual affection in her words means more than it does[cite: 47].</p>
+                
+                [cite_start]<p>The bus stop where we used to wait every morning during our senior year of high school is empty now[cite: 48]. [cite_start]We're college sophomores now, but I still find myself walking past this place[cite: 49]. [cite_start]I sit on the same bench where she used to do her homework, legs tucked under her, hair falling like a curtain across her face[cite: 50]. [cite_start]I was always finding excuses to sit close enough to help-reaching over to point out a mistake in her calculus, leaning in to read a passage from her English essay[cite: 51]. [cite_start]Any reason to be near her, to breathe in that faint sweetness that seemed to follow her everywhere[cite: 52]. [cite_start]\"You're so patient with me,\" she'd say, bumping my shoulder with hers[cite: 53]. [cite_start]\"I don't know what I'd do without you, Zev\"[cite: 54].</p>
+                `,
+            date: "2025-08-16",
+            tags: ["romance", "friends to lovers", "contemporary", "healing", "young adult"],
+            downloadUrl: "content/novels/where_the_jacarandas_bloom.pdf",
+            wordCount: 25500,
+            readingTime: 100
+          },
+        {
             id: 'novel-002',
             title: 'Whispers in the Wind',
             category: 'novels',
