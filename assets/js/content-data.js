@@ -326,6 +326,48 @@ const LIBRARY_CONTENT = {
             downloadUrl: 'content/quotes/writing-and-life.pdf',
             wordCount: 800,
             readingTime: 3
+        },
+        {
+            id: 'quote-002',
+            title: 'On Life and Realization',
+            category: 'quotes',
+            excerpt: 'Reflections on the fleeting nature of time, choices, and the quiet truths we often ignore until it’s too late.',
+            content: `
+                    <h1>On Life and Realization</h1>
+                    <p class="quote-meta">Collected Thoughts • 2024</p>
+                    
+                    <blockquote class="quote-block">
+                        <p>"One day, you’ll realize that the moments you rushed through were the very moments you were living for."</p>
+                        <cite>— Me</cite>
+                    </blockquote>
+                    
+                    <p>We spend so much of our lives chasing what’s next that we forget the value of what’s here. The quiet talks, the laughter that fades too quickly, the ordinary days we think will last forever—these are the things that become treasures in hindsight.</p>
+                    
+                    <blockquote class="quote-block">
+                        <p>"Time doesn’t ask permission—it only leaves footprints."</p>
+                        <cite>— Me</cite>
+                    </blockquote>
+                    
+                    <p>We can’t bargain with time. Every choice we make leaves a mark, and every day we waste is a day we’ll never get back. Realizing this isn’t meant to scare us—it’s meant to wake us up.</p>
+                    
+                    <h2>Personal Reflections</h2>
+                    
+                    <p>What life has taught me is simple, but it took me years to understand:</p>
+                    
+                    <ul>
+                        <li><strong>Be present:</strong> The people in front of you matter more than the ones on your screen.</li>
+                        <li><strong>Choose carefully:</strong> What you prioritize today becomes the story you tell tomorrow.</li>
+                        <li><strong>Don’t wait:</strong> The right time rarely comes. Act before the moment passes.</li>
+                        <li><strong>Value the small things:</strong> The “ordinary” will one day be what you miss the most.</li>
+                    </ul>
+                    
+                    <p>Life realization doesn’t come in grand revelations—it comes in the quiet, ordinary moments we overlook. And by the time we notice, those moments are already memories. The truth is, the only real tragedy is realizing too late that you were already holding what you thought you were searching for.</p>
+                `,
+            date: '2024-02-12',
+            tags: ['life', 'realization', 'time', 'reflection'],
+            downloadUrl: 'content/quotes/life-and-realization.pdf',
+            wordCount: 600,
+            readingTime: 2
         }
     ]
 };
