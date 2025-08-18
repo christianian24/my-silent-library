@@ -458,7 +458,50 @@ const LIBRARY_CONTENT = {
             downloadUrl: 'content/quotes/life-and-realization.pdf',
             wordCount: 600,
             readingTime: 2
+        },
+        {
+            id: 'quote-003',
+            title: 'The Silent Drift',
+            category: 'quotes',
+            excerpt: 'A somber reflection on how people fade from our lives, not with a storm, but with silence we never expected.',
+            content: `
+                    <h1>The Silent Drift</h1>
+                    <p class="quote-meta">Collected Thoughts • 2025</p>
+                    
+                    <blockquote class="quote-block">
+                        <p>"Not all goodbyes are spoken—some people just slowly become strangers again."</p>
+                        <cite>— Me</cite>
+                    </blockquote>
+                    
+                    <p>We often imagine loss as something loud, abrupt, and undeniable. But in truth, some of the most painful losses happen quietly. No fights, no closure—just a fading presence, an unanswered message, a shift in tone you can't quite explain.</p>
+                    
+                    <blockquote class="quote-block">
+                        <p>"You don't always notice the last time—you just realize later it already happened."</p>
+                        <cite>— Me</cite>
+                    </blockquote>
+                    
+                    <p>Relationships, even the deepest ones, are fragile. They don't always end in storms. Sometimes, they simply dissolve in the spaces between unspoken words and unmet expectations. And by the time you realize it, you’re both already living separate stories.</p>
+                    
+                    <h2>Personal Reflections</h2>
+                    
+                    <p>These quiet endings have taught me hard truths:</p>
+                    
+                    <ul>
+                        <li><strong>Silence speaks volumes:</strong> People rarely disappear all at once—they just stop showing up in small ways first.</li>
+                        <li><strong>Closeness is a choice:</strong> It takes effort to stay connected. Without it, even soulmates become strangers.</li>
+                        <li><strong>Pay attention:</strong> Don’t ignore the shift in someone's tone, the delays in their replies. They often mean more than the words themselves.</li>
+                        <li><strong>Let go with grace:</strong> Not everyone is meant to stay. Some people are just passing through to teach you something.</li>
+                    </ul>
+                    
+                    <p>It’s a quiet kind of heartbreak—to still care about someone who no longer fits in your life. But sometimes, the kindest thing you can do is accept the distance, honor what was, and carry on. Some chapters aren’t meant to be reopened. They're just meant to be remembered.</p>
+                `,
+            date: '2025-08-18',
+            tags: ['life', 'realization', 'loss', 'change', 'reflection'],
+            downloadUrl: 'content/quotes/the-silent-drift.pdf',
+            wordCount: 610,
+            readingTime: 2 
         }
+        
     ]
 };
 
