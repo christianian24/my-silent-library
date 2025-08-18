@@ -2,7 +2,8 @@
 
 A modern, responsive personal library website for hosting your novels, notes, and writings. Built with vanilla HTML, CSS, and JavaScript - no frameworks required.
 
-![My Silent Library Preview](https://christianian24.github.io/my-silent-library/)
+### My Silent Library Preview
+- **Link** - https://christianian24.github.io/my-silent-library/
 
 ## ✨ Features
 
