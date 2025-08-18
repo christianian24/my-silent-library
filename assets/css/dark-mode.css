@@ -142,7 +142,7 @@
     border-top-color: var(--accent-primary);
 }
 
-[data-theme="dark] .footer {
+[data-theme="dark"] .footer {
     background-color: var(--bg-secondary);
     border-top-color: var(--border-color);
     color: var(--text-secondary);
@@ -160,7 +160,6 @@
 [data-theme="dark"] .modal-body::-webkit-scrollbar-thumb:hover {
     background: var(--text-muted);
 }
-
 /* ===== DARK MODE PRINT STYLES ===== */
 @media print and (prefers-color-scheme: dark) {
     [data-theme="dark"] .content-card {
@@ -174,3 +173,4 @@
         background-color: #f8f9fa;
     }
 }
+
