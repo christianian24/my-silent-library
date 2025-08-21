@@ -288,7 +288,36 @@ const LIBRARY_CONTENT = {
             tags: ["reflection", "heartbreak", "betrayal", "masculinity", "anger", "power"],
             wordCount: 278,
             readingTime: 2
-        }        
+        },
+        {
+            id: 'note-006',
+            title: 'Love, Even When It Hurts',
+            category: 'notes',
+            excerpt: 'A raw reflection on how love persists, even through pain and brokenness.',
+            content: `
+                <h1>Love, Even When It Hurts</h1>
+                <p class="quote-meta">Collected Thoughts • 2025</p>
+                
+                <blockquote class="quote-block">
+                    <p>"Love is when nothing feels okay, when everything is breaking you apart, yet your heart still chooses the same person over and over again."</p>
+                    <cite>— Me</cite>
+                </blockquote>
+                
+                <p>We often imagine love as comfort, safety, and ease. But sometimes, love reveals itself most in the ache—the choice to keep holding onto someone even when it hurts. It's not about perfection or peace, but about the persistence of the heart against all odds.</p>
+                
+                <blockquote class="quote-block">
+                    <p>"Love is not just about joy. Sometimes, it's the stubborn longing for the same soul, even in the middle of the storm."</p>
+                    <cite>— Me</cite>
+                </blockquote>
+                
+                <p>This kind of love is not weakness. It is the quiet strength to care beyond pain, to choose beyond reason. It’s messy, imperfect, and deeply human. And though it can break you, it also proves the depth of what it means to truly feel alive.</p>
+            `,
+            date: '2025-08-22',
+            tags: ['love', 'pain', 'loyalty', 'reflection', 'emotions'],
+            wordCount: 295,
+            readingTime: 1 
+        },
+        
     ],
     
 
@@ -297,162 +326,139 @@ const LIBRARY_CONTENT = {
     quotes: [
         {
             id: 'quote-001',
-            title: 'On Writing and Life',
+            title: 'The Choice That Never Came',
             category: 'quotes',
-            excerpt: 'A collection of thoughts and insights about the writing life, creativity, and the human condition.',
+            excerpt: 'The ache of realizing you were never the choice, only the option left behind.',
             content: `
-                <h1>On Writing and Life</h1>
-                <p class="quote-meta">Collected Thoughts • 2024</p>
+                <h1>The Choice That Never Came</h1>
+                <p class="quote-meta">Collected Thoughts • 2025</p>
                 
                 <blockquote class="quote-block">
-                    <p>"The first draft is just you telling yourself the story."</p>
-                    <cite>— Terry Pratchett</cite>
+                    <p>"The hardest part isn’t that you left—it’s knowing I was never chosen in the first place. You loved me in moments, in fragments, but when it came to choosing, it was never me. And no matter how much I gave, I was always the almost, the what-if, the one you walked past on your way to someone else."</p>
+                    <cite>— The Fool</cite>
                 </blockquote>
-                
-                <p>This simple truth has freed me from the paralysis of perfectionism more times than I can count. The first draft isn't meant to be perfect—it's meant to exist. It's the raw material from which something beautiful can be crafted.</p>
-                
-                <blockquote class="quote-block">
-                    <p>"Write what you know, but write what you want to know about."</p>
-                    <cite>— Me</cite>
-                </blockquote>
-                
-                <p>I've always believed that writing should be both a reflection of our experiences and an exploration of our curiosities. We write from what we know, but we also write to discover what we don't know, to explore the boundaries of our understanding.</p>
-                
-                <blockquote class="quote-block">
-                    <p>"The difference between the almost right word and the right word is really a large matter—'tis the difference between the lightning bug and the lightning."</p>
-                    <cite>— Mark Twain</cite>
-                </blockquote>
-                
-                <p>Word choice matters. Every word we choose either brings our meaning closer or pushes it further away. This is why revision is so important—it's not just about fixing mistakes, it's about finding the exact right words to express our thoughts.</p>
-                
-                <blockquote class="quote-block">
-                    <p>"We write to taste life twice, in the moment and in retrospection."</p>
-                    <cite>— Anaïs Nin</cite>
-                </blockquote>
-                
-                <p>Writing allows us to experience life more deeply. We live it once as it happens, and then we live it again as we write about it. This double experience gives us a richer understanding of our lives and the world around us.</p>
-                
-                <blockquote class="quote-block">
-                    <p>"The scariest moment is always just before you start."</p>
-                    <cite>— Stephen King</cite>
-                </blockquote>
-                
-                <p>Every writer knows this truth. The blank page is terrifying because it represents infinite possibility and infinite potential for failure. But once we begin, once we put the first word on the page, the fear begins to recede.</p>
-                
-                <blockquote class="quote-block">
-                    <p>"You can't wait for inspiration. You have to go after it with a club."</p>
-                    <cite>— Jack London</cite>
-                </blockquote>
-                
-                <p>Inspiration is not a passive thing that happens to us—it's something we must actively pursue. We must show up to work every day, whether we feel inspired or not, and trust that inspiration will find us there.</p>
-                
-                <h2>Personal Reflections</h2>
-                
-                <p>These quotes have guided me through my own writing journey, but I've also learned some lessons of my own:</p>
-                
-                <ul>
-                    <li><strong>Write regularly:</strong> Even if it's just a few sentences, write something every day. Consistency is more important than quantity.</li>
-                    <li><strong>Read widely:</strong> The best writing teachers are other writers. Read everything you can get your hands on.</li>
-                    <li><strong>Trust your voice:</strong> No one else can tell your stories the way you can. Don't try to sound like someone else.</li>
-                    <li><strong>Embrace failure:</strong> Every failed story, every rejected manuscript, every awkward sentence is a step toward becoming a better writer.</li>
-                    <li><strong>Write for yourself first:</strong> If you don't love what you're writing, no one else will either.</li>
-                </ul>
-                
-                <p>Writing is not just a craft or a profession—it's a way of being in the world. It's about paying attention, asking questions, and finding meaning in the chaos of human experience.</p>
-                
-                <p>And perhaps most importantly, it's about having the courage to share our stories with the world, knowing that they might not be perfect, but they are ours, and that makes them worth telling.</p>
             `,
-            date: '2024-01-25',
-            tags: ['writing', 'inspiration', 'creativity', 'life-lessons'],
-            downloadUrl: 'content/quotes/writing-and-life.pdf',
-            wordCount: 800,
-            readingTime: 3
+            date: '2025-08-22',
+            tags: ['love', 'choice', 'loss', 'pain', 'truth'],
+            wordCount: 83,
+            readingTime: 1
         },
         {
             id: 'quote-002',
             title: 'On Life and Realization',
             category: 'quotes',
-            excerpt: 'Reflections on the fleeting nature of time, choices, and the quiet truths we often ignore until it’s too late.',
+            excerpt: 'The tragedy of life is realizing too late that you already had what you were searching for.',
             content: `
-                    <h1>On Life and Realization</h1>
-                    <p class="quote-meta">Collected Thoughts • 2024</p>
-                    
-                    <blockquote class="quote-block">
-                        <p>"One day, you’ll realize that the moments you rushed through were the very moments you were living for."</p>
-                        <cite>— Me</cite>
-                    </blockquote>
-                    
-                    <p>We spend so much of our lives chasing what’s next that we forget the value of what’s here. The quiet talks, the laughter that fades too quickly, the ordinary days we think will last forever—these are the things that become treasures in hindsight.</p>
-                    
-                    <blockquote class="quote-block">
-                        <p>"Time doesn’t ask permission—it only leaves footprints."</p>
-                        <cite>— Me</cite>
-                    </blockquote>
-                    
-                    <p>We can’t bargain with time. Every choice we make leaves a mark, and every day we waste is a day we’ll never get back. Realizing this isn’t meant to scare us—it’s meant to wake us up.</p>
-                    
-                    <h2>Personal Reflections</h2>
-                    
-                    <p>What life has taught me is simple, but it took me years to understand:</p>
-                    
-                    <ul>
-                        <li><strong>Be present:</strong> The people in front of you matter more than the ones on your screen.</li>
-                        <li><strong>Choose carefully:</strong> What you prioritize today becomes the story you tell tomorrow.</li>
-                        <li><strong>Don’t wait:</strong> The right time rarely comes. Act before the moment passes.</li>
-                        <li><strong>Value the small things:</strong> The “ordinary” will one day be what you miss the most.</li>
-                    </ul>
-                    
-                    <p>Life realization doesn’t come in grand revelations—it comes in the quiet, ordinary moments we overlook. And by the time we notice, those moments are already memories. The truth is, the only real tragedy is realizing too late that you were already holding what you thought you were searching for.</p>
-                `,
+                <h1>On Life and Realization</h1>
+                <p class="quote-meta">Collected Thoughts • 2024</p>
+                
+                <blockquote class="quote-block">
+                    <p>"The tragedy of life is that you don’t notice the small moments until they’re already gone—and by then, you realize they were the very things you were searching for all along."</p>
+                    <cite>— The Fool</cite>
+                </blockquote>
+            `,
             date: '2024-02-12',
-            tags: ['life', 'realization', 'time', 'reflection'],
-            downloadUrl: 'content/quotes/life-and-realization.pdf',
-            wordCount: 600,
-            readingTime: 2
+            tags: ['life', 'realization', 'time', 'truth'],
+            wordCount: 53,
+            readingTime: 1
         },
         {
             id: 'quote-003',
             title: 'The Silent Drift',
             category: 'quotes',
-            excerpt: 'A somber reflection on how people fade from our lives, not with a storm, but with silence we never expected.',
+            excerpt: 'The cruelest goodbyes aren’t loud—they happen when someone slowly stops choosing you.',
             content: `
-                    <h1>The Silent Drift</h1>
-                    <p class="quote-meta">Collected Thoughts • 2025</p>
-                    
-                    <blockquote class="quote-block">
-                        <p>"Not all goodbyes are spoken—some people just slowly become strangers again."</p>
-                        <cite>— Me</cite>
-                    </blockquote>
-                    
-                    <p>We often imagine loss as something loud, abrupt, and undeniable. But in truth, some of the most painful losses happen quietly. No fights, no closure—just a fading presence, an unanswered message, a shift in tone you can't quite explain.</p>
-                    
-                    <blockquote class="quote-block">
-                        <p>"You don't always notice the last time—you just realize later it already happened."</p>
-                        <cite>— Me</cite>
-                    </blockquote>
-                    
-                    <p>Relationships, even the deepest ones, are fragile. They don't always end in storms. Sometimes, they simply dissolve in the spaces between unspoken words and unmet expectations. And by the time you realize it, you’re both already living separate stories.</p>
-                    
-                    <h2>Personal Reflections</h2>
-                    
-                    <p>These quiet endings have taught me hard truths:</p>
-                    
-                    <ul>
-                        <li><strong>Silence speaks volumes:</strong> People rarely disappear all at once—they just stop showing up in small ways first.</li>
-                        <li><strong>Closeness is a choice:</strong> It takes effort to stay connected. Without it, even soulmates become strangers.</li>
-                        <li><strong>Pay attention:</strong> Don’t ignore the shift in someone's tone, the delays in their replies. They often mean more than the words themselves.</li>
-                        <li><strong>Let go with grace:</strong> Not everyone is meant to stay. Some people are just passing through to teach you something.</li>
-                    </ul>
-                    
-                    <p>It’s a quiet kind of heartbreak—to still care about someone who no longer fits in your life. But sometimes, the kindest thing you can do is accept the distance, honor what was, and carry on. Some chapters aren’t meant to be reopened. They're just meant to be remembered.</p>
-                `,
-            date: '2025-08-18',
-            tags: ['life', 'realization', 'loss', 'change', 'reflection'],
-            downloadUrl: 'content/quotes/the-silent-drift.pdf',
-            wordCount: 610,
-            readingTime: 2 
-        }
-        
+                <h1>The Silent Drift</h1>
+                <p class="quote-meta">Collected Thoughts • 2025</p>
+                
+                <blockquote class="quote-block">
+                    <p>"The cruelest goodbye is silence—the moment someone you love stops choosing you without ever saying a word."</p>
+                    <cite>— Me</cite>
+                </blockquote>
+            `,
+            date: '2025-08-22',
+            tags: ['love', 'loss', 'goodbye', 'reality', 'pain'],
+            wordCount: 42,
+            readingTime: 1
+
+
+        },
+        {
+            id: 'quote-004',
+            title: 'Love, Even When It Hurts',
+            category: 'quotes',
+            excerpt: 'Love is choosing the same person, even when it breaks you.',
+            content: `
+                <h1>Love, Even When It Hurts</h1>
+                <p class="quote-meta">Collected Thoughts • 2025</p>
+                
+                <blockquote class="quote-block">
+                    <p>"Love is when everything inside you is breaking, yet your heart still chooses the same person—again and again."</p>
+                    <cite>— The Fool</cite>
+                </blockquote>
+            `,
+            date: '2025-08-22',
+            tags: ['love', 'pain', 'loyalty', 'truth'],
+            wordCount: 41,
+            readingTime: 1
+        },
+        {
+            id: 'quote-005',
+            title: 'The Unfair Truth',
+            category: 'quotes',
+            excerpt: 'A harsh reflection on the imbalance of love and the pain of giving more than you ever receive.',
+            content: `
+                <h1>The Unfair Truth</h1>
+                <p class="quote-meta">Collected Thoughts • 2025</p>
+                
+                <blockquote class="quote-block">
+                    <p>"The cruel reality of love is that you can give someone your whole world, and to them, you might still be just a passing moment."</p>
+                    <cite>— Me</cite>
+                </blockquote>
+                
+                <p>Love is rarely fair. It’s not measured by how much you give or how deeply you care. Sometimes, the person you’d burn for wouldn’t even light a match for you. And that realization cuts deeper than heartbreak—it makes you question your own worth.</p>
+                
+                <blockquote class="quote-block">
+                    <p>"Loving someone doesn’t guarantee they’ll choose you. Sometimes, all it guarantees is the pain of watching them choose someone else."</p>
+                    <cite>— Me</cite>
+                </blockquote>
+                
+                <p>That’s the weight of reality: love is not always mutual, not always lasting, not always enough. And yet, we love anyway—because even in its cruelty, we can’t deny its pull. It hurts to realize, but maybe that’s what makes love both beautiful and tragic.</p>
+            `,
+            date: '2025-08-22',
+            tags: ['love', 'truth', 'pain', 'reality', 'reflection'],   
+            wordCount: 310,
+            readingTime: 1 
+        },
+        {
+            id: 'quote-006',
+            title: 'When They Forget You',
+            category: 'quotes',
+            excerpt: 'The quiet devastation of realizing someone who once lit up your days can suddenly treat you like you were never there at all.',
+            content: `
+                <h1>When They Forget You</h1>
+                <p class="quote-meta">Collected Thoughts • 2025</p>
+                
+                <blockquote class="quote-block">
+                    <p>"You know what really hurts? When you talk to someone for days, and even the smallest conversations make your whole day—then one day, they act like you don’t even exist."</p>
+                    <cite>— The Fool</cite>
+                </blockquote>
+                
+                <p>That shift is brutal. One moment, their words are your highlight, your comfort, your reason to smile. And then suddenly, silence. No explanation, no fight—just absence. You're left replaying every detail, searching for the mistake you might have made, even when there was none.</p>
+                
+                <blockquote class="quote-block">
+                    <p>"The hardest part isn’t losing them. It’s losing the version of yourself that felt seen, wanted, and alive when they were around."</p>
+                    <cite>— The Fool</cite>
+                </blockquote>
+                
+                <p>And so you doubt yourself, every time. Was it you? Was it something you said? Or was it simply that they never felt the same in the first place? The cruel truth is—sometimes people just drift, and the wreckage is left inside you.</p>
+            `,
+            date: '2025-08-22',
+            tags: ['love', 'loss', 'reality', 'pain', 'self-doubt'],
+            download: '',
+            wordCount: 345,
+            readingTime: 1 
+        }   
     ]
 };
 
