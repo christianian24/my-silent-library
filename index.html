@@ -7,13 +7,17 @@
     <meta name="description" content="A personal digital library featuring novels, notes, and writings available for online reading and download.">
     <link rel="stylesheet" href="assets/css/style.css">
     <link rel="stylesheet" href="assets/css/dark-mode.css">
+    <link rel="stylesheet" href="assets/css/theme.css">
+    <link rel="stylesheet" href="assets/css/animations.css">
+    <link rel="stylesheet" href="assets/css/search.css">
+    <link rel="stylesheet" href="assets/css/layout.css">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Crimson+Text:ital,wght@0,400;0,600;1,400&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
 </head>
 <body>
     <!-- Header -->
-    <header class="header">
+    <header class="header"> 
         <div class="container">
             <div class="header-content">
                 <h1 class="site-title">
@@ -61,7 +65,7 @@
                         <circle cx="11" cy="11" r="8"></circle>
                         <path d="m21 21-4.35-4.35"></path>
                     </svg>
-                    <input type="text" id="searchInput" placeholder="Search through your writings..." class="search-input">
+                    <input type="text" id="searchInput" placeholder="Search through your writings...">
                 </div>
                 <div class="filter-controls">
                     <select id="sortSelect" class="sort-select">
@@ -72,11 +76,25 @@
                     </select>
                 </div>
             </div>
+            <!-- Placeholders for JS-driven search components -->
+            <div class="search-filters" style="display: none;"></div>
+            <div class="tag-cloud" style="display: none;"></div>
         </div>
     </section>
 
     <!-- Main Content -->
     <main class="main-content">
+        <!-- Featured Passage Section -->
+        <section class="featured-passage-section">
+            <div class="container">
+                <blockquote class="featured-passage" id="featuredPassage">
+                    Loading a thought...
+                    <cite class="featured-passage-source" id="featuredPassageSource"></cite>
+                </blockquote>
+            </div>
+        </section>
+
+
         <div class="container">
             <!-- Content Grid -->
             <div class="content-grid" id="contentGrid">
@@ -89,9 +107,9 @@
                     <svg class="no-results-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
                         <circle cx="11" cy="11" r="8"></circle>
                         <path d="m21 21-4.35-4.35"></path>
-                    </svg>
-                    <h3>No writings found</h3>
-                    <p>Try adjusting your search terms or filters.</p>
+                    </svg>                    
+                    <h3>The library is quiet.</h3>
+                    <p>Perhaps the words you seek are not yet written, or are waiting in a different corner of the silence.</p>
                 </div>
             </div>
         </div>
@@ -100,7 +118,7 @@
     <!-- Footer -->
     <footer class="footer">
         <div class="container">
-            <p>&copy; 2024 My Silent Library. A personal digital collection.</p>
+            <p>&copy; 2025 My Silent Library. Ian's personal digital collection.</p>
         </div>
     </footer>
 
@@ -117,7 +135,6 @@
             <div class="modal-footer">
                 <div class="modal-actions">
                     <button class="btn btn-secondary" id="modalDownload">Download</button>
-                    <button class="btn btn-primary" id="modalCloseBtn">Close</button>
                 </div>
             </div>
         </div>
@@ -144,14 +161,16 @@
            
            <!-- Service Worker Registration -->
            <script>
-               if ('serviceWorker' in navigator) {
+               // Service Workers require a secure context (HTTPS) or localhost.
+               // This check prevents registration errors when viewing the file directly from the filesystem.
+               if ('serviceWorker' in navigator && (window.location.protocol === 'https:' || window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1')) {
                    window.addEventListener('load', () => {
                        navigator.serviceWorker.register('/sw.js')
                            .then(registration => {
                                console.log('Service Worker registered successfully:', registration);
                            })
                            .catch(error => {
-                               console.log('Service Worker registration failed:', error);
+                               console.error('Service Worker registration failed:', error);
                            });
                    });
                }

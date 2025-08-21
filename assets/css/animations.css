@@ -1,0 +1,92 @@
+/* --- Engagement & Animation Styles --- */
+
+/* 1. Staggered Fade-in Animation for Content Cards */
+@keyframes card-fade-in {
+    from {
+        opacity: 0;
+        transform: translateY(20px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+/* Apply the animation to cards when they are rendered.
+   The animation-delay will be set via JavaScript. */
+.content-card.is-entering {
+    animation: card-fade-in 0.5s ease-out forwards;
+}
+
+
+/* 2. Refined "Spotlight" Animation for Navigation */
+.nav-link {
+    position: relative;
+    padding: 8px 16px;
+    border-radius: 20px; /* Add a radius for a softer, pill-like shape */
+    text-decoration: none; /* Explicitly remove any underline from the link */
+    transition: color 0.25s ease, background-color 0.25s ease;
+}
+
+/* On hover, give non-active links a subtle background to indicate focus */
+.nav-link:not(.active):hover {
+    background-color: var(--border-color);
+    color: var(--text-primary);
+}
+
+/* For the ACTIVE category, use a solid, high-contrast background */
+.nav-link.active {
+    background-color: var(--accent-primary);
+    color: var(--bg-primary); /* This works well for light mode (light text on dark accent) */
+    font-weight: 600;
+}
+
+/* In dark mode, this ensures the active link's text is light, providing proper contrast. */
+[data-theme="dark"] .nav-link.active {
+    color: var(--text-primary);
+}
+
+/* 3. Smooth Animation for Search Suggestions Dropdown */
+@keyframes dropdown-fade-in {
+    from {
+        opacity: 0;
+        transform: translateY(-10px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.search-suggestions {
+    /* Apply the animation when the dropdown appears */
+    animation: dropdown-fade-in 0.2s ease-out forwards;
+}
+
+/* 4. Polished Animation for Reading Modal */
+@keyframes modal-fade-in {
+    from { opacity: 0; }
+    to { opacity: 1; }
+}
+
+@keyframes modal-content-slide-up {
+    from {
+        opacity: 0;
+        transform: translateY(30px) scale(0.98);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0) scale(1);
+    }
+}
+
+/* Apply to the modal when it becomes visible */
+.reading-modal.is-opening {
+    /* Animate the background overlay */
+    animation: modal-fade-in 0.3s ease-out forwards;
+}
+
+.reading-modal.is-opening .modal-content {
+    /* Animate the content box */
+    animation: modal-content-slide-up 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94) forwards;
+}

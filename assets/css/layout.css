@@ -1,0 +1,12 @@
+/* --- Core Layout Styles --- */
+
+/* Sticky Footer Implementation using Flexbox */
+body {
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh; /* Ensures the body takes up at least the full viewport height */
+}
+
+.main-content {
+    flex-grow: 1; /* Allows the main content area to expand and push the footer down */
+}

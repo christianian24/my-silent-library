@@ -1,0 +1,93 @@
+/* 
+    NOTE: These styles were previously in index.html.
+    They define the "wabi-sabi" inspired theme.
+*/
+
+/* A more contemplative, "wabi-sabi" inspired theme */
+:root {
+    --bg-primary: #f4f1ea; /* Parchment paper */
+    --bg-secondary: #ffffff;
+    --text-primary: #3a352f; /* Dark, earthy brown */
+    --text-secondary: #7d746a;
+    --accent-primary: #8a6d53; /* Muted accent */
+    --border-color: #e0d9ce;
+    --font-body: 'Inter', sans-serif;
+    --font-serif: 'Crimson Text', serif;
+}
+
+body {
+    background-color: var(--bg-primary);
+    /* Subtle texture to feel more organic */
+    background-image: url('data:image/svg+xml,%3Csvg width="60" height="60" viewBox="0 0 60 60" xmlns="http://www.w3.org/2000/svg"%3E%3Cg fill="none" fill-rule="evenodd"%3E%3Cg fill="%23d4cfc6" fill-opacity="0.1"%3E%3Cpath d="M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z"/%3E%3C/g%3E%3C/g%3E%3C/svg%3E');
+}
+
+.site-title .title-main {
+    font-family: var(--font-serif);
+    font-weight: 600;
+    letter-spacing: 0.5px;
+}
+
+.content-card {
+    box-shadow: 0 2px 8px rgba(0,0,0,0.04), 0 1px 3px rgba(0,0,0,0.02);
+    border: 1px solid var(--border-color);
+    transition: transform 0.2s ease-out, box-shadow 0.2s ease-out;
+}
+.content-card:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 8px 20px rgba(0,0,0,0.06), 0 4px 10px rgba(0,0,0,0.04);
+}
+
+/* Dark Mode Overrides */
+[data-theme="dark"] {
+    --bg-primary: #1a1d22; /* Deep, dark blue-gray */
+    --bg-secondary: #24282e;
+    --text-primary: #cdd3da;
+    --text-secondary: #828a99;
+    --accent-primary: #9fb6d6;
+    --border-color: #333942;
+}
+
+[data-theme="dark"] body {
+    background-image: url('data:image/svg+xml,%3Csvg width="60" height="60" viewBox="0 0 60 60" xmlns="http://www.w3.org/2000/svg"%3E%3Cg fill="none" fill-rule="evenodd"%3E%3Cg fill="%23ffffff" fill-opacity="0.03"%3E%3Cpath d="M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z"/%3E%3C/g%3E%3C/g%3E%3C/svg%3E');
+}
+
+/* Featured Passage Styling */
+.featured-passage-section {
+    padding: 3rem 0;
+    text-align: center;
+}
+.featured-passage {
+    max-width: 600px;
+    margin: 0 auto;
+    font-family: var(--font-serif);
+    font-size: 1.3rem;
+    font-style: italic;
+    line-height: 1.7;
+    color: var(--text-secondary);
+    position: relative;
+    padding: 0 2rem;
+}
+.featured-passage::before, .featured-passage::after {
+    content: '“';
+    font-size: 4rem;
+    position: absolute;
+    color: var(--border-color);
+    font-style: normal;
+}
+.featured-passage::before {
+    content: '“';
+    top: -1rem;
+    left: -0.5rem;
+}
+.featured-passage::after {
+    content: '”';
+    bottom: -2.5rem;
+    right: -0.5rem;
+}
+.featured-passage-source {
+    display: block;
+    margin-top: 1.5rem;
+    font-style: normal;
+    font-size: 0.9rem;
+    color: var(--text-primary);
+}

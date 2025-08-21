@@ -1,20 +1,42 @@
-# My Silent Library 📚
+<h1 align="center">My Silent Library 📚</h1>
 
-A modern, responsive personal library website for hosting your novels, notes, and writings. Built with vanilla HTML, CSS, and JavaScript - no frameworks required.
+<p align="center">
+  A modern, responsive personal library website for hosting your novels, notes, and writings.
+  <br />
+  Built with vanilla HTML, CSS, and JavaScript - no frameworks required.
+  <br />
+  <a href="https://christianian24.github.io/my-silent-library/"><strong>View Demo »</strong></a>
+  <br />
+  <br />
+  <a href="https://github.com/christianian24/MySilentLibrary/issues">Report Bug</a>
+  ·
+  <a href="https://github.com/christianian24/MySilentLibrary/issues">Request Feature</a>
+</p>
 
-### My Silent Library Preview
-- **Link** - https://christianian24.github.io/my-silent-library/
+<details>
+  <summary>Table of Contents</summary>
+  <ol>
+    <li><a href="#-features">Features</a></li>
+    <li><a href="#-quick-start">Quick Start</a></li>
+    <li><a href="#-project-structure">Project Structure</a></li>
+    <li><a href="#-adding-content">Adding Content</a></li>
+    <li><a href="#-customization">Customization</a></li>
+    <li><a href="#-advanced-features">Advanced Features</a></li>
+    <li><a href="#-deployment">Deployment</a></li>
+    <li><a href="#-license">License</a></li>
+  </ol>
+</details>
 
 ## ✨ Features
 
-- **📖 Content Management** - Organize novels, notes, and quotes with tags and categories
-- **🔍 Smart Search** - Find content instantly with intelligent search and filtering
-- **📱 Responsive Design** - Perfect reading experience on any device
-- **🌙 Dark/Light Mode** - Toggle between themes with smooth transitions
-- **📥 Download Support** - Download files in PDF, DOCX, and TXT formats
-- **♿ Accessibility** - Screen reader support and keyboard navigation
-- **⚡ Performance** - Fast loading with lazy loading and virtual scrolling
-- **🔧 No Backend** - Static site perfect for GitHub Pages deployment
+- **📖 Dynamic Content Management**: Effortlessly organize novels, notes, and quotes with a simple JavaScript object.
+- **⚡️ Professional Search**: A backend-ready search component with debouncing, search history, and highlighted results.
+- **🎨 Polished UI/UX**: A clean, contemplative design with subtle animations and a seamless user experience.
+- **📱 Fully Responsive**: A perfect reading and browsing experience on any device, from mobile to desktop.
+- **🌙 Smart Dark Mode**: Toggle between themes with smooth transitions and automatic system preference detection.
+- **📥 Download Support**: Provide downloadable files for your content in multiple formats.
+- **♿ Accessibility-First**: Built with ARIA labels, focus management, and high-contrast themes.
+- **🚀 Zero Dependencies**: Runs entirely on vanilla HTML, CSS, and JavaScript.
 
 ## 🚀 Quick Start
 
@@ -26,7 +48,7 @@ A modern, responsive personal library website for hosting your novels, notes, an
 
 1. **Clone the repository**
    ```bash
-   git clone https://github.com/yourusername/MySilentLibrary.git
+   git clone https://github.com/[your-github-username]/MySilentLibrary.git
    cd MySilentLibrary
    ```
 
@@ -147,10 +169,13 @@ Replace Google Fonts in `index.html`:
 - `#read-content-id` - Open specific content
 
 ### Search Features
-- Title-based search (highest priority)
-- Tag-based filtering
-- Content text search
-- Word boundary matching
+The search functionality is built as a professional, backend-ready component. Out-of-the-box, it uses mock data to work as a static site.
+- **Backend-Ready**: Calls a placeholder API endpoint, making it easy to integrate with a real backend.
+- **Debounced Input**: Prevents excessive API calls while the user is typing.
+- **Recent Searches**: Displays a history of recent searches, which can be cleared entirely or one item at a time.
+- **Accessible Results**: Full keyboard navigation and ARIA labels for screen reader compatibility.
+- **Highlighted Matches**: The search query is highlighted in the results for easy scanning.
+- **Tag Cloud Filtering**: Quickly filter content by clicking on popular tags.
 
 ## 📱 Mobile Optimization
 
@@ -256,5 +281,4 @@ This project is licensed under the MIT License - see the [LICENSE](LICENSE) file
 
 Your personal digital library is ready to showcase your creativity and share your stories with the world.
 
-
-- **UPDATE**: [8/19/2025]
+- **Last Updated**: [8/21/2025]

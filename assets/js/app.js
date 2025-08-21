@@ -19,6 +19,7 @@ class LibraryApp {
         this.loadContent();
         this.renderContent();
         this.updateActiveNavigation();
+        this.displayFeaturedPassage();
     }
     
     setupEventListeners() {
@@ -45,15 +46,42 @@ class LibraryApp {
                 this.handleSort(e.target.value);
             });
         }
+
+        // Event Delegation for Content Grid
+        const contentGrid = document.getElementById('contentGrid');
+        if (contentGrid) {
+            contentGrid.addEventListener('click', (e) => {
+                const readBtn = e.target.closest('.read-btn');
+                const card = e.target.closest('.content-card');
+
+                if (readBtn) {
+                    e.stopPropagation(); // Prevent card click from firing too
+                    this.openReadingModal(readBtn.dataset.id);
+                    return;
+                }
+
+                // Check if the click is on the card but not on any button inside it
+                if (card && !e.target.closest('.btn')) {
+                    this.openReadingModal(card.dataset.id);
+                }
+            });
+        }
+
+        // Listen for custom events from the search component
+        document.addEventListener('search:selection', (e) => {
+            this.openReadingModal(e.detail.contentId);
+        });
+
+        document.addEventListener('search:cleared', () => {
+            // When the search component clears, reset the main view.
+            // Calling handleSearch with an empty string does this.
+            this.handleSearch('');
+        });
     }
     
     loadContent() {
-        // Combine all content from different categories
-        this.allContent = [
-            ...LIBRARY_CONTENT.novels,
-            ...LIBRARY_CONTENT.notes,
-            ...LIBRARY_CONTENT.quotes
-        ];
+        // Combine all content from different categories dynamically
+        this.allContent = Object.values(LIBRARY_CONTENT).flat();
         
         this.filteredContent = [...this.allContent];
     }
@@ -151,9 +179,6 @@ class LibraryApp {
         }
         
         contentGrid.innerHTML = this.filteredContent.map(item => this.createContentCard(item)).join('');
-        
-        // Add click event listeners to the new cards
-        this.setupCardEventListeners();
     }
     
     createContentCard(item) {
@@ -215,28 +240,33 @@ class LibraryApp {
         return labels[category] || category;
     }
     
-    setupCardEventListeners() {
-        // Read buttons
-        document.querySelectorAll('.read-btn').forEach(btn => {
-            btn.addEventListener('click', (e) => {
-                e.stopPropagation();
-                const id = btn.dataset.id;
-                this.openReadingModal(id);
-            });
-        });
-        
-        // Card clicks (for mobile/touch devices)
-        document.querySelectorAll('.content-card').forEach(card => {
-            card.addEventListener('click', (e) => {
-                // Don't trigger if clicking on buttons
-                if (e.target.closest('.btn')) return;
-                
-                const id = card.dataset.id;
-                this.openReadingModal(id);
-            });
-        });
-    }
+    displayFeaturedPassage() {
+        const passageEl = document.getElementById('featuredPassage');
+        const sourceEl = document.getElementById('featuredPassageSource');
     
+        if (!passageEl || !sourceEl) return;
+    
+        // Get all content items that are quotes or have substantial excerpts
+        const potentialPassages = this.allContent.filter(item => 
+            item.category === 'quotes' || (item.excerpt && item.excerpt.length > 50)
+        );
+    
+        if (potentialPassages.length === 0) {
+            passageEl.firstChild.nodeValue = "The silence of this library is a story in itself.";
+            return;
+        }
+    
+        // Select a random passage
+        // 2. It selects one random item from that collection.
+        const randomItem = potentialPassages[Math.floor(Math.random() * potentialPassages.length)];
+        const passageText = randomItem.excerpt || "No excerpt available.";
+
+        // 3. It injects the text and the title into the HTML.
+        passageEl.firstChild.nodeValue = ` ${passageText.trim()} `;
+        sourceEl.textContent = `— ${randomItem.title}`;
+
+    }
+
     openReadingModal(contentId) {
         const content = this.allContent.find(item => item.id === contentId);
         if (!content) return;

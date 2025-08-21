@@ -18,58 +18,9 @@
 
 const LIBRARY_CONTENT = {
     novels: [
+            
         {
             id: 'novel-001',
-            title: 'The Silent Echo',
-            category: 'novels',
-            excerpt: 'A haunting tale of memory and loss, set against the backdrop of a forgotten coastal town where the past refuses to stay buried.',
-            content: `
-                <h1>The Silent Echo</h1>
-                <p class="chapter-meta">Chapter 1: The Arrival</p>
-                
-                <p>The rain fell like forgotten memories, each drop carrying the weight of things left unsaid. Sarah stepped off the bus into the small coastal town of Haven's Rest, her suitcase heavy with more than just clothes.</p>
-                
-                <p>Twenty years had passed since she'd last seen these weathered buildings, these cobblestone streets that wound their way down to the sea. The town looked smaller now, or perhaps she had grown larger in the world beyond its borders.</p>
-                
-                <p>The old inn where she'd booked a room stood at the end of Main Street, its whitewashed walls now a dull gray from years of salt air and neglect. The sign above the door still read "The Mariner's Rest," though the paint had faded to a ghostly whisper.</p>
-                
-                <p>Sarah pulled her coat tighter around her shoulders and stepped inside. The interior was warm, lit by a crackling fire in the stone hearth. The smell of wood smoke and something sweet—perhaps cinnamon—filled the air, and for a moment, she was twelve years old again, sitting at her grandmother's kitchen table.</p>
-                
-                <p>"Welcome to the Mariner's Rest," said a voice from behind the counter. Sarah turned to see a woman in her sixties, her silver hair pulled back in a neat bun, her eyes bright with curiosity. "I'm Eleanor. You must be Sarah."</p>
-                
-                <p>"Yes, that's me," Sarah replied, setting her suitcase down. "I have a reservation for the week."</p>
-                
-                <p>"Of course. Room 3, upstairs on the right. It has the best view of the harbor." Eleanor smiled, but there was something in her expression—a recognition, perhaps, or a memory of her own. "You know, you look familiar. Have you been here before?"</p>
-                
-                <p>Sarah felt her heart skip a beat. "A long time ago," she said carefully. "When I was a child."</p>
-                
-                <p>"Ah, that explains it then. The town has a way of remembering its visitors, even the little ones." Eleanor handed her a key attached to a brass tag. "Breakfast is served from seven to nine. The harbor view is quite spectacular at sunrise."</p>
-                
-                <p>Sarah took the key and climbed the narrow staircase to her room. The door creaked open to reveal a cozy space with a four-poster bed, a small writing desk by the window, and a view that took her breath away.</p>
-                
-                <p>Through the rain-streaked glass, she could see the harbor stretching out before her, the fishing boats bobbing gently on the choppy water. Beyond that, the ocean stretched to the horizon, gray and restless under the storm clouds.</p>
-                
-                <p>She set her suitcase down and sat at the desk, pulling out a small notebook. The first page was already filled with her neat handwriting, a list of questions she'd been asking herself for two decades:</p>
-                
-                <ul>
-                    <li>Why did my grandmother leave this town so suddenly?</li>
-                    <li>What happened to the lighthouse keeper?</li>
-                    <li>Why do I dream of the sound of waves when I'm nowhere near the ocean?</li>
-                    <li>What secrets does this town hold?</li>
-                </ul>
-                
-                <p>Sarah closed the notebook and looked out at the harbor again. Somewhere out there, in the depths of the ocean or the recesses of memory, lay the answers she'd come to find.</p>
-                
-                <p>The rain continued to fall, and somewhere in the distance, she thought she heard the mournful cry of a foghorn—or was it just the echo of her own unanswered questions?</p>
-            `,
-            date: '2024-01-15',
-            tags: ['mystery', 'coastal', 'memory', 'family'],
-            downloadUrl: 'content/novels/the-silent-echo.pdf',
-            wordCount: 2500,
-            readingTime: 10
-        },
-        {
-            id: 'novel-002',
             title: 'Where the Jacarandas Bloom',
             category: 'novels',
             excerpt: "A story of two lifelong best friends, Zev and Celise, who have secretly been in love for years. After a tragic accident forces their feelings into the open, they must navigate the aftermath of shared trauma and learn that the hardest words to say are often the ones that matter most.",
@@ -129,10 +80,10 @@ const LIBRARY_CONTENT = {
             tags: ["romance", "friends to lovers", "contemporary", "healing", "young adult"],
             downloadUrl: "content/novels/https://mega.nz/file/qcEgGITC#VIH-ZY87Y6UBwDXHWRTOs8UcgjdiPrkjr4tgPqyNg0A",
             wordCount: 33428,
-            readingTime: 100
+            readingTime: 180
         },
         {
-            id: "novel-003",
+            id: "novel-002",
             title: "When the Sun Fades",
             category: "novels",
             excerpt: "A story of quiet love and slow goodbyes. Kael has a secret he's keeping from his best friend, Rhea: he's terminally ill. As he tries to protect her from the truth, Rhea senses him slipping away, forcing a confrontation that unearths buried feelings and the painful, beautiful reality of loving someone you're destined to lose.",
@@ -144,7 +95,7 @@ const LIBRARY_CONTENT = {
             readingTime: 84
         },
         {
-            id: 'novel-004',
+            id: 'novel-003',
             title: 'Whispers in the Wind',
             category: 'novels',
             excerpt: 'A young woman discovers she can hear the thoughts of others, leading her on a journey of self-discovery and moral complexity.',
