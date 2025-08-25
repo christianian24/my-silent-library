@@ -8,7 +8,10 @@
     "build": "vite build",
     "preview": "vite preview",
     "clean": "rimraf dist",
-    "serve": "vite preview --port 4173"
+    "serve": "vite preview --port 4173",
+    "lint": "eslint . --ext .js",
+    "stylelint": "stylelint \"assets/**/*.css\"",
+    "format": "prettier --write ."
   },
   "keywords": [
     "library",
@@ -24,8 +27,15 @@
   "author": "Your Name",
   "license": "MIT",
   "devDependencies": {
+    "rimraf": "^5.0.5",
     "vite": "^5.0.0",
-    "rimraf": "^5.0.5"
+    "eslint": "^8.57.0",
+    "eslint-config-prettier": "^9.1.0",
+    "prettier": "^3.3.3",
+    "stylelint": "^16.7.0",
+    "stylelint-config-standard": "^36.0.0",
+    "stylelint-config-prettier": "^9.0.5",
+    "stylelint-prettier": "^5.0.0"
   },
   "browserslist": [
     "> 1%",

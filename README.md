@@ -78,11 +78,9 @@ MySilentLibrary/
 ├── vite.config.js             # Build configuration
 ├── assets/
 │   ├── css/                   # Stylesheets
-│   │   ├── base/              # Foundation styles
-│   │   ├── components/        # Component styles
-│   │   └── main.css           # Main stylesheet
+│   │   └── style.css          # Main stylesheet
 │   └── js/                    # JavaScript modules
-│       ├── app.js             # Main application
+│       ├── app.js             # Main application logic
 │       ├── content-data.js    # Content management
 │       ├── search.js          # Search functionality
 │       └── ...                # Other modules
@@ -131,7 +129,7 @@ Place your files in the appropriate `content/` folders:
 ## 🎨 Customization
 
 ### Colors & Theme
-Edit `assets/css/base/variables.css`:
+Edit `assets/css/tokens.css`:
 
 ```css
 :root {
@@ -165,24 +163,15 @@ Replace Google Fonts in `index.html`:
 ### URL Navigation
 - `#novels` - Show novels category
 - `#notes` - Show notes category
-- `#quotes` - Show quotes category
-- `#read-content-id` - Open specific content
 
-### Search Features
-The search functionality is built as a professional, backend-ready component. Out-of-the-box, it uses mock data to work as a static site.
-- **Backend-Ready**: Calls a placeholder API endpoint, making it easy to integrate with a real backend.
-- **Debounced Input**: Prevents excessive API calls while the user is typing.
-- **Recent Searches**: Displays a history of recent searches, which can be cleared entirely or one item at a time.
-- **Accessible Results**: Full keyboard navigation and ARIA labels for screen reader compatibility.
-- **Highlighted Matches**: The search query is highlighted in the results for easy scanning.
-- **Tag Cloud Filtering**: Quickly filter content by clicking on popular tags.
+### Search
+The search bar provides instant, real-time filtering of the content on the shelves. It matches against item titles, excerpts, and tags to help you quickly find what you're looking for.
 
 ## 📱 Mobile Optimization
 
 - Mobile-first responsive design
 - Touch-friendly interface
 - Optimized typography for small screens
-- Swipe gestures for navigation
 
 ## ♿ Accessibility
 
@@ -275,10 +264,11 @@ This project is licensed under the MIT License - see the [LICENSE](LICENSE) file
 - 📖 Check the troubleshooting section above
 - 💬 Review code comments for implementation details
 
----
 
 **Happy Writing! 📚✨**
 
 Your personal digital library is ready to showcase your creativity and share your stories with the world.
 
-- **Last Updated**: [8/21/2025]
+
+
+-- update 8/25/2025

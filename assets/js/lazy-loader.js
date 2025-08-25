@@ -1,128 +1,77 @@
-/**
- * Lazy Loading Module
- * Loads content only when it's visible in the viewport
- * Uses Intersection Observer API for optimal performance
- */
 
-class LazyLoader {
-    constructor() {
-        this.observer = null;
-        this.lazyElements = new Set();
-        this.init();
+// Enhanced lazy loader with skeletons for images and background images using data-src
+(function(){
+    function loadBackground(el, src, obs) {
+        const img = new Image();
+        img.onload = function() {
+            el.style.backgroundImage = `url('${src}')`;
+            el.removeAttribute('data-src');
+            el.classList.remove('skeleton');
+            if (obs) obs.unobserve(el);
+        };
+        img.onerror = function() {
+            // On error, still remove skeleton to avoid infinite shimmer
+            el.removeAttribute('data-src');
+            el.classList.remove('skeleton');
+            if (obs) obs.unobserve(el);
+        };
+        img.src = src;
     }
 
-    init() {
-        // Check if Intersection Observer is supported
-        if ('IntersectionObserver' in window) {
-            this.setupIntersectionObserver();
-        } else {
-            // Fallback for older browsers
-            this.setupFallback();
-        }
+    function loadImg(el, src, obs) {
+        // Add a one-time load/error handler to remove skeleton
+        const onDone = () => {
+            el.classList.remove('skeleton');
+            el.removeEventListener('load', onDone);
+            el.removeEventListener('error', onDone);
+            if (obs) obs.unobserve(el);
+        };
+        el.addEventListener('load', onDone, { once: true });
+        el.addEventListener('error', onDone, { once: true });
+        el.src = src;
+        el.removeAttribute('data-src');
     }
 
-    setupIntersectionObserver() {
-        this.observer = new IntersectionObserver(
-            (entries) => {
-                entries.forEach(entry => {
-                    if (entry.isIntersecting) {
-                        this.loadElement(entry.target);
-                        this.observer.unobserve(entry.target);
-                    }
-                });
-            },
-            {
-                rootMargin: '50px 0px', // Start loading 50px before element is visible
-                threshold: 0.1
-            }
-        );
-    }
+    if ('IntersectionObserver' in window) {
+        const imgObserver = new IntersectionObserver((entries, obs) => {
+            entries.forEach(entry => {
+                if (!entry.isIntersecting) return;
+                const el = entry.target;
+                const src = el.getAttribute('data-src');
+                if (!src) { obs.unobserve(el); return; }
 
-    setupFallback() {
-        // Simple scroll-based fallback
-        window.addEventListener('scroll', this.throttle(this.handleScroll.bind(this), 100));
-        window.addEventListener('resize', this.throttle(this.handleScroll.bind(this), 100));
-        this.handleScroll();
-    }
+                if (el.tagName === 'IMG') {
+                    loadImg(el, src, obs);
+                } else {
+                    loadBackground(el, src, obs);
+                }
+            });
+        }, {rootMargin: '200px 0px'});
 
-    throttle(func, limit) {
-        let inThrottle;
-        return function() {
-            const args = arguments;
-            const context = this;
-            if (!inThrottle) {
-                func.apply(context, args);
-                inThrottle = true;
-                setTimeout(() => inThrottle = false, limit);
-            }
-        }
-    }
-
-    handleScroll() {
-        this.lazyElements.forEach(element => {
-            if (this.isElementInViewport(element)) {
-                this.loadElement(element);
-                this.lazyElements.delete(element);
-            }
+        document.addEventListener('DOMContentLoaded', () => {
+            document.querySelectorAll('[data-src]').forEach(el => {
+                // Add skeleton shimmer until loaded
+                el.classList.add('skeleton');
+                imgObserver.observe(el);
+            });
+        });
+    } else {
+        // Fallback: load immediately
+        document.addEventListener('DOMContentLoaded', () => {
+            document.querySelectorAll('[data-src]').forEach(el => {
+                const src = el.getAttribute('data-src');
+                if (!src) return;
+                el.classList.add('skeleton');
+                if (el.tagName === 'IMG') {
+                    el.addEventListener('load', () => el.classList.remove('skeleton'), { once: true });
+                    el.addEventListener('error', () => el.classList.remove('skeleton'), { once: true });
+                    el.src = src;
+                } else {
+                    loadBackground(el, src);
+                }
+                el.removeAttribute('data-src');
+            });
         });
     }
+})();
 
-    isElementInViewport(element) {
-        const rect = element.getBoundingClientRect();
-        return (
-            rect.top >= 0 &&
-            rect.left >= 0 &&
-            rect.bottom <= (window.innerHeight || document.documentElement.clientHeight) &&
-            rect.right <= (window.innerWidth || document.documentElement.clientWidth)
-        );
-    }
-
-    observe(element) {
-        if (this.observer) {
-            this.observer.observe(element);
-        } else {
-            this.lazyElements.add(element);
-        }
-    }
-
-    loadElement(element) {
-        // Add loading animation
-        element.classList.add('loading');
-        
-        // Simulate content loading (replace with actual content loading logic)
-        setTimeout(() => {
-            element.classList.remove('loading');
-            element.classList.add('loaded');
-            
-            // Trigger custom event for other modules
-            element.dispatchEvent(new CustomEvent('contentLoaded', {
-                detail: { element }
-            }));
-        }, 300);
-    }
-
-    // Load all visible elements immediately
-    loadVisible() {
-        this.lazyElements.forEach(element => {
-            if (this.isElementInViewport(element)) {
-                this.loadElement(element);
-                this.lazyElements.delete(element);
-            }
-        });
-    }
-
-    // Clean up
-    destroy() {
-        if (this.observer) {
-            this.observer.disconnect();
-        }
-        this.lazyElements.clear();
-    }
-}
-
-// Export for ES6 modules
-if (typeof module !== 'undefined' && module.exports) {
-    module.exports = LazyLoader;
-} else {
-    window.LazyLoader = LazyLoader;
-}

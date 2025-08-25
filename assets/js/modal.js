@@ -6,8 +6,15 @@
 class ReadingModal {
     constructor() {
         this.modal = null;
+        this.modalContentWrapper = null;
         this.currentContent = null;
         this.isOpen = false;
+        this.previousActiveElement = null;
+        this.settingsBtn = null;
+        this.settingsPanel = null;
+
+        // Bind context for event handlers
+        this.handleOutsideSettingsClick = this.handleOutsideSettingsClick.bind(this);
         
         this.init();
     }
@@ -24,6 +31,9 @@ class ReadingModal {
             console.error('Reading modal not found');
             return;
         }
+        this.modalContentWrapper = this.modal.querySelector('.modal-content');
+        this.settingsBtn = document.getElementById('modalSettingsBtn');
+        this.settingsPanel = document.getElementById('modalSettingsPanel');
     }
     
     setupEventListeners() {
@@ -34,14 +44,20 @@ class ReadingModal {
         
         // Modal close buttons
         const closeBtn = document.getElementById('modalClose');
-        const closeBtn2 = document.getElementById('modalCloseBtn');
-        
-        if (closeBtn) {
-            closeBtn.addEventListener('click', () => this.close());
-        }
-        
-        if (closeBtn2) {
-            closeBtn2.addEventListener('click', () => this.close());
+        if (closeBtn) closeBtn.addEventListener('click', () => this.close());
+
+        // Modal navigation buttons
+        const prevBtn = document.getElementById('modalPrev');
+        const nextBtn = document.getElementById('modalNext');
+        if (prevBtn) prevBtn.addEventListener('click', () => this.navigateContent('previous'));
+        if (nextBtn) nextBtn.addEventListener('click', () => this.navigateContent('next'));
+
+        // Settings button
+        if (this.settingsBtn) {
+            this.settingsBtn.addEventListener('click', (e) => {
+                e.stopPropagation();
+                this.toggleSettingsPanel();
+            });
         }
         
         // Download button
@@ -51,21 +67,48 @@ class ReadingModal {
         }
         
         // Close modal when clicking outside
-        this.modal.addEventListener('click', (e) => {
-            if (e.target === this.modal) {
-                this.close();
-            }
-        });
+        if (this.modal) {
+            this.modal.addEventListener('click', (e) => {
+                if (e.target === this.modal) {
+                    this.close();
+                }
+            });
+        }
         
         // Prevent modal content clicks from closing modal
-        const modalContent = this.modal.querySelector('.modal-content');
-        if (modalContent) {
-            modalContent.addEventListener('click', (e) => {
+        const innerContent = this.modal ? this.modal.querySelector('.modal-content') : null;
+        if (innerContent) {
+            innerContent.addEventListener('click', (e) => {
                 e.stopPropagation();
             });
         }
     }
     
+    toggleSettingsPanel() {
+        if (!this.settingsPanel || !this.settingsBtn) return;
+
+        const isHidden = this.settingsPanel.hidden;
+
+        if (isHidden) {
+            this.settingsPanel.hidden = false;
+            this.settingsBtn.setAttribute('aria-expanded', 'true');
+            // Use a timeout to prevent the same click event from immediately closing the panel
+            setTimeout(() => {
+                document.addEventListener('click', this.handleOutsideSettingsClick);
+            }, 0);
+        } else {
+            this.settingsPanel.hidden = true;
+            this.settingsBtn.setAttribute('aria-expanded', 'false');
+            document.removeEventListener('click', this.handleOutsideSettingsClick);
+        }
+    }
+
+    handleOutsideSettingsClick(e) {
+        if (!this.settingsPanel.contains(e.target) && e.target !== this.settingsBtn) {
+            this.toggleSettingsPanel();
+        }
+    }
+
     setupKeyboardShortcuts() {
         document.addEventListener('keydown', (e) => {
             if (!this.isOpen) return;
@@ -96,6 +139,9 @@ class ReadingModal {
     open(content) {
         if (!content || !this.modal) return;
         
+        // Remember the element that triggered the modal for focus restoration
+        this.previousActiveElement = (document.activeElement && typeof document.activeElement.focus === 'function') ? document.activeElement : null;
+
         this.currentContent = content;
         this.isOpen = true;
         
@@ -104,7 +150,9 @@ class ReadingModal {
         
         // Show modal
         this.modal.classList.add('show');
-        
+        // Hide background from assistive tech and interaction
+        this.setBackgroundInert(true);
+
         // Focus management
         this.trapFocus();
         
@@ -124,10 +172,24 @@ class ReadingModal {
     close() {
         if (!this.isOpen || !this.modal) return;
         
+        // Close settings panel if it's open
+        if (this.settingsPanel && !this.settingsPanel.hidden) {
+            this.toggleSettingsPanel();
+        }
+
         this.isOpen = false;
         
         // Hide modal
         this.modal.classList.remove('show');
+
+        // Restore background interactivity/semantics
+        this.setBackgroundInert(false);
+
+        // Remove focus trap handler
+        if (this.tabKeyHandler) {
+            this.modal.removeEventListener('keydown', this.tabKeyHandler);
+            this.tabKeyHandler = null;
+        }
         
         // Restore body scroll
         document.body.style.overflow = '';
@@ -143,6 +205,12 @@ class ReadingModal {
         
         // Remove URL hash
         this.clearURL();
+
+        // Restore focus to the previously focused element
+        if (this.previousActiveElement) {
+            try { this.previousActiveElement.focus(); } catch (e) {}
+            this.previousActiveElement = null;
+        }
     }
     
     updateModalContent(content) {
@@ -155,18 +223,24 @@ class ReadingModal {
         // Update content
         const contentElement = document.getElementById('modalContent');
         if (contentElement) {
-            contentElement.innerHTML = this.formatContent(content.content);
+            const formatted = this.formatContent(content.content);
+            const safeHtml = (window.libraryApp && typeof window.libraryApp.sanitizeHtml === 'function')
+                ? window.libraryApp.sanitizeHtml(formatted)
+                : formatted;
+            contentElement.innerHTML = safeHtml;
         }
         
         // Update download button
         const downloadBtn = document.getElementById('modalDownload');
         if (downloadBtn) {
             if (content.downloadUrl) {
-                downloadBtn.style.display = 'inline-flex';
+                downloadBtn.style.display = 'flex'; // Show the button
+                downloadBtn.disabled = false;
                 downloadBtn.setAttribute('data-download-url', content.downloadUrl);
                 downloadBtn.setAttribute('data-download-filename', this.getDownloadFilename(content));
             } else {
-                downloadBtn.style.display = 'none';
+                downloadBtn.style.display = 'none'; // Hide the button
+                downloadBtn.disabled = true; // Also disable for good measure
             }
         }
         
@@ -257,15 +331,26 @@ class ReadingModal {
         if (!downloadBtn) return;
         
         const url = downloadBtn.getAttribute('data-download-url');
-        const filename = downloadBtn.getAttribute('data-download-filename');
+        const filename = downloadBtn.getAttribute('data-download-filename') || '';
         
         if (!url) return;
         
         try {
-            // Create download link
+            const targetUrl = new URL(url, window.location.href);
+            const isCrossOrigin = targetUrl.origin !== window.location.origin;
+
+            if (isCrossOrigin) {
+                // Many browsers ignore the download attribute for cross-origin URLs.
+                // Open in a new tab as a reliable fallback.
+                window.open(targetUrl.href, '_blank', 'noopener');
+                this.showDownloadFeedback('Opened download in a new tab.');
+                return;
+            }
+
+            // Create download link (same-origin)
             const link = document.createElement('a');
-            link.href = url;
-            link.download = filename;
+            link.href = targetUrl.href;
+            if (filename) link.download = filename;
             link.style.display = 'none';
             
             // Trigger download
@@ -372,21 +457,12 @@ class ReadingModal {
     }
     
     announceToScreenReader(message) {
-        // Create aria-live region for screen reader announcements
-        let announcement = document.getElementById('screen-reader-announcement');
+        // Use the existing ARIA live region from index.html for announcements
+        const announcement = document.getElementById('a11yAnnouncements');
         if (!announcement) {
-            announcement = document.createElement('div');
-            announcement.id = 'screen-reader-announcement';
-            announcement.setAttribute('aria-live', 'polite');
-            announcement.setAttribute('aria-atomic', 'true');
-            announcement.style.position = 'absolute';
-            announcement.style.left = '-10000px';
-            announcement.style.width = '1px';
-            announcement.style.height = '1px';
-            announcement.style.overflow = 'hidden';
-            document.body.appendChild(announcement);
+            console.warn('Accessibility announcements region #a11yAnnouncements not found.');
+            return;
         }
-        
         announcement.textContent = message;
     }
     
@@ -410,7 +486,30 @@ class ReadingModal {
         const event = new CustomEvent(eventName, { detail });
         document.dispatchEvent(event);
     }
-    
+
+    // Background inert/ARIA helpers
+    getBackgroundContainers() {
+        return Array.from(document.querySelectorAll('header, nav, main, footer'));
+    }
+
+    setBackgroundInert(on) {
+        const els = this.getBackgroundContainers();
+        els.forEach(el => {
+            if (!el) return;
+            if (on) {
+                el.setAttribute('aria-hidden', 'true');
+                if ('inert' in el) {
+                    try { el.inert = true; } catch (e) {}
+                }
+            } else {
+                el.removeAttribute('aria-hidden');
+                if ('inert' in el) {
+                    try { el.inert = false; } catch (e) {}
+                }
+            }
+        });
+    }
+
     // Public methods
     isModalOpen() {
         return this.isOpen;

@@ -1,0 +1,17 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="400" height="600" viewBox="0 0 400 600">
+  <defs>
+    <linearGradient id="g" x1="0" x2="1">
+      <stop offset="0" stop-color="#f7efe2"/>
+      <stop offset="1" stop-color="#efe0c8"/>
+    </linearGradient>
+  </defs>
+  <rect width="100%" height="100%" fill="url(#g)" rx="8"/>
+  <g fill="#3b2b22" font-family="Crimson Text, serif" font-size="28">
+    <text x="50%" y="40%" text-anchor="middle">My Silent</text>
+    <text x="50%" y="48%" text-anchor="middle">Library</text>
+  </g>
+  <g fill="#7b5e3b" font-family="Inter, sans-serif" font-size="14">
+    <text x="50%" y="70%" text-anchor="middle">A Collection of</text>
+    <text x="50%" y="76%" text-anchor="middle">Writings & Novels</text>
+  </g>
+</svg>

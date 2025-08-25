@@ -84,8 +84,8 @@ class ThemeManager {
         
         // These colors should match the --bg-primary in your theme.css
         const colors = {
-            light: '#f4f1ea',
-            dark: '#1a1d22'
+            light: '#fcfaf2', // Washi & Ink theme
+            dark: '#211e1b'  // Lacquer & Lantern theme
         };
         
         metaThemeColor.content = colors[theme] || colors.light;

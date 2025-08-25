@@ -5,41 +5,31 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>My Silent Library - Personal Writings & Novels</title>
     <meta name="description" content="A personal digital library featuring novels, notes, and writings available for online reading and download.">
+    <link rel="canonical" href="https://yourdomain.example.com/">
+    <meta property="og:type" content="website">
+    <meta property="og:title" content="My Silent Library - Personal Writings & Novels">
+    <meta property="og:description" content="A personal digital library featuring novels, notes, and writings available for online reading and download.">
+    <meta property="og:url" content="https://yourdomain.example.com/">
+    <meta property="og:image" content="assets/images/book-placeholder.svg">
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="My Silent Library - Personal Writings & Novels">
+    <meta name="twitter:description" content="A personal digital library featuring novels, notes, and writings available for online reading and download.">
+    <meta name="twitter:image" content="assets/images/book-placeholder.svg">
+    <link rel="stylesheet" href="assets/css/tokens.css">
     <link rel="stylesheet" href="assets/css/style.css">
-    <link rel="stylesheet" href="assets/css/dark-mode.css">
-    <link rel="stylesheet" href="assets/css/theme.css">
-    <link rel="stylesheet" href="assets/css/animations.css">
-    <link rel="stylesheet" href="assets/css/search.css">
-    <link rel="stylesheet" href="assets/css/layout.css">
+    <link rel="stylesheet" href="assets/css/tokens-overrides.css">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Crimson+Text:ital,wght@0,400;0,600;1,400&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700&family=Inter:wght@400;500;600&family=Sawarabi+Mincho&display=swap" rel="stylesheet">
+    <link rel="manifest" href="manifest.json">
 </head>
 <body>
     <!-- Header -->
     <header class="header"> 
-        <div class="container">
-            <div class="header-content">
-                <h1 class="site-title">
-                    <span class="title-main">My Silent Library</span>
-                    <span class="title-subtitle">Personal Writings & Novels</span>
-                </h1>
-                <button class="theme-toggle" id="themeToggle" aria-label="Toggle dark mode">
-                    <svg class="sun-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                        <circle cx="12" cy="12" r="5"></circle>
-                        <line x1="12" y1="1" x2="12" y2="3"></line>
-                        <line x1="12" y1="21" x2="12" y2="23"></line>
-                        <line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line>
-                        <line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line>
-                        <line x1="1" y1="12" x2="3" y2="12"></line>
-                        <line x1="21" y1="12" x2="23" y2="12"></line>
-                        <line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line>
-                        <line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line>
-                    </svg>
-                    <svg class="moon-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                        <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path>
-                    </svg>
-                </button>
+        <div class="container header-content">
+            <div class="site-title">
+                <h1 class="title-main">My Silent Library</h1>
+                <p class="title-subtitle">A Personal Collection of Writings</p>
             </div>
         </div>
     </header>
@@ -61,11 +51,8 @@
         <div class="container">
             <div class="search-container">
                 <div class="search-box">
-                    <svg class="search-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                        <circle cx="11" cy="11" r="8"></circle>
-                        <path d="m21 21-4.35-4.35"></path>
-                    </svg>
-                    <input type="text" id="searchInput" placeholder="Search through your writings...">
+                    <input type="text" id="searchInput" placeholder="Search through your writings..." autocomplete="off">
+                    <button id="clearSearchBtn" class="clear-search-btn" aria-label="Clear search" title="Clear search">&times;</button>
                 </div>
                 <div class="filter-controls">
                     <select id="sortSelect" class="sort-select">
@@ -76,29 +63,33 @@
                     </select>
                 </div>
             </div>
-            <!-- Placeholders for JS-driven search components -->
-            <div class="search-filters" style="display: none;"></div>
-            <div class="tag-cloud" style="display: none;"></div>
+            <div id="search-status" class="sr-only" aria-live="polite" aria-atomic="true"></div>
         </div>
     </section>
 
     <!-- Main Content -->
-    <main class="main-content">
+    <main class="main-content" id="main" role="main">
         <!-- Featured Passage Section -->
         <section class="featured-passage-section">
             <div class="container">
-                <blockquote class="featured-passage" id="featuredPassage">
-                    Loading a thought...
-                    <cite class="featured-passage-source" id="featuredPassageSource"></cite>
-                </blockquote>
+                <div class="featured-passage-wrapper">
+                    <blockquote class="featured-passage" id="featuredPassage">
+                        Loading a thought...
+                        <cite class="featured-passage-source" id="featuredPassageSource"></cite>
+                    </blockquote>
+                    <div class="featured-passage-nav">
+                        <button id="prevPassage" class="btn-icon" aria-label="Previous passage"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-arrow-left"><line x1="19" y1="12" x2="5" y2="12"></line><polyline points="12 19 5 12 12 5"></polyline></svg></button>
+                        <button id="nextPassage" class="btn-icon" aria-label="Next passage"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-arrow-right"><line x1="5" y1="12" x2="19" y2="12"></line><polyline points="12 5 19 12 12 19"></polyline></svg></button>
+                    </div>
+                </div>
             </div>
         </section>
 
 
         <div class="container">
             <!-- Content Grid -->
-            <div class="content-grid" id="contentGrid">
-                <!-- Content will be dynamically loaded here -->
+            <div id="bookshelfContainer">
+                <!-- Bookshelves will be dynamically loaded here -->
             </div>
 
             <!-- No Results Message -->
@@ -117,46 +108,84 @@
 
     <!-- Footer -->
     <footer class="footer">
-        <div class="container">
+        <div class="container footer-inner">
             <p>&copy; 2025 My Silent Library. Ian's personal digital collection.</p>
+            <button class="theme-toggle btn small" id="themeToggle" aria-label="Toggle theme">
+                <svg class="sun-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
+                    <circle cx="12" cy="12" r="4"></circle>
+                    <path d="M12 2v2m0 16v2m10-10h-2M4 12H2m15.07 6.07-1.41-1.41M6.34 6.34 4.93 4.93m12.73 0-1.41 1.41M6.34 17.66l-1.41 1.41"/>
+                </svg>
+                <svg class="moon-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
+                    <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/>
+                </svg>
+            </button>
         </div>
     </footer>
 
+    
     <!-- Reading Modal -->
     <div class="modal" id="readingModal">
-        <div class="modal-content">
+    <div class="modal-content" role="dialog" aria-modal="true" aria-labelledby="modalTitle" tabindex="-1">
             <div class="modal-header">
                 <h2 id="modalTitle">Title</h2>
-                <button class="modal-close" id="modalClose">&times;</button>
+                <div class="modal-top-actions">
+                    <button class="btn-icon" id="modalDownload" aria-label="Download current item" title="Download">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path><polyline points="7 10 12 15 17 10"></polyline><line x1="12" y1="15" x2="12" y2="3"></line></svg>
+                    </button>
+                    <div class="modal-settings-container">
+                        <button class="btn-icon" id="modalSettingsBtn" aria-label="Reading settings" title="Reading settings" aria-haspopup="true" aria-expanded="false" aria-controls="modalSettingsPanel">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="3"></circle><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1 0 2.83 2 2 0 0 1-2.83 0l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-2 2 2 2 0 0 1-2-2v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83 0 2 2 0 0 1 0-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1-2-2 2 2 0 0 1 2-2h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 0-2.83 2 2 0 0 1 2.83 0l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 2-2 2 2 0 0 1 2 2v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 0 2 2 0 0 1 0 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 2 2 2 2 0 0 1-2 2h-.09a1.65 1.65 0 0 0-1.51 1z"></path></svg>
+                        </button>
+                        <div id="modalSettingsPanel" class="modal-settings-panel" hidden>
+                            <div class="setting-item">
+                                <label for="fontSelect">Font Family</label>
+                                <select id="fontSelect">
+                                    <option value="sans">Inter (Sans-Serif)</option>
+                                    <option value="serif">Playfair Display (Serif)</option>
+                                    <option value="jp">Sawarabi Mincho (JP)</option>
+                                </select>
+                            </div>
+                            <div class="setting-item">
+                                <label for="fontSizeRange">Font Size</label>
+                                <input id="fontSizeRange" type="range" min="12" max="28" value="16" step="1">
+                            </div>
+                            <div class="setting-item">
+                                <label for="lineHeightRange">Line Height</label>
+                                <input id="lineHeightRange" type="range" min="1.2" max="2.2" step="0.1" value="1.7">
+                            </div>
+                        </div>
+                    </div>
+                    <button class="modal-close btn-icon" id="modalClose" aria-label="Close modal" title="Close">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line></svg>
+                    </button>
+                </div>
             </div>
             <div class="modal-body">
                 <div id="modalContent"></div>
             </div>
             <div class="modal-footer">
-                <div class="modal-actions">
-                    <button class="btn btn-secondary" id="modalDownload">Download</button>
-                </div>
+                <button class="btn-icon" id="modalPrev" aria-label="Previous item" title="Previous item">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-arrow-left"><line x1="19" y1="12" x2="5" y2="12"></line><polyline points="12 19 5 12 12 5"></polyline></svg>
+                </button>
+                <button class="btn-icon" id="modalNext" aria-label="Next item" title="Next item">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-arrow-right"><line x1="5" y1="12" x2="19" y2="12"></line><polyline points="12 5 19 12 12 19"></polyline></svg>
+                </button>
             </div>
         </div>
     </div>
 
-    <!-- Loading Spinner -->
-    <div class="loading-spinner" id="loadingSpinner" style="display: none;">
-        <div class="spinner"></div>
-    </div>
+
+
+    <!-- Accessibility announcements -->
+    <div id="a11yAnnouncements" class="sr-only" aria-live="polite" aria-atomic="true"></div>
 
                <!-- Scripts -->
            <script src="assets/js/content-data.js"></script>
            <script src="assets/js/app.js"></script>
            <script src="assets/js/search.js"></script>
            <script src="assets/js/modal.js"></script>
-           <script src="assets/js/theme.js"></script>
-           
-           <!-- Performance & Performance Modules -->
-           <script src="assets/js/lazy-loader.js"></script>
-           <script src="assets/js/virtual-scroller.js"></script>
-           <script src="assets/js/performance-monitor.js"></script>
-           
+           <script src="assets/js/theme.js"></script>           
+           <script src="assets/js/lazy-loader.js"></script>           
 
            
            <!-- Service Worker Registration -->
