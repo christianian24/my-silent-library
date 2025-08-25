@@ -30,12 +30,13 @@ body {
     align-items: flex-end; /* Books sit on the bottom */
     min-height: 280px;
     overflow-x: auto; /* Allow horizontal scrolling for many books */
-    scrollbar-width: thin;
-    scrollbar-color: var(--color-text-muted) transparent;
+    scrollbar-width: none; /* Firefox: Hide scrollbar */
+    -ms-overflow-style: none;  /* IE and Edge: Hide scrollbar */
 }
-.shelf::-webkit-scrollbar { height: 8px; }
-.shelf::-webkit-scrollbar-track { background: transparent; }
-.shelf::-webkit-scrollbar-thumb { background-color: var(--color-text-muted); border-radius: 4px; }
+
+.shelf::-webkit-scrollbar { 
+    display: none; /* Webkit: Hide scrollbar */
+}
 
 /* Shelf Plank - Top Surface */
 .shelf::before { 
