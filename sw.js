@@ -13,15 +13,17 @@ const OFFLINE_ITEMS_CACHE = `${CACHE_PREFIX}offline-items-${VERSION}`;
 // Files to cache immediately (app shell)
 const STATIC_FILES = [
     // Core documents
-    'index.html',
+    'index.html', // The new landing page
+    'library.html', // The main library app
     'offline.html',
 
-    // CSS actually used by index.html
+    // CSS
+    'assets/css/landing.css', // Landing page styles
     'assets/css/style.css',
     'assets/css/tokens.css',
     'assets/css/tokens-overrides.css',
 
-    // JavaScript modules actually present
+    // JavaScript modules
     'assets/js/content-data.js',
     'assets/js/app.js',
     'assets/js/search.js',

@@ -1,208 +1,103 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" data-theme="dark">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>My Silent Library - Personal Writings & Novels</title>
-    <meta name="description" content="A personal digital library featuring novels, notes, and writings available for online reading and download.">
-    <link rel="canonical" href="https://yourdomain.example.com/">
-    <meta property="og:type" content="website">
-    <meta property="og:title" content="My Silent Library - Personal Writings & Novels">
-    <meta property="og:description" content="A personal digital library featuring novels, notes, and writings available for online reading and download.">
-    <meta property="og:url" content="https://yourdomain.example.com/">
-    <meta property="og:image" content="assets/images/book-placeholder.svg">
-    <meta name="twitter:card" content="summary_large_image">
-    <meta name="twitter:title" content="My Silent Library - Personal Writings & Novels">
-    <meta name="twitter:description" content="A personal digital library featuring novels, notes, and writings available for online reading and download.">
-    <meta name="twitter:image" content="assets/images/book-placeholder.svg">
-    <link rel="stylesheet" href="assets/css/tokens.css">
-    <link rel="stylesheet" href="assets/css/style.css">
-    <link rel="stylesheet" href="assets/css/tokens-overrides.css">
+    <title>Welcome to My Silent Library</title>
+    <meta name="description" content="A quiet space for thoughts, quotes, and stories.">
+    
+    <!-- Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700&family=Inter:wght@400;500;600&family=Sawarabi+Mincho&display=swap" rel="stylesheet">
-    <link rel="manifest" href="manifest.json">
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@600&family=Inter:wght@400;500&display=swap" rel="stylesheet">
+    
+    <!-- Stylesheets -->
+    <link rel="stylesheet" href="assets/css/tokens.css">
+    <link rel="stylesheet" href="assets/css/landing.css">
 </head>
 <body>
-    <!-- Header -->
-    <header class="header"> 
-        <div class="container header-content">
-            <div class="site-title">
-                <h1 class="title-main">My Silent Library</h1>
-                <p class="title-subtitle">A Personal Collection of Writings</p>
-            </div>
-        </div>
-    </header>
+    <div class="landing-wrapper">
+        <main class="hero-section">
+            <svg class="hero-icon" data-parallax-depth="5" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M2 3h6a4 4 0 0 1 4 4v14a3 3 0 0 0-3-3H2z"></path><path d="M22 3h-6a4 4 0 0 0-4 4v14a3 3 0 0 1 3-3h7z"></path></svg>
+            <h1 class="hero-title" data-parallax-depth="10">Welcome to My Silent Library</h1>
+            <p class="hero-subtitle" data-parallax-depth="15">A quiet space for thoughts, quotes, and stories.</p>
+            <a href="library.html" id="enterBtn" class="hero-button" data-parallax-depth="20">Enter Library</a>
+        </main>
 
-    <!-- Main Navigation -->
-    <nav class="main-nav">
-        <div class="container">
-            <ul class="nav-list">
-                <li><a href="#all" class="nav-link active" data-category="all">All Works</a></li>
-                <li><a href="#novels" class="nav-link" data-category="novels">Novels</a></li>
-                <li><a href="#notes" class="nav-link" data-category="notes">Notes</a></li>
-                <li><a href="#quotes" class="nav-link" data-category="quotes">Quotes</a></li>
-            </ul>
-        </div>
-    </nav>
-
-    <!-- Search and Filters -->
-    <section class="search-section">
-        <div class="container">
-            <div class="search-container">
-                <div class="search-box">
-                    <input type="text" id="searchInput" placeholder="Search through your writings..." autocomplete="off">
-                    <button id="clearSearchBtn" class="clear-search-btn" aria-label="Clear search" title="Clear search">&times;</button>
-                </div>
-                <div class="filter-controls">
-                    <select id="sortSelect" class="sort-select">
-                        <option value="date">Sort by Date</option>
-                        <option value="title">Sort by Title</option>
-                        <option value="category">Sort by Category</option>
-                        <option value="length">Sort by Length</option>
-                    </select>
-                </div>
-            </div>
-            <div id="search-status" class="sr-only" aria-live="polite" aria-atomic="true"></div>
-        </div>
-    </section>
-
-    <!-- Main Content -->
-    <main class="main-content" id="main" role="main">
-        <!-- Featured Passage Section -->
-        <section class="featured-passage-section">
-            <div class="container">
-                <div class="featured-passage-wrapper">
-                    <blockquote class="featured-passage" id="featuredPassage">
-                        Loading a thought...
-                        <cite class="featured-passage-source" id="featuredPassageSource"></cite>
-                    </blockquote>
-                    <div class="featured-passage-nav">
-                        <button id="prevPassage" class="btn-icon" aria-label="Previous passage"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-arrow-left"><line x1="19" y1="12" x2="5" y2="12"></line><polyline points="12 19 5 12 12 5"></polyline></svg></button>
-                        <button id="nextPassage" class="btn-icon" aria-label="Next passage"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-arrow-right"><line x1="5" y1="12" x2="19" y2="12"></line><polyline points="12 5 19 12 12 19"></polyline></svg></button>
-                    </div>
-                </div>
-            </div>
-        </section>
-
-
-        <div class="container">
-            <!-- Content Grid -->
-            <div id="bookshelfContainer">
-                <!-- Bookshelves will be dynamically loaded here -->
-            </div>
-
-            <!-- No Results Message -->
-            <div class="no-results" id="noResults" style="display: none;">
-                <div class="no-results-content">
-                    <svg class="no-results-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                        <circle cx="11" cy="11" r="8"></circle>
-                        <path d="m21 21-4.35-4.35"></path>
-                    </svg>                    
-                    <h3>The library is quiet.</h3>
-                    <p>Perhaps the words you seek are not yet written, or are waiting in a different corner of the silence.</p>
-                </div>
-            </div>
-        </div>
-    </main>
-
-    <!-- Footer -->
-    <footer class="footer">
-        <div class="container footer-inner">
-            <p>&copy; 2025 My Silent Library. Ian's personal digital collection.</p>
-            <button class="theme-toggle btn small" id="themeToggle" aria-label="Toggle theme">
-                <svg class="sun-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
-                    <circle cx="12" cy="12" r="4"></circle>
-                    <path d="M12 2v2m0 16v2m10-10h-2M4 12H2m15.07 6.07-1.41-1.41M6.34 6.34 4.93 4.93m12.73 0-1.41 1.41M6.34 17.66l-1.41 1.41"/>
-                </svg>
-                <svg class="moon-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
-                    <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/>
-                </svg>
+        <footer class="landing-footer">
+            <p>&copy; 2025 Ian Silent Library</p>
+            <button id="themeToggle" class="theme-toggle" aria-label="Switch to light mode">
+                <svg class="sun-icon" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="5"></circle><line x1="12" y1="1" x2="12" y2="3"></line><line x1="12" y1="21" x2="12" y2="23"></line><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line><line x1="1" y1="12" x2="3" y2="12"></line><line x1="21" y1="12" x2="23" y2="12"></line><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line></svg>
+                <svg class="moon-icon" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path></svg>
             </button>
-        </div>
-    </footer>
-
-    
-    <!-- Reading Modal -->
-    <div class="modal" id="readingModal">
-    <div class="modal-content" role="dialog" aria-modal="true" aria-labelledby="modalTitle" tabindex="-1">
-            <div class="modal-header">
-                <h2 id="modalTitle">Title</h2>
-                <div class="modal-top-actions">
-                    <button class="btn-icon" id="modalDownload" aria-label="Download current item" title="Download">
-                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path><polyline points="7 10 12 15 17 10"></polyline><line x1="12" y1="15" x2="12" y2="3"></line></svg>
-                    </button>
-                    <div class="modal-settings-container">
-                        <button class="btn-icon" id="modalSettingsBtn" aria-label="Reading settings" title="Reading settings" aria-haspopup="true" aria-expanded="false" aria-controls="modalSettingsPanel">
-                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="3"></circle><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1 0 2.83 2 2 0 0 1-2.83 0l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-2 2 2 2 0 0 1-2-2v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83 0 2 2 0 0 1 0-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1-2-2 2 2 0 0 1 2-2h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 0-2.83 2 2 0 0 1 2.83 0l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 2-2 2 2 0 0 1 2 2v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 0 2 2 0 0 1 0 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 2 2 2 2 0 0 1-2 2h-.09a1.65 1.65 0 0 0-1.51 1z"></path></svg>
-                        </button>
-                        <div id="modalSettingsPanel" class="modal-settings-panel" hidden>
-                            <div class="setting-item">
-                                <label for="fontSelect">Font Family</label>
-                                <select id="fontSelect">
-                                    <option value="sans">Inter (Sans-Serif)</option>
-                                    <option value="serif">Playfair Display (Serif)</option>
-                                    <option value="jp">Sawarabi Mincho (JP)</option>
-                                </select>
-                            </div>
-                            <div class="setting-item">
-                                <label for="fontSizeRange">Font Size</label>
-                                <input id="fontSizeRange" type="range" min="12" max="28" value="16" step="1">
-                            </div>
-                            <div class="setting-item">
-                                <label for="lineHeightRange">Line Height</label>
-                                <input id="lineHeightRange" type="range" min="1.2" max="2.2" step="0.1" value="1.7">
-                            </div>
-                        </div>
-                    </div>
-                    <button class="modal-close btn-icon" id="modalClose" aria-label="Close modal" title="Close">
-                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line></svg>
-                    </button>
-                </div>
-            </div>
-            <div class="modal-body">
-                <div id="modalContent"></div>
-            </div>
-            <div class="modal-footer">
-                <button class="btn-icon" id="modalPrev" aria-label="Previous item" title="Previous item">
-                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-arrow-left"><line x1="19" y1="12" x2="5" y2="12"></line><polyline points="12 19 5 12 12 5"></polyline></svg>
-                </button>
-                <button class="btn-icon" id="modalNext" aria-label="Next item" title="Next item">
-                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-arrow-right"><line x1="5" y1="12" x2="19" y2="12"></line><polyline points="12 5 19 12 12 19"></polyline></svg>
-                </button>
-            </div>
-        </div>
+            <div id="theme-announcer" class="sr-only" aria-live="polite"></div>
+        </footer>
     </div>
 
+    <script src="assets/js/theme.js" defer></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const wrapper = document.querySelector('.landing-wrapper');
+            const heroTitle = document.querySelector('.hero-title');
+            const enterButton = document.getElementById('enterBtn');
 
+            // 1. Animate title with a letter-by-letter stagger effect
+            if (heroTitle) {
+                const text = heroTitle.textContent;
+                heroTitle.innerHTML = ''; // Clear original text
+                text.split('').forEach(char => {
+                    const span = document.createElement('span');
+                    span.className = 'letter';
+                    // Use &nbsp; for spaces to ensure they take up space and can be animated
+                    span.innerHTML = char === ' ' ? '&nbsp;' : char;
+                    heroTitle.appendChild(span);
+                });
 
-    <!-- Accessibility announcements -->
-    <div id="a11yAnnouncements" class="sr-only" aria-live="polite" aria-atomic="true"></div>
+                document.querySelectorAll('.hero-title .letter').forEach((letter, index) => {
+                    letter.style.animationDelay = `${index * 50}ms`;
+                    letter.classList.add('letter-fade-in');
+                });
+            }
 
-               <!-- Scripts -->
-           <script src="assets/js/content-data.js"></script>
-           <script src="assets/js/app.js"></script>
-           <script src="assets/js/search.js"></script>
-           <script src="assets/js/modal.js"></script>
-           <script src="assets/js/theme.js"></script>           
-           <script src="assets/js/lazy-loader.js"></script>           
+            // 2. Animate other elements after the title animation begins
+            const otherElements = document.querySelectorAll('.hero-icon, .hero-subtitle, .hero-button, .landing-footer');
+            otherElements.forEach((el, index) => {
+                el.style.animationDelay = `${(index * 150) + 500}ms`;
+                el.classList.add('fade-in');
+            });
 
-           
-           <!-- Service Worker Registration -->
-           <script>
-               // Service Workers require a secure context (HTTPS) or localhost.
-               // This check prevents registration errors when viewing the file directly from the filesystem.
-               if ('serviceWorker' in navigator && (window.location.protocol === 'https:' || window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1')) {
-                   window.addEventListener('load', () => {
-                       navigator.serviceWorker.register('sw.js')
-                           .then(registration => {
-                               console.log('Service Worker registered successfully:', registration);
-                           })
-                           .catch(error => {
-                               console.error('Service Worker registration failed:', error);
-                           });
-                   });
-               }
-           </script>
+            // 3. Interactive parallax effect on mouse move
+            const parallaxItems = document.querySelectorAll('[data-parallax-depth]');
+            if (wrapper && parallaxItems.length > 0) {
+                wrapper.addEventListener('mousemove', (e) => {
+                    const { clientX, clientY } = e;
+                    const { offsetWidth, offsetHeight } = wrapper;
+
+                    // Calculate mouse position from center (-1 to 1)
+                    const x = (clientX / offsetWidth - 0.5) * 2;
+                    const y = (clientY / offsetHeight - 0.5) * 2;
+
+                    parallaxItems.forEach(item => {
+                        const depth = parseFloat(item.dataset.parallaxDepth);
+                        const moveX = -x * depth;
+                        const moveY = -y * depth;
+                        item.style.transform = `translate(${moveX}px, ${moveY}px)`;
+                    });
+                });
+            }
+
+            // 4. Smooth exit transition
+            if (enterButton && wrapper) {
+                enterButton.addEventListener('click', (e) => {
+                    e.preventDefault();
+                    const destination = enterButton.href;
+                    wrapper.classList.add('is-exiting');
+                    setTimeout(() => {
+                        window.location.href = destination;
+                    }, 500); // Match the animation duration in CSS
+                });
+            }
+        });
+    </script>
 </body>
 </html>
