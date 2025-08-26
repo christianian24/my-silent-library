@@ -6,12 +6,12 @@
 class LibraryApp {
     constructor() {
         this.currentCategory = 'all';
-        this.currentSort = 'date';
         this.currentSearch = '';
         this.allContent = [];
         this.filteredContent = [];
         this.featuredPassages = [];
         this.currentPassageIndex = 0;
+        this.featuredPassageInterval = null;
     this.contentContainer = null;
 
     this.init();
@@ -22,19 +22,10 @@ class LibraryApp {
         this.loadContent();
         // Covers are lazy-loaded via data-src; avoid eager preloading to save bandwidth
         this.renderContent();
-        this.updateActiveNavigation();
         this.setupFeaturedPassages();
     }
     
     setupEventListeners() {
-    // Navigation
-        document.querySelectorAll('.nav-link').forEach(link => {
-            link.addEventListener('click', (e) => {
-                e.preventDefault();
-                this.handleCategoryChange(e.target.dataset.category);
-            });
-        });
-        
         // Search
         const searchInput = document.getElementById('searchInput');
         if (searchInput) {
@@ -43,23 +34,21 @@ class LibraryApp {
             });
         }
         
-        // Sorting
-        const sortSelect = document.getElementById('sortSelect');
-        if (sortSelect) {
-            sortSelect.addEventListener('change', (e) => {
-                this.handleSort(e.target.value);
-            });
-        }
-
         // Featured Passage Navigation
         const prevPassageBtn = document.getElementById('prevPassage');
         const nextPassageBtn = document.getElementById('nextPassage');
 
         if (prevPassageBtn) {
-            prevPassageBtn.addEventListener('click', () => this.navigateFeaturedPassage('prev'));
+            prevPassageBtn.addEventListener('click', () => {
+                this.cycleFeaturedPassage('prev');
+                this.startFeaturedPassageCycle(); // Reset timer on manual click
+            });
         }
         if (nextPassageBtn) {
-            nextPassageBtn.addEventListener('click', () => this.navigateFeaturedPassage('next'));
+            nextPassageBtn.addEventListener('click', () => {
+                this.cycleFeaturedPassage('next');
+                this.startFeaturedPassageCycle(); // Reset timer on manual click
+            });
         }
 
         // Event Delegation for content container (contentGrid or shelf)
@@ -99,6 +88,11 @@ class LibraryApp {
             // Calling handleSearch with an empty string does this.
             this.handleSearch('');
         });
+
+        // Listen for category changes from the navigation component
+        document.addEventListener('categoryChanged', (e) => {
+            this.handleCategoryChange(e.detail.category);
+        });
     }
     
     loadContent() {
@@ -110,23 +104,17 @@ class LibraryApp {
     
     handleCategoryChange(category) {
         this.currentCategory = category;
-        this.updateActiveNavigation();
         this.filterContent();
         this.renderContent();
         
         // Update URL hash
         window.location.hash = category;
+        this.updateActiveNavigation(category);
     }
     
     handleSearch(searchTerm) {
         this.currentSearch = searchTerm.toLowerCase();
         this.filterContent();
-        this.renderContent();
-    }
-    
-    handleSort(sortBy) {
-        this.currentSort = sortBy;
-        this.sortContent();
         this.renderContent();
     }
     
@@ -152,30 +140,21 @@ class LibraryApp {
     }
     
     sortContent() {
-        this.filteredContent.sort((a, b) => {
-            switch (this.currentSort) {
-                case 'title':
-                    return a.title.localeCompare(b.title);
-                case 'date':
-                    return new Date(b.date) - new Date(a.date);
-                case 'category':
-                    return a.category.localeCompare(b.category);
-                case 'length':
-                    return b.wordCount - a.wordCount;
-                default:
-                    return 0;
-            }
-        });
+        // Default sort by date descending (already present)
+        this.filteredContent.sort((a, b) => new Date(b.date) - new Date(a.date));
     }
-    
-    updateActiveNavigation() {
+
+    updateActiveNavigation(category) {
+        const navContainer = document.querySelector('.side-nav');
+        if (!navContainer) return;
+
         // Remove active class from all nav links
-        document.querySelectorAll('.nav-link').forEach(link => {
+        navContainer.querySelectorAll('.nav-link').forEach(link => {
             link.classList.remove('active');
         });
         
-        // Add active class to current category
-        const activeLink = document.querySelector(`[data-category="${this.currentCategory}"]`);
+        // Add active class to the current category's link
+        const activeLink = navContainer.querySelector(`.nav-link[data-category="${category}"]`);
         if (activeLink) {
             activeLink.classList.add('active');
         }
@@ -211,10 +190,9 @@ class LibraryApp {
         }).join('');
 
         bookshelfContainer.innerHTML = sections;
-        // Staggered entry animation
-        try { this.applyCardStaggerAnimation(); } catch (e) {}
+        this.applyCardStaggerAnimation();
     }
-    
+
     createContentCard(item) {
         const spineStyle = this.generateSpineStyle(item);
         const randomRotation = (Math.random() - 0.5) * 1.5; // A tiny rotation between -0.75 and +0.75 degrees
@@ -378,6 +356,7 @@ class LibraryApp {
             // Start with a random passage
             this.currentPassageIndex = Math.floor(Math.random() * this.featuredPassages.length);
             this.showCurrentPassage();
+            this.startFeaturedPassageCycle();
         } else {
             const passageEl = document.getElementById('featuredPassage');
             if (passageEl) {
@@ -401,16 +380,39 @@ class LibraryApp {
         sourceEl.textContent = `— ${item.title}`;
     }
 
-    navigateFeaturedPassage(direction) {
+    cycleFeaturedPassage(direction = 'next') {
         if (this.featuredPassages.length <= 1) return;
 
-        if (direction === 'next') {
-            this.currentPassageIndex = (this.currentPassageIndex + 1) % this.featuredPassages.length;
-        } else { // 'prev'
-            this.currentPassageIndex = (this.currentPassageIndex - 1 + this.featuredPassages.length) % this.featuredPassages.length;
-        }
+        const wrapper = document.querySelector('.featured-passage-wrapper');
+        if (!wrapper) return;
 
-        this.showCurrentPassage();
+        // Add fade-out class
+        wrapper.classList.add('is-fading');
+
+        // Wait for fade-out to complete
+        setTimeout(() => {
+            // Update index
+            if (direction === 'next') {
+                this.currentPassageIndex = (this.currentPassageIndex + 1) % this.featuredPassages.length;
+            } else { // 'prev'
+                this.currentPassageIndex = (this.currentPassageIndex - 1 + this.featuredPassages.length) % this.featuredPassages.length;
+            }
+
+            // Show new content
+            this.showCurrentPassage();
+
+            // Remove fade-out class to trigger fade-in
+            wrapper.classList.remove('is-fading');
+        }, 500); // Match CSS animation duration
+    }
+
+    startFeaturedPassageCycle() {
+        // Clear any existing timer
+        if (this.featuredPassageInterval) {
+            clearInterval(this.featuredPassageInterval);
+        }
+        // Start a new timer to cycle every 5 seconds
+        this.featuredPassageInterval = setInterval(() => this.cycleFeaturedPassage('next'), 5000);
     }
 
     // Add staggered fade-in animation to newly rendered cards
@@ -505,13 +507,16 @@ class LibraryApp {
 document.addEventListener('DOMContentLoaded', () => {
     window.libraryApp = new LibraryApp();
     
+    let initialCategory = 'all';
     // Handle URL hash on page load
     if (window.location.hash) {
-        const category = window.location.hash.substring(1);
-        if (['all', 'novels', 'notes', 'quotes'].includes(category)) {
-            window.libraryApp.handleCategoryChange(category);
+        const categoryFromHash = window.location.hash.substring(1);
+        if (['all', 'novels', 'notes', 'quotes'].includes(categoryFromHash)) {
+            initialCategory = categoryFromHash;
         }
     }
+    // This single call handles both hash and no-hash scenarios on initial load
+    window.libraryApp.handleCategoryChange(initialCategory);
 });
 
 // Service Worker update notification UI
@@ -661,10 +666,13 @@ document.addEventListener('DOMContentLoaded', () => {
 
 // Handle browser back/forward buttons
 window.addEventListener('popstate', () => {
+    let category = 'all';
     if (window.location.hash) {
-        const category = window.location.hash.substring(1);
-        if (['all', 'novels', 'notes', 'quotes'].includes(category)) {
-            window.libraryApp.handleCategoryChange(category);
+        const categoryFromHash = window.location.hash.substring(1);
+        if (['all', 'novels', 'notes', 'quotes'].includes(categoryFromHash)) {
+            category = categoryFromHash;
         }
     }
+    // Update the app state and UI to match the URL
+    window.libraryApp.handleCategoryChange(category);
 });

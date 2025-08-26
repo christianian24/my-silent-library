@@ -8,9 +8,7 @@ class LibrarySearch {
 
         // Cache DOM elements for performance and maintainability
         this.searchInput = document.getElementById('searchInput');
-        this.searchContainer = this.searchInput ? this.searchInput.closest('.search-container') : null;
         this.clearSearchBtn = document.getElementById('clearSearchBtn');
-        this.searchStatusAnnouncer = document.getElementById('search-status');
 
         this.init();
     }

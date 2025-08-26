@@ -160,14 +160,23 @@ body {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    flex-wrap: wrap;
-    gap: var(--spacing-md);
 }
 
-.site-title {
-    display: flex;
-    flex-direction: column;
-    gap: var(--spacing-xs);
+.site-title-link {
+    text-decoration: none;
+    color: inherit;
+    /* Ensure the title doesn't get pushed around by buttons */
+    position: absolute;
+    left: 50%;
+    transform: translateX(-50%);
+}
+
+.title-main {
+    font-family: var(--font-serif);
+    font-size: var(--fs-xl); /* Slightly smaller for a cleaner header */
+    font-weight: 600;
+    color: var(--color-text);
+    line-height: 1.2;
 }
 
 .title-main {
@@ -185,13 +194,20 @@ body {
     letter-spacing: 0.5px;
 }
 
+/* Header buttons */
+.header .btn-icon {
+    background-color: transparent;
+    border: none;
+    color: var(--color-text);
+}
+
 /* ===== THEME TOGGLE ===== */
 .theme-toggle {
     background-color: transparent;
     border: 1px solid var(--color-border);
     border-radius: 50%;
-    width: 48px;
-    height: 48px;
+    width: 44px; /* Standardized size */
+    height: 44px;
     display: flex;
     align-items: center;
     justify-content: center;
@@ -222,72 +238,130 @@ body {
 [data-theme="dark"] .theme-toggle .moon-icon { display: none; }
 [data-theme="dark"] .theme-toggle .sun-icon { display: block; }
 
-/* ===== NAVIGATION ===== */
-.main-nav {
+/* ===== SIDE NAVIGATION & OVERLAY ===== */
+.side-nav {
+    position: fixed;
+    top: 0;
+    left: 0;
+    height: 100%;
+    width: 280px;
     background-color: var(--color-surface);
-    border-bottom: 1px solid var(--color-border);
-    padding: var(--spacing-md) 0;
-}
-
-.nav-list {
+    border-right: 1px solid var(--color-border);
+    z-index: 2000;
     display: flex;
-    list-style: none;
-    gap: var(--spacing-lg);
-    flex-wrap: wrap;
+    flex-direction: column;
+    transform: translateX(-100%);
+    transition: transform 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
+    box-shadow: var(--elevation-3);
 }
 
-.nav-link {
-    text-decoration: none;
-    color: var(--color-text-muted);
-    font-weight: 500;
-    padding: var(--spacing-sm) var(--spacing-md);
-    border-radius: var(--radius-md);
-    transition: all var(--transition-fast);
-    position: relative;
+.side-nav.is-open {
+    transform: translateX(0);
 }
 
-.nav-link:hover {
-    color: var(--color-text);
-    background-color: var(--color-surface-2);
-}
-
-.nav-link.active {
-    color: var(--color-on-accent);
-    background-color: var(--color-accent);
-    box-shadow: none;
-}
-
-/* ===== SEARCH SECTION ===== */
-.search-section {
-    background-color: var(--color-surface);
-    padding: var(--spacing-lg) 0;
+.side-nav-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: var(--space-md);
     border-bottom: 1px solid var(--color-border);
+    flex-shrink: 0;
 }
 
+.side-nav-title {
+    font-size: var(--fs-lg);
+    font-weight: 600;
+}
+
+.side-nav-body {
+    padding: var(--space-md);
+    overflow-y: auto;
+    flex-grow: 1;
+}
+
+.side-nav .nav-list {
+    list-style: none;
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-xs);
+}
+
+.nav-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.5);
+    z-index: 1999;
+    opacity: 0;
+    transition: opacity 0.3s ease;
+}
+
+.side-nav.is-open ~ .nav-overlay {
+    opacity: 1;
+}
+
+/* ===== SEARCH MODAL ===== */
+.search-modal-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.5);
+    z-index: 1500;
+    backdrop-filter: blur(4px);
+}
+
+.search-modal {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    z-index: 1501;
+    padding: var(--space-lg);
+    background-color: var(--color-surface);
+    border-bottom: 1px solid var(--color-border);
+    box-shadow: var(--elevation-3);
+}
+
+/* Re-purposed search styles */
 .search-container {
     display: flex;
-    gap: var(--spacing-md);
     align-items: center;
-    justify-content: space-between;
-    flex-wrap: wrap; /* Allow wrapping on smaller screens */
+    justify-content: center; /* Center the single search box */
+    max-width: 800px;
+    margin: 0 auto;
 }
 
 .search-box {
     flex: 1;
-    min-width: 280px; /* Adjust min-width for better wrapping */
     position: relative;
     display: flex;
     align-items: center;
+}
+
+/* NEW: Search Icon inside input */
+.search-box .search-icon {
+    position: absolute;
+    left: 18px;
+    top: 50%;
+    transform: translateY(-50%);
+    color: var(--color-text-muted);
+    pointer-events: none;
+    width: 20px;
+    height: 20px;
 }
 
 /* Targeting by ID since it's unique */
 #searchInput {
     width: 100%;
     /* Padding on the right accommodates the clear button */
-    padding: 18px 56px 18px var(--spacing-lg);
+    padding: 16px 56px 16px 50px;
     border: 2px solid var(--color-border);
-    border-radius: var(--radius-lg);
-    font-size: var(--fs-lg); /* Larger font size */
+    border-radius: var(--radius-pill);
+    font-size: var(--fs-base);
     background-color: var(--color-surface);
     color: var(--color-text);
     transition: all var(--transition-fast);
@@ -301,6 +375,15 @@ body {
 
 #searchInput::placeholder {
     color: var(--text-muted);
+}
+
+/* Hide browser's default clear button on search inputs */
+/* This prevents having two 'x' buttons (native and custom) */
+#searchInput::-webkit-search-decoration,
+#searchInput::-webkit-search-cancel-button,
+#searchInput::-webkit-search-results-button,
+#searchInput::-webkit-search-results-decoration {
+  -webkit-appearance: none; /* Modern way to remove styling */
 }
 
 /* Clear Search Button */
@@ -330,28 +413,6 @@ body {
 .clear-search-btn:hover {
     color: var(--color-text);
     background-color: var(--color-surface-2);
-}
-
-.filter-controls {
-    display: flex;
-    gap: var(--spacing-sm);
-    flex-shrink: 0; /* Prevent sort from shrinking */
-}
-
-.sort-select {
-    padding: var(--spacing-md);
-    border: 2px solid var(--color-border);
-    border-radius: var(--radius-md);
-    display: flex;
-    align-items: center;
-    gap: var(--spacing-sm);
-    padding: var(--spacing-sm) 0;
-}
-.progress-label {
-    min-width: 44px;
-    text-align: right;
-    font-size: var(--font-size-sm);
-    color: var(--color-text-muted);
 }
 
 /* Show clear button only when the input has text. */
@@ -390,12 +451,18 @@ body {
     flex-direction: column;
     align-items: center;
     gap: var(--spacing-md);
+    /* Add transition for smooth fade-in/out */
+    transition: opacity 0.5s ease-in-out;
 }
 
 .featured-passage {
     text-align: center;
     max-width: 75ch; /* Constrain text width for readability */
     width: 100%; /* Ensures the blockquote respects its container's width */
+}
+
+.featured-passage-wrapper.is-fading {
+    opacity: 0;
 }
 
 .featured-passage-nav {
@@ -913,33 +980,31 @@ body {
     .container {
         padding: 0 var(--spacing-sm);
     }
-    
+
     .header-content {
-        flex-direction: column;
-        text-align: center;
-        gap: var(--spacing-md);
+        /* On mobile, the title can be smaller to fit */
+        .site-title-link {
+            position: static;
+            transform: none;
+            flex-grow: 1;
+            text-align: center;
+        }
     }
-    
+
     .title-main {
         font-size: var(--font-size-2xl);
     }
-    
-    .nav-list {
-        justify-content: center;
-        gap: var(--spacing-sm);
+
+    .search-modal {
+        padding: var(--space-md);
     }
     
-    .nav-link {
-        padding: var(--spacing-sm);
-        font-size: var(--font-size-sm);
+    /* The .search-container no longer needs mobile-specific overrides */
+
+    .side-nav {
+        width: 260px; /* Slightly smaller on mobile */
     }
-    
-    .search-container {
-        flex-direction: column; /* Stack search and sort on mobile */
-        align-items: stretch;   /* Make them full width */
-        gap: var(--spacing-md); /* Add space between them */
-    }
-    
+
     .modal-content {
         margin: var(--spacing-sm);
         max-height: calc(100vh - 2rem);
@@ -953,6 +1018,12 @@ body {
     
     .tag-buttons {
         justify-content: center;
+    }
+}
+
+@media (min-width: 1024px) {
+    .side-nav {
+        width: 320px; /* Wider sidebar on desktop */
     }
 }
 
@@ -1009,7 +1080,6 @@ body {
 
 /* Mobile comfort layout: spacing and single-column shelf */
 @media (max-width: 600px) {
-    .search-section { padding: var(--spacing-lg) 0; }
     .featured-passage-section { padding: var(--spacing-lg) 0; }
 }
 
@@ -1034,8 +1104,6 @@ body {
 /* ===== PRINT STYLES ===== */
 @media print {
     .header,
-    .main-nav,
-    .search-section,
     .footer,
     .theme-toggle {
         display: none !important;

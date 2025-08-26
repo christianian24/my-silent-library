@@ -401,20 +401,21 @@ class ReadingModal {
     navigateContent(direction) {
         if (!this.currentContent) return;
         
-        const allContent = window.libraryApp ? window.libraryApp.getAllContent() : [];
-        if (allContent.length === 0) return;
+        // Use the currently filtered content from libraryApp
+        const currentFilteredContent = window.libraryApp ? window.libraryApp.getFilteredContent() : [];
+        if (currentFilteredContent.length === 0) return;
         
-        const currentIndex = allContent.findIndex(item => item.id === this.currentContent.id);
+        const currentIndex = currentFilteredContent.findIndex(item => item.id === this.currentContent.id);
         if (currentIndex === -1) return;
         
         let nextIndex;
         if (direction === 'next') {
-            nextIndex = (currentIndex + 1) % allContent.length;
+            nextIndex = (currentIndex + 1) % currentFilteredContent.length;
         } else {
-            nextIndex = currentIndex === 0 ? allContent.length - 1 : currentIndex - 1;
+            nextIndex = currentIndex === 0 ? currentFilteredContent.length - 1 : currentIndex - 1;
         }
         
-        const nextContent = allContent[nextIndex];
+        const nextContent = currentFilteredContent[nextIndex];
         if (nextContent) {
             this.open(nextContent);
         }
@@ -489,7 +490,7 @@ class ReadingModal {
 
     // Background inert/ARIA helpers
     getBackgroundContainers() {
-        return Array.from(document.querySelectorAll('header, nav, main, footer'));
+        return Array.from(document.querySelectorAll('header, main, footer'));
     }
 
     setBackgroundInert(on) {

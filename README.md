@@ -30,13 +30,13 @@
 ## ✨ Features
 
 - **📖 Dynamic Content Management**: Effortlessly organize novels, notes, and quotes with a simple JavaScript object.
-- **⚡️ Professional Search**: A backend-ready search component with debouncing, search history, and highlighted results.
+- **⚡️ Modern Search**: A clean search modal overlay for finding content by title, tag, or keyword.
 - **🎨 Polished UI/UX**: A clean, contemplative design with subtle animations and a seamless user experience.
 - **📱 Fully Responsive**: A perfect reading and browsing experience on any device, from mobile to desktop.
 - **🌙 Smart Dark Mode**: Toggle between themes with smooth transitions and automatic system preference detection.
 - **📥 Download Support**: Provide downloadable files for your content in multiple formats.
 - **♿ Accessibility-First**: Built with ARIA labels, focus management, and high-contrast themes.
-- **🚀 Zero Dependencies**: Runs entirely on vanilla HTML, CSS, and JavaScript.
+- **🚀 No Runtime Frameworks**: Built with vanilla HTML, CSS, and JavaScript for maximum performance and portability.
 
 ## 🚀 Quick Start
 
@@ -81,11 +81,12 @@ MySilentLibrary/
 │   │   └── style.css          # Main stylesheet
 │   └── js/                    # JavaScript modules
 │       ├── app.js             # Main application logic
+│       ├── nav.js             # Side navigation and search modal logic
 │       ├── content-data.js    # Content management
-│       ├── search.js          # Search functionality
+│       ├── modal.js           # Reading modal logic
 │       └── ...                # Other modules
 ├── content/                   # Your content files
-│   ├── novels/               # Novel documents
+│   ├── novels/                # Novel documents
 │   ├── notes/                # Note documents
 │   └── quotes/               # Quote collections
 └── sw.js                     # Service worker
@@ -132,11 +133,12 @@ Place your files in the appropriate `content/` folders:
 Edit `assets/css/tokens.css`:
 
 ```css
+/* Example from the default dark theme */
 :root {
-    --accent-primary: #0d6efd;    /* Primary color */
-    --accent-secondary: #6f42c1;  /* Secondary color */
-    --bg-primary: #ffffff;        /* Background */
-    --text-primary: #212529;      /* Text color */
+    --color-accent: #738aff;          /* glowing academic blue */
+    --color-bg: #121622;              /* deep twilight navy */
+    --color-surface: #1a1e2b;         /* soft indigo surface */
+    --color-text: #eaeaf0;            /* pale ivory text */
 }
 ```
 

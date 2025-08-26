@@ -15,35 +15,44 @@ html, body {
 }
 
 
-.main-nav .nav-list {
-  border: var(--border-width) solid var(--color-border);
-  border-radius: var(--radius-pill);
-  padding: var(--space-xxs);
-  gap: var(--space-xxs);
-  box-shadow: var(--elevation-1);
-  display: inline-flex;
+.side-nav .nav-list {
+  /* Styles for the vertical nav list in the sidebar */
+  gap: var(--space-xs);
 }
 
 .nav-link {
+  /* Styles for individual links in the sidebar */
+  display: flex;
+  align-items: center;
+  gap: var(--space-md);
+  text-decoration: none;
   color: var(--color-text-muted);
-  border-radius: var(--radius-pill);
-  padding: var(--space-xs) var(--space-md);
+  padding: var(--space-sm) var(--space-md);
+  border-radius: var(--radius-md);
+  font-weight: 500;
+  transition: all 0.2s ease-in-out;
 }
 
 .nav-link:hover {
   color: var(--color-text) !important;
-  background: var(--color-surface-2);
+  background-color: var(--color-surface-2);
 }
 
 .nav-link.active {
   background: var(--color-accent);
   color: var(--color-on-accent);
-  box-shadow: var(--elevation-1);
+  font-weight: 600;
 }
 
 [data-theme="dark"] .nav-link.active {
   color: var(--color-on-accent);
   background: var(--color-accent);
+}
+
+.nav-link svg {
+  width: 20px;
+  height: 20px;
+  flex-shrink: 0;
 }
 
 .btn {
@@ -100,18 +109,17 @@ html, body {
 .modal-header, .modal-footer { border-color: var(--color-border); }
 #modalContent { color: var(--color-text); }
 
-#searchInput, .sort-select {
+#searchInput {
   background: var(--color-surface);
   color: var(--color-text);
   border: var(--border-width) solid var(--color-border);
-  border-radius: var(--radius-md);
+  border-radius: var(--radius-pill);
 }
 
-#searchInput:focus, .sort-select:focus { box-shadow: var(--focus-ring); }
-
-
-
-
+#searchInput:focus {
+  box-shadow: var(--focus-ring);
+  border-color: var(--color-accent);
+}
 .featured-passage {
   background: var(--color-surface);
   border-color: var(--color-border);
@@ -120,4 +128,3 @@ html, body {
 .featured-passage::before, .featured-passage::after {
   color: var(--color-border);
 }
-
