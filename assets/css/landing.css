@@ -71,7 +71,7 @@ body {
     font-weight: 600;
     line-height: var(--lh-tight);
     color: var(--color-text);
-    max-width: 15ch;
+    max-width: 16ch;
     margin-bottom: var(--space-md);
 }
 
