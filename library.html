@@ -1,214 +1,179 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" data-theme="dark">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>My Silent Library - Personal Writings & Novels</title>
-    <meta name="description" content="A personal digital library featuring novels, notes, and writings available for online reading and download.">
-    <link rel="canonical" href="https://yourdomain.example.com/">
-    <meta property="og:type" content="website">
-    <meta property="og:title" content="My Silent Library - Personal Writings & Novels">
-    <meta property="og:description" content="A personal digital library featuring novels, notes, and writings available for online reading and download.">
-    <meta property="og:url" content="https://yourdomain.example.com/">
-    <meta property="og:image" content="assets/images/book-placeholder.svg">
-    <meta name="twitter:card" content="summary_large_image">
-    <meta name="twitter:title" content="My Silent Library - Personal Writings & Novels">
-    <meta name="twitter:description" content="A personal digital library featuring novels, notes, and writings available for online reading and download.">
-    <meta name="twitter:image" content="assets/images/book-placeholder.svg">
-    <link rel="stylesheet" href="assets/css/tokens.css">
-    <link rel="stylesheet" href="assets/css/style.css">
-    <link rel="stylesheet" href="assets/css/tokens-overrides.css">
+    <title>My Silent Library</title>
+    <meta name="description" content="A quiet space for thoughts, quotes, and stories.">
+    
+    <!-- Preconnect for Google Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700&family=Inter:wght@400;500;600&family=Sawarabi+Mincho&display=swap" rel="stylesheet">
-    <link rel="manifest" href="manifest.json">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;700&family=Playfair+Display:ital,wght@0,400..900;1,400..900&display=swap" rel="stylesheet">
+
+    <!-- Stylesheets -->
+    <link rel="stylesheet" href="assets/css/tokens.css">
+    <link rel="stylesheet" href="assets/css/tokens-overrides.css">
+    <link rel="stylesheet" href="assets/css/style.css">
 </head>
 <body>
-    <!-- Header -->
+    <!-- For ARIA announcements -->
+    <div id="a11yAnnouncements" class="sr-only" aria-live="polite"></div>
+
     <header class="header">
         <div class="container header-content">
-            <button class="btn-icon" id="menuToggleBtn" aria-label="Open menu" aria-controls="sideNav" aria-expanded="false">
-                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="3" y1="12" x2="21" y2="12"></line><line x1="3" y1="6" x2="21" y2="6"></line><line x1="3" y1="18" x2="21" y2="18"></line></svg>
+            <button id="menuToggleBtn" class="btn-icon" aria-label="Open navigation menu" aria-controls="sideNav" aria-expanded="false">
+                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-menu"><line x1="3" y1="12" x2="21" y2="12"></line><line x1="3" y1="6" x2="21" y2="6"></line><line x1="3" y1="18" x2="21" y2="18"></line></svg>
             </button>
-            <a href="library.html" class="site-title-link" aria-label="My Silent Library Home">
+            <a href="#" class="site-title-link">
                 <h1 class="title-main">My Silent Library</h1>
             </a>
-            <button class="btn-icon" id="searchToggleBtn" aria-label="Open search">
-                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line></svg>
+            <button id="searchToggleBtn" class="btn-icon" aria-label="Open search">
+                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-search"><circle cx="11" cy="11" r="8"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line></svg>
             </button>
         </div>
     </header>
 
-    <!-- Side Navigation Drawer -->
-    <div class="nav-overlay" id="navOverlay" hidden></div>
-    <aside class="side-nav" id="sideNav" aria-hidden="true" tabindex="-1">
+    <!-- Side Navigation -->
+    <nav id="sideNav" class="side-nav" aria-label="Main navigation">
         <div class="side-nav-header">
-            <h2 class="side-nav-title">Navigation</h2>
-            <button class="btn-icon" id="menuCloseBtn" aria-label="Close menu">
+            <h2 class="side-nav-title">Categories</h2>
+            <button id="menuCloseBtn" class="btn-icon" aria-label="Close navigation menu">
                 <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line></svg>
             </button>
         </div>
-        <nav class="side-nav-body">
+        <div class="side-nav-body">
             <ul class="nav-list">
-                <li><a href="#all" class="nav-link active" data-category="all"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="18" height="18" rx="2" ry="2"></rect><line x1="3" y1="9" x2="21" y2="9"></line><line x1="9" y1="21" x2="9" y2="9"></line></svg><span>All Works</span></a></li>
-                <li><a href="#novels" class="nav-link" data-category="novels"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M2 3h6a4 4 0 0 1 4 4v14a3 3 0 0 0-3-3H2z"></path><path d="M22 3h-6a4 4 0 0 0-4 4v14a3 3 0 0 1 3-3h7z"></path></svg><span>Novels</span></a></li>
-                <li><a href="#notes" class="nav-link" data-category="notes"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M13 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V9z"></path><polyline points="13 2 13 9 20 9"></polyline></svg><span>Notes</span></a></li>
-                <li><a href="#quotes" class="nav-link" data-category="quotes"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 21c3 0 7-1 7-8V5c0-1.25-.756-2.017-2-2H4c-1.25 0-2 .75-2 1.972V11c0 1.25.75 2 2 2 1 0 1 1 1 1v1c0 1-1 2-2 2s-1 .008-1 1.031V20c0 1 0 1 1 1z"></path><path d="M15 21c3 0 7-1 7-8V5c0-1.25-.75-2.017-2-2h-4c-1.25 0-2 .75-2 1.972V11c0 1.25.75 2 2 2h.75c1 0 1 1 1 1v1c0 1-1 2-2 2s-1 .008-1 1.031V20c0 1 0 1 1 1z"></path></svg><span>Quotes</span></a></li>
+                <li><a href="#all" class="nav-link active" data-category="all">All Content</a></li>
+                <li><a href="#novels" class="nav-link" data-category="novels">Novels</a></li>
+                <li><a href="#notes" class="nav-link" data-category="notes">Notes</a></li>
+                <li><a href="#quotes" class="nav-link" data-category="quotes">Quotes</a></li>
             </ul>
-        </nav>
-    </aside>
-
-    <!-- Search Modal -->
-    <div class="search-modal-overlay" id="searchModalOverlay" hidden></div>
-    <div class="search-modal" id="searchModal" hidden>
-        <div class="search-modal-content">
-            <div class="search-container">
-                <div class="search-box">
-                    <svg class="search-icon" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="11" cy="11" r="8"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line></svg>
-                    <input type="search" id="searchInput" placeholder="Search through your writings..." autocomplete="off">
-                    <button id="clearSearchBtn" class="clear-search-btn" aria-label="Clear search" title="Clear search">&times;</button>
-                </div>
-            </div>
         </div>
-    </div>
+    </nav>
+    <div id="navOverlay" class="nav-overlay" hidden></div>
 
-    <!-- Main Content -->
+    <!-- ===== NEW ANIMATED SHOWCASE SECTION ===== -->
+    <section id="showcaseContainer" class="showcase-wrapper">
+        <div class="showcase-scroller">
+            <!-- Book spines will be injected here by JavaScript -->
+        </div>
+    </section>
+
     <main class="main-content" id="main" role="main">
         <!-- Featured Passage Section -->
         <section class="featured-passage-section">
             <div class="container">
                 <div class="featured-passage-wrapper">
-                    <blockquote class="featured-passage" id="featuredPassage">
-                        Loading a thought...
-                        <cite class="featured-passage-source" id="featuredPassageSource"></cite>
+                    <blockquote class="featured-passage">
+                        <p id="featuredPassage">Loading passage...</p>
+                        <cite id="featuredPassageSource"></cite>
                     </blockquote>
                     <div class="featured-passage-nav">
-                        <button id="prevPassage" class="btn-icon" aria-label="Previous passage"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-arrow-left"><line x1="19" y1="12" x2="5" y2="12"></line><polyline points="12 19 5 12 12 5"></polyline></svg></button>
-                        <button id="nextPassage" class="btn-icon" aria-label="Next passage"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-arrow-right"><line x1="5" y1="12" x2="19" y2="12"></line><polyline points="12 5 19 12 12 19"></polyline></svg></button>
+                        <button id="prevPassage" class="btn-icon" aria-label="Previous passage">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="19" y1="12" x2="5" y2="12"></line><polyline points="12 19 5 12 12 5"></polyline></svg>
+                        </button>
+                        <button id="nextPassage" class="btn-icon" aria-label="Next passage">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"></line><polyline points="12 5 19 12 12 19"></polyline></svg>
+                        </button>
                     </div>
                 </div>
             </div>
         </section>
 
-
         <div class="container">
-            <!-- Content Grid -->
             <div id="bookshelfContainer">
-                <!-- Bookshelves will be dynamically loaded here -->
+                <!-- Categorized bookshelves are rendered here by app.js -->
             </div>
-
-            <!-- No Results Message -->
-            <div class="no-results" id="noResults" style="display: none;">
-                <div class="no-results-content">
-                    <svg class="no-results-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                        <circle cx="11" cy="11" r="8"></circle>
-                        <path d="m21 21-4.35-4.35"></path>
-                    </svg>                    
-                    <h3>The library is quiet.</h3>
-                    <p>Perhaps the words you seek are not yet written, or are waiting in a different corner of the silence.</p>
+            
+            <div id="noResults" style="display: none;">
+                <div class="no-results">
+                    <div class="no-results-content">
+                        <svg class="no-results-icon" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21.44 11.05l-9.19 9.19a6 6 0 0 1-8.49-8.49l9.19-9.19a4 4 0 0 1 5.66 5.66l-9.2 9.19a2 2 0 0 1-2.83-2.83l8.49-8.48"></path></svg>
+                        <h3>No Matches Found</h3>
+                        <p>Try adjusting your search or selecting a different category.</p>
+                    </div>
                 </div>
             </div>
         </div>
     </main>
 
-    <!-- Footer -->
     <footer class="footer">
-        <div class="container footer-inner">
-            <p>&copy; 2025 My Silent Library. Ian's personal digital collection.</p>
-            <button class="theme-toggle btn small" id="themeToggle" aria-label="Toggle theme">
-                <svg class="sun-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
-                    <circle cx="12" cy="12" r="4"></circle>
-                    <path d="M12 2v2m0 16v2m10-10h-2M4 12H2m15.07 6.07-1.41-1.41M6.34 6.34 4.93 4.93m12.73 0-1.41 1.41M6.34 17.66l-1.41 1.41"/>
-                </svg>
-                <svg class="moon-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
-                    <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/>
-                </svg>
+        <div class="footer-inner">
+            <p>&copy; 2025 My Silent Library</p>
+            <button id="themeToggle" class="theme-toggle" aria-label="Switch to light mode">
+                <svg class="sun-icon" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="5"></circle><line x1="12" y1="1" x2="12" y2="3"></line><line x1="12" y1="21" x2="12" y2="23"></line><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line><line x1="1" y1="12" x2="3" y2="12"></line><line x1="21" y1="12" x2="23" y2="12"></line><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line></svg>
+                <svg class="moon-icon" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path></svg>
             </button>
         </div>
     </footer>
 
-    
-    <!-- Reading Modal -->
-    <div class="modal" id="readingModal">
-    <div class="modal-content" role="dialog" aria-modal="true" aria-labelledby="modalTitle" tabindex="-1">
-            <div class="modal-header">
-                <h2 id="modalTitle">Title</h2>
-                <div class="modal-top-actions">
-                    <button class="btn-icon" id="modalDownload" aria-label="Download current item" title="Download">
-                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path><polyline points="7 10 12 15 17 10"></polyline><line x1="12" y1="15" x2="12" y2="3"></line></svg>
-                    </button>
-                    <div class="modal-settings-container">
-                        <button class="btn-icon" id="modalSettingsBtn" aria-label="Reading settings" title="Reading settings" aria-haspopup="true" aria-expanded="false" aria-controls="modalSettingsPanel">
-                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="3"></circle><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1 0 2.83 2 2 0 0 1-2.83 0l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-2 2 2 2 0 0 1-2-2v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83 0 2 2 0 0 1 0-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1-2-2 2 2 0 0 1 2-2h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 0-2.83 2 2 0 0 1 2.83 0l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 2-2 2 2 0 0 1 2 2v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 0 2 2 0 0 1 0 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 2 2 2 2 0 0 1-2 2h-.09a1.65 1.65 0 0 0-1.51 1z"></path></svg>
-                        </button>
-                        <div id="modalSettingsPanel" class="modal-settings-panel" hidden>
-                            <div class="setting-item">
-                                <label for="fontSelect">Font Family</label>
-                                <select id="fontSelect">
-                                    <option value="sans">Inter (Sans-Serif)</option>
-                                    <option value="serif">Playfair Display (Serif)</option>
-                                    <option value="jp">Sawarabi Mincho (JP)</option>
-                                </select>
-                            </div>
-                            <div class="setting-item">
-                                <label for="fontSizeRange">Font Size</label>
-                                <input id="fontSizeRange" type="range" min="12" max="28" value="16" step="1">
-                            </div>
-                            <div class="setting-item">
-                                <label for="lineHeightRange">Line Height</label>
-                                <input id="lineHeightRange" type="range" min="1.2" max="2.2" step="0.1" value="1.7">
-                            </div>
-                        </div>
-                    </div>
-                    <button class="modal-close btn-icon" id="modalClose" aria-label="Close modal" title="Close">
-                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line></svg>
-                    </button>
-                </div>
-            </div>
-            <div class="modal-body">
-                <div id="modalContent"></div>
-            </div>
-            <div class="modal-footer">
-                <button class="btn-icon" id="modalPrev" aria-label="Previous item" title="Previous item">
-                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-arrow-left"><line x1="19" y1="12" x2="5" y2="12"></line><polyline points="12 19 5 12 12 5"></polyline></svg>
-                </button>
-                <button class="btn-icon" id="modalNext" aria-label="Next item" title="Next item">
-                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-arrow-right"><line x1="5" y1="12" x2="19" y2="12"></line><polyline points="12 5 19 12 12 19"></polyline></svg>
-                </button>
+    <!-- Search Modal -->
+    <div id="searchModalOverlay" class="search-modal-overlay" hidden></div>
+    <div id="searchModal" class="search-modal" role="dialog" aria-modal="true" hidden>
+        <div class="search-container">
+            <div class="search-box">
+                <svg class="search-icon" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line></svg>
+                <input type="search" id="searchInput" placeholder="Search by title, tag, or keyword..." autocomplete="off">
+                <button id="clearSearchBtn" class="clear-search-btn" aria-label="Clear search">&times;</button>
             </div>
         </div>
     </div>
 
+    <!-- Reading Modal -->
+    <div id="readingModal" class="modal" role="dialog" aria-modal="true" aria-labelledby="modalTitle" hidden>
+        <div class="modal-content">
+            <header class="modal-header">
+                <h2 id="modalTitle"></h2>
+                <div class="modal-top-actions">
+                    <button id="modalSettingsBtn" class="btn-icon" aria-label="Reading settings" aria-haspopup="true" aria-expanded="false">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="3"></circle><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1 0 2.83 2 2 0 0 1-2.83 0l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-2 2 2 2 0 0 1-2-2v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83 0 2 2 0 0 1 0-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1-2-2 2 2 0 0 1 2-2h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 0-2.83 2 2 0 0 1 2.83 0l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 2-2 2 2 0 0 1 2 2v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 0 2 2 0 0 1 0 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 2 2 2 2 0 0 1-2 2h-.09a1.65 1.65 0 0 0-1.51 1z"></path></svg>
+                    </button>
+                    <button id="modalDownload" class="btn-icon" aria-label="Download content" style="display: none;">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path><polyline points="7 10 12 15 17 10"></polyline><line x1="12" y1="15" x2="12" y2="3"></line></svg>
+                    </button>
+                    <button id="modalClose" class="btn-icon modal-close" aria-label="Close reading view">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line></svg>
+                    </button>
+                </div>
+                <div id="modalSettingsPanel" class="modal-settings-panel" hidden>
+                    <div class="setting-item">
+                        <label for="fontSelect">Font Style</label>
+                        <select id="fontSelect">
+                            <option value="sans-serif">Modern Sans-Serif</option>
+                            <option value="serif">Classic Serif</option>
+                            <option value="jp">Japanese Mincho</option>
+                        </select>
+                    </div>
+                    <div class="setting-item">
+                        <label for="fontSizeRange">Font Size</label>
+                        <input type="range" id="fontSizeRange" min="14" max="24" value="16" step="1">
+                    </div>
+                    <div class="setting-item">
+                        <label for="lineHeightRange">Line Height</label>
+                        <input type="range" id="lineHeightRange" min="1.4" max="2.2" value="1.7" step="0.1">
+                    </div>
+                </div>
+            </header>
+            <div id="modalContent" class="modal-body"></div>
+            <footer class="modal-footer">
+                <button id="modalPrev" class="btn-icon" aria-label="Previous item">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="19" y1="12" x2="5" y2="12"></line><polyline points="12 19 5 12 12 5"></polyline></svg>
+                </button>
+                <button id="modalNext" class="btn-icon" aria-label="Next item">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"></line><polyline points="12 5 19 12 12 19"></polyline></svg>
+                </button>
+            </footer>
+        </div>
+    </div>
 
-
-    <!-- Accessibility announcements -->
-    <div id="a11yAnnouncements" class="sr-only" aria-live="polite" aria-atomic="true"></div>
-
-               <!-- Scripts -->
-           <script src="assets/js/nav.js"></script>
-           <script src="assets/js/content-data.js"></script>
-           <script src="assets/js/app.js"></script>
-           <script src="assets/js/search.js"></script>
-           <script src="assets/js/modal.js"></script>
-           <script src="assets/js/theme.js"></script>
-           <script src="assets/js/lazy-loader.js"></script>           
-
-           
-           <!-- Service Worker Registration -->
-           <script>
-               // Service Workers require a secure context (HTTPS) or localhost.
-               // This check prevents registration errors when viewing the file directly from the filesystem.
-               if ('serviceWorker' in navigator && (window.location.protocol === 'https:' || window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1')) {
-                   window.addEventListener('load', () => {
-                       navigator.serviceWorker.register('sw.js')
-                           .then(registration => {
-                               console.log('Service Worker registered successfully:', registration);
-                           })
-                           .catch(error => {
-                               console.error('Service Worker registration failed:', error);
-                           });
-                   });
-               }
-           </script>
+    <!-- Scripts -->
+    <script src="assets/js/content-data.js" defer></script>
+    <script src="assets/js/theme.js" defer></script>
+    <script src="assets/js/nav.js" defer></script>
+    <script src="assets/js/app.js" defer></script>
+    <script src="assets/js/modal.js" defer></script>
+    <script src="assets/js/search.js" defer></script>
+    <script src="assets/js/lazy-loader.js" defer></script>
 </body>
 </html>

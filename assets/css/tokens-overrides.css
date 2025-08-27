@@ -1,3 +1,18 @@
+/* ===== Book Spine Color Generation Variables ===== */
+/* These variables are used by app.js to dynamically generate book spine colors. */
+[data-theme="light"] {
+  --color-spine-bg-s: 45%;
+  --color-spine-bg-l: 70%;
+  --color-spine-text-s: 60%;
+  --color-spine-text-l: 20%;
+}
+
+[data-theme="dark"] {
+  --color-spine-bg-s: 35%;
+  --color-spine-bg-l: 30%;
+  --color-spine-text-s: 40%;
+  --color-spine-text-l: 85%;
+}
 
 
 

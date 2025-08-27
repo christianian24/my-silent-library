@@ -7,15 +7,23 @@ class ReadingModal {
     constructor() {
         this.modal = null;
         this.modalContentWrapper = null;
+        this.modalContent = null; // The scrollable content area
         this.currentContent = null;
+        this.sourceElement = null; // To track the clicked book card for animation
         this.isOpen = false;
         this.previousActiveElement = null;
         this.settingsBtn = null;
         this.settingsPanel = null;
+        this.progThrottle = null; // For scroll progress throttling
 
-        // Bind context for event handlers
+        // Reading settings controls from settings panel
+        this.fontSelect = null;
+        this.fontSizeRange = null;
+        this.lineHeightRange = null;
+
+        // Bind the context of 'this' for the event handler, so it can be added and removed correctly.
         this.handleOutsideSettingsClick = this.handleOutsideSettingsClick.bind(this);
-        
+
         this.init();
     }
     
@@ -32,14 +40,20 @@ class ReadingModal {
             return;
         }
         this.modalContentWrapper = this.modal.querySelector('.modal-content');
+        this.modalContent = document.getElementById('modalContent');
         this.settingsBtn = document.getElementById('modalSettingsBtn');
         this.settingsPanel = document.getElementById('modalSettingsPanel');
+
+        // Reading settings controls
+        this.fontSelect = document.getElementById('fontSelect');
+        this.fontSizeRange = document.getElementById('fontSizeRange');
+        this.lineHeightRange = document.getElementById('lineHeightRange');
     }
     
     setupEventListeners() {
         // Listen for modal open events
         document.addEventListener('openReadingModal', (e) => {
-            this.open(e.detail);
+            this.open(e.detail); // e.detail now contains { content, sourceElement }
         });
         
         // Modal close buttons
@@ -54,19 +68,14 @@ class ReadingModal {
 
         // Settings button
         if (this.settingsBtn) {
-            this.settingsBtn.addEventListener('click', (e) => {
-                e.stopPropagation();
-                this.toggleSettingsPanel();
-            });
+            this.settingsBtn.addEventListener('click', () => this.toggleSettingsPanel());
         }
         
         // Download button
         const downloadBtn = document.getElementById('modalDownload');
-        if (downloadBtn) {
-            downloadBtn.addEventListener('click', () => this.handleDownload());
-        }
+        if (downloadBtn) downloadBtn.addEventListener('click', () => this.handleDownload());
         
-        // Close modal when clicking outside
+        // This listener now ONLY handles closing the modal when the dark backdrop is clicked.
         if (this.modal) {
             this.modal.addEventListener('click', (e) => {
                 if (e.target === this.modal) {
@@ -74,39 +83,60 @@ class ReadingModal {
                 }
             });
         }
-        
-        // Prevent modal content clicks from closing modal
-        const innerContent = this.modal ? this.modal.querySelector('.modal-content') : null;
-        if (innerContent) {
-            innerContent.addEventListener('click', (e) => {
-                e.stopPropagation();
-            });
+
+        // Reading settings listeners
+        if (this.fontSelect && this.modalContent) {
+            this.fontSelect.addEventListener('change', (e) => this.updateReadingStyle('fontFamily', e.target.value));
+        }
+        if (this.fontSizeRange && this.modalContent) {
+            this.fontSizeRange.addEventListener('input', (e) => this.updateReadingStyle('fontSize', e.target.value));
+        }
+        if (this.lineHeightRange && this.modalContent) {
+            this.lineHeightRange.addEventListener('input', (e) => this.updateReadingStyle('lineHeight', e.target.value));
+        }
+
+        if (this.modalContent) {
+            this.modalContent.addEventListener('scroll', () => this.handleScrollProgress());
         }
     }
     
-    toggleSettingsPanel() {
-        if (!this.settingsPanel || !this.settingsBtn) return;
-
-        const isHidden = this.settingsPanel.hidden;
-
-        if (isHidden) {
-            this.settingsPanel.hidden = false;
-            this.settingsBtn.setAttribute('aria-expanded', 'true');
-            // Use a timeout to prevent the same click event from immediately closing the panel
-            setTimeout(() => {
-                document.addEventListener('click', this.handleOutsideSettingsClick);
-            }, 0);
-        } else {
+    // Centralized helper to reliably close the panel and remove the listener.
+    closeSettingsPanel() {
+        if (this.settingsPanel && !this.settingsPanel.hidden) {
             this.settingsPanel.hidden = true;
             this.settingsBtn.setAttribute('aria-expanded', 'false');
             document.removeEventListener('click', this.handleOutsideSettingsClick);
         }
     }
 
-    handleOutsideSettingsClick(e) {
-        if (!this.settingsPanel.contains(e.target) && e.target !== this.settingsBtn) {
-            this.toggleSettingsPanel();
+    toggleSettingsPanel() {
+        if (!this.settingsPanel || !this.settingsBtn) return;
+
+        const isOpen = !this.settingsPanel.hidden;
+        if (isOpen) {
+            // If it's open, the only action is to close it.
+            this.closeSettingsPanel();
+        } else {
+            // If it's closed, open it and set up the listener.
+            this.settingsPanel.hidden = false;
+            this.settingsBtn.setAttribute('aria-expanded', 'true');
+            // Add a global listener to catch clicks outside.
+            // Use a timeout to prevent the same click that opened it from immediately closing it.
+            setTimeout(() => document.addEventListener('click', this.handleOutsideSettingsClick), 0);
         }
+    }
+
+    handleOutsideSettingsClick(e) {
+        // If the click was on the settings button itself, let the button's own listener handle it.
+        if (this.settingsBtn && this.settingsBtn.contains(e.target)) {
+            return;
+        }
+        // If the click was inside the settings panel, do nothing.
+        if (this.settingsPanel && this.settingsPanel.contains(e.target)) {
+            return;
+        }
+        // Otherwise, the click was "outside," so close the panel.
+        this.closeSettingsPanel();
     }
 
     setupKeyboardShortcuts() {
@@ -132,85 +162,143 @@ class ReadingModal {
                         this.handleDownload();
                     }
                     break;
+                case 'ArrowDown':
+                    e.preventDefault();
+                    if (this.modalContent) this.modalContent.scrollBy({ top: 120, behavior: 'smooth' });
+                    break;
+                case 'ArrowUp':
+                    e.preventDefault();
+                    if (this.modalContent) this.modalContent.scrollBy({ top: -120, behavior: 'smooth' });
+                    break;
             }
         });
     }
     
-    open(content) {
-        if (!content || !this.modal) return;
+    open(detail) {
+        if (!detail || !this.modal) return;
+
+        // Handle both old calls (content object) and new calls ({content, sourceElement})
+        const content = detail.content || detail;
+        const sourceElement = detail.sourceElement || null;
         
+        // --- FIX: Restore previous source element on navigation ---
+        // If the modal is already open and we're navigating to new content,
+        // we must first restore the opacity of the PREVIOUS source element.
+        if (this.isOpen && this.sourceElement && this.sourceElement !== sourceElement) {
+            this.sourceElement.style.opacity = 1;
+        }
+
         // Remember the element that triggered the modal for focus restoration
         this.previousActiveElement = (document.activeElement && typeof document.activeElement.focus === 'function') ? document.activeElement : null;
 
         this.currentContent = content;
+        this.sourceElement = sourceElement;
         this.isOpen = true;
         
         // Update modal content
         this.updateModalContent(content);
         
-        // Show modal
+        // --- Animation Start ---
+        if (this.sourceElement) {
+            const fromRect = this.sourceElement.getBoundingClientRect();
+            this.sourceElement.style.opacity = 0; // Hide original element
+
+            // Set initial state for animation
+            this.modalContentWrapper.style.setProperty('--start-width', `${fromRect.width}px`);
+            this.modalContentWrapper.style.setProperty('--start-height', `${fromRect.height}px`);
+            this.modalContentWrapper.style.setProperty('--start-top', `${fromRect.top}px`);
+            this.modalContentWrapper.style.setProperty('--start-left', `${fromRect.left}px`);
+        } else {
+            // If no source, clear any old properties to prevent weird transitions
+            ['--start-width', '--start-height', '--start-top', '--start-left'].forEach(prop => this.modalContentWrapper.style.removeProperty(prop));
+        }
+
         this.modal.classList.add('show');
+        // Force a reflow before adding the class that triggers the animation
+        requestAnimationFrame(() => {
+            this.modalContentWrapper.classList.add('is-opening');
+        });
+        // --- Animation End ---
+
         // Hide background from assistive tech and interaction
         this.setBackgroundInert(true);
 
         // Focus management
         this.trapFocus();
-        
+
         // Update URL without page reload
         this.updateURL(content.id);
-        
+
+        // Restore reading progress
+        this.restoreProgress(content.id);
+
         // Add body scroll lock
         document.body.style.overflow = 'hidden';
-        
+
         // Announce to screen readers
         this.announceToScreenReader(`Opened ${content.title}`);
-        
+
         // Trigger custom event
         this.dispatchEvent('modalOpened', { content });
     }
     
     close() {
         if (!this.isOpen || !this.modal) return;
-        
+
         // Close settings panel if it's open
-        if (this.settingsPanel && !this.settingsPanel.hidden) {
-            this.toggleSettingsPanel();
+        this.closeSettingsPanel();
+
+        const onTransitionEnd = () => {
+            this.modalContentWrapper.removeEventListener('transitionend', onTransitionEnd);
+            this.modal.classList.remove('show');
+            if (this.sourceElement) {
+                this.sourceElement.style.opacity = 1; // Show original element again
+            }
+            this.isOpen = false;
+
+            // Restore background interactivity/semantics
+            this.setBackgroundInert(false);
+
+            // Remove focus trap handler
+            if (this.tabKeyHandler) {
+                this.modal.removeEventListener('keydown', this.tabKeyHandler);
+                this.tabKeyHandler = null;
+            }
+            
+            // Restore body scroll
+            document.body.style.overflow = '';
+            
+            // Clear current content
+            this.currentContent = null;
+            
+            // Announce to screen readers
+            this.announceToScreenReader('Modal closed');
+            
+            // Trigger custom event
+            this.dispatchEvent('modalClosed');
+            
+            // Remove URL hash
+            this.clearURL();
+
+            // Restore focus to the previously focused element
+            if (this.previousActiveElement) {
+                try { this.previousActiveElement.focus(); } catch (e) {}
+                this.previousActiveElement = null;
+            }
+        };
+
+        // --- Animation Start ---
+        if (this.sourceElement) {
+            const toRect = this.sourceElement.getBoundingClientRect();
+            this.modalContentWrapper.style.setProperty('--start-width', `${toRect.width}px`);
+            this.modalContentWrapper.style.setProperty('--start-height', `${toRect.height}px`);
+            this.modalContentWrapper.style.setProperty('--start-top', `${toRect.top}px`);
+            this.modalContentWrapper.style.setProperty('--start-left', `${toRect.left}px`);
         }
 
-        this.isOpen = false;
-        
-        // Hide modal
-        this.modal.classList.remove('show');
-
-        // Restore background interactivity/semantics
-        this.setBackgroundInert(false);
-
-        // Remove focus trap handler
-        if (this.tabKeyHandler) {
-            this.modal.removeEventListener('keydown', this.tabKeyHandler);
-            this.tabKeyHandler = null;
-        }
-        
-        // Restore body scroll
-        document.body.style.overflow = '';
-        
-        // Clear current content
-        this.currentContent = null;
-        
-        // Announce to screen readers
-        this.announceToScreenReader('Modal closed');
-        
-        // Trigger custom event
-        this.dispatchEvent('modalClosed');
-        
-        // Remove URL hash
-        this.clearURL();
-
-        // Restore focus to the previously focused element
-        if (this.previousActiveElement) {
-            try { this.previousActiveElement.focus(); } catch (e) {}
-            this.previousActiveElement = null;
-        }
+        this.modalContentWrapper.classList.remove('is-opening');
+        this.modalContentWrapper.addEventListener('transitionend', onTransitionEnd, { once: true });
+        // --- Animation End ---
     }
     
     updateModalContent(content) {
@@ -417,7 +505,11 @@ class ReadingModal {
         
         const nextContent = currentFilteredContent[nextIndex];
         if (nextContent) {
-            this.open(nextContent);
+            // Find the new source element on the shelf
+            const nextSourceElement = document.querySelector(`.book-card[data-id="${nextContent.id}"]`);
+            // To create a smooth cross-fade, we just update the content.
+            // For simplicity here, we'll just re-open. A future enhancement could be a cross-fade.
+            this.open({ content: nextContent, sourceElement: nextSourceElement || this.sourceElement });
         }
     }
     
@@ -488,6 +580,53 @@ class ReadingModal {
         document.dispatchEvent(event);
     }
 
+    // --- Reading Settings and Progress ---
+
+    updateReadingStyle(style, value) {
+        if (!this.modalContent) return;
+
+        switch (style) {
+            case 'fontFamily':
+                let fontFamily = "'Inter', sans-serif"; // Default
+                if (value === 'serif') fontFamily = "'Playfair Display', serif";
+                else if (value === 'jp') fontFamily = "'Sawarabi Mincho', serif";
+                this.modalContent.style.fontFamily = fontFamily;
+                break;
+            case 'fontSize':
+                this.modalContent.style.fontSize = `${value}px`;
+                break;
+            case 'lineHeight':
+                this.modalContent.style.lineHeight = value;
+                break;
+        }
+    }
+
+    handleScrollProgress() {
+        if (this.progThrottle) clearTimeout(this.progThrottle);
+        this.progThrottle = setTimeout(() => {
+            if (!this.modalContent || !this.currentContent) return;
+            const percent = Math.round((this.modalContent.scrollTop / (this.modalContent.scrollHeight - this.modalContent.clientHeight || 1)) * 100);
+            this.saveProgress(this.currentContent.id, percent);
+        }, 150);
+    }
+
+    saveProgress(id, percent) {
+        if (!id) return;
+        try {
+            localStorage.setItem(`readingProgress:${id}`, String(percent));
+        } catch (e) { /* Silently fail on storage errors */ }
+    }
+
+    restoreProgress(id) {
+        if (!this.modalContent || !id) return;
+        const percent = localStorage.getItem(`readingProgress:${id}`);
+        // Use a timeout to ensure content is rendered and scrollHeight is calculated
+        setTimeout(() => {
+            if (!this.modalContent) return;
+            this.modalContent.scrollTop = percent ? (parseInt(percent, 10) / 100) * (this.modalContent.scrollHeight - this.modalContent.clientHeight) : 0;
+        }, 0);
+    }
+
     // Background inert/ARIA helpers
     getBackgroundContainers() {
         return Array.from(document.querySelectorAll('header, main, footer'));
@@ -499,14 +638,14 @@ class ReadingModal {
             if (!el) return;
             if (on) {
                 el.setAttribute('aria-hidden', 'true');
-                if ('inert' in el) {
-                    try { el.inert = true; } catch (e) {}
-                }
+                // if ('inert' in el) {
+                //     try { el.inert = true; } catch (e) {}
+                // }
             } else {
                 el.removeAttribute('aria-hidden');
-                if ('inert' in el) {
-                    try { el.inert = false; } catch (e) {}
-                }
+                // if ('inert' in el) {
+                //     try { el.inert = false; } catch (e) {}
+                // }
             }
         });
     }

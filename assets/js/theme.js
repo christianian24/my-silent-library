@@ -81,14 +81,10 @@ class ThemeManager {
             metaThemeColor.name = 'theme-color';
             document.head.appendChild(metaThemeColor);
         }
-        
-        // These colors should match the --bg-primary in your theme.css
-        const colors = {
-            light: '#fcfaf2', // Washi & Ink theme
-            dark: '#211e1b'  // Lacquer & Lantern theme
-        };
-        
-        metaThemeColor.content = colors[theme] || colors.light;
+
+        // Dynamically get the background color from CSS variables to avoid hardcoding.
+        const newColor = getComputedStyle(document.documentElement).getPropertyValue('--color-bg').trim();
+        metaThemeColor.content = newColor;
     }
 
     announceThemeChange(theme) {

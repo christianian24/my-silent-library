@@ -93,7 +93,7 @@ body {
     display: flex;
     align-items: center;
     justify-content: center;
-    padding: var(--spacing-sm) 0;
+    padding: var(--spacing-md) var(--space-xxs); /* Increased top/bottom padding for text balance */
     box-sizing: border-box;
     border: 1px solid rgba(0,0,0,0.2);
     transition: transform 0.2s cubic-bezier(0.25, 0.46, 0.45, 0.94), box-shadow 0.2s ease;
@@ -111,8 +111,14 @@ body {
     writing-mode: vertical-rl;
     transform: rotate(180deg);
     font-weight: 700;
-    white-space: nowrap;
     font-size: var(--fs-base);
+    text-align: center; /* Center wrapped lines of vertical text */
+    max-height: 100%;   /* Ensure text respects the parent's padding */
+}
+
+/* Use a smaller font size for long titles to prevent overflow */
+.book-card.long-title .spine-title {
+    font-size: var(--fs-sm);
 }
 
 /* Focus styles for keyboard navigation */
@@ -169,14 +175,6 @@ body {
     position: absolute;
     left: 50%;
     transform: translateX(-50%);
-}
-
-.title-main {
-    font-family: var(--font-serif);
-    font-size: var(--fs-xl); /* Slightly smaller for a cleaner header */
-    font-weight: 600;
-    color: var(--color-text);
-    line-height: 1.2;
 }
 
 .title-main {
@@ -434,6 +432,41 @@ body {
     overflow-x: hidden; /* Contain 3D elements */
 }
 
+/* ===== ANIMATED SHOWCASE SECTION ===== */
+.showcase-wrapper {
+    padding: var(--space-lg) 0;
+    background-color: var(--color-surface);
+    border-bottom: 1px solid var(--color-border);
+    overflow: hidden;
+    /* Add a subtle fade at the edges to make the loop seamless */
+    -webkit-mask-image: linear-gradient(to right, transparent, black 10%, black 90%, transparent);
+    mask-image: linear-gradient(to right, transparent, black 10%, black 90%, transparent);
+}
+
+.showcase-scroller {
+    --scroll-duration: calc(var(--item-count, 40) * 2s); /* JS sets --item-count */
+    display: flex;
+    gap: var(--space-md);
+    width: max-content; /* Allow it to overflow for scrolling */
+    animation: scroll-horizontal var(--scroll-duration) linear infinite;
+}
+
+.showcase-wrapper:hover .showcase-scroller {
+    animation-play-state: paused; /* Pause animation on hover */
+}
+
+/* Style for book cards specifically within the showcase */
+.showcase-wrapper .book-card {
+    transform: scale(0.85); /* Make them a bit smaller for the showcase */
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.showcase-wrapper .book-card:hover {
+    transform: scale(0.9) translateY(-10px) rotate(var(--book-rotation, 0deg));
+    box-shadow: var(--elevation-3);
+    z-index: 10;
+}
+
 /* Featured */
 .featured-passage-section { padding: 1.2rem 0; }
 .featured-card, .featured-passage { 
@@ -501,7 +534,23 @@ body {
 }
 
 /* Staggered card animation reuse */
-.book-card.is-entering { animation: card-fade-in 0.5s ease-out forwards; }
+.book-card.is-entering { 
+    /* Use a more dynamic animation where books slide up from the shelf */
+    animation: book-slide-up 0.6s cubic-bezier(0.25, 0.8, 0.25, 1) forwards; 
+}
+
+@keyframes book-slide-up {
+    from {
+        opacity: 0;
+        /* Start slightly below and maintain the random rotation */
+        transform: translateY(25px) rotate(var(--book-rotation, 0deg));
+    }
+    to {
+        opacity: 1;
+        /* End at the final position */
+        transform: translateY(0) rotate(var(--book-rotation, 0deg));
+    }
+}
 
 .btn {
     padding: var(--spacing-sm) var(--spacing-md);
@@ -628,7 +677,7 @@ body {
     height: 100%;
     background-color: rgba(0, 0, 0, 0.5);
     
-    z-index: 1000;
+    z-index: 9999;
     backdrop-filter: blur(4px);
 }
 
@@ -636,31 +685,51 @@ body {
     display: flex;
     align-items: center;
     justify-content: center;
-    padding: var(--spacing-md);
+    /* Padding is removed as modal-content is positioned absolutely for the animation */
 }
 
 .modal-content {
+    /* --- NEW: Shared Element Transition --- */
+    position: absolute;
+    /* Initial state is set by JS using CSS custom properties. */
+    /* If properties aren't set, it gracefully falls back to a standard fade-in. */
+    width: var(--start-width, min(800px, 90vw));
+    height: var(--start-height, 90vh);
+    top: var(--start-top, 5vh);
+    left: var(--start-left, calc(50% - min(400px, 45vw)));
+    border-radius: 4px; /* Start with the book's border-radius */
+    
+    /* The transition property for the animation */
+    transition: all 0.5s cubic-bezier(0.45, 0, 0.2, 1);
+    /* --- End Transition --- */
+
     background-color: var(--color-surface);
-    border-radius: var(--radius-lg);
-    max-width: 800px;
-    width: 100%;
-    max-height: 90vh;
     display: flex;
     flex-direction: column;
-    box-shadow: 0 20px 60px var(--shadow-medium);
-    animation: modalSlideIn 0.3s ease;
-    overflow: hidden; /* This is important for border-radius to apply to children */
+    box-shadow: 0 20px 60px var(--shadow-medium); 
+    /* overflow: hidden; <-- This was clipping the settings panel. Removed to fix it. */
 }
 
-@keyframes modalSlideIn {
-    from {
-        opacity: 0;
-        transform: translateY(-20px) scale(0.95);
-    }
-    to {
-        opacity: 1;
-        transform: translateY(0) scale(1);
-    }
+/* The final, open state of the modal */
+.modal-content.is-opening {
+    top: 5vh;
+    left: calc(50% - min(400px, 45vw));
+    width: min(800px, 90vw);
+    height: 90vh;
+    /* border-radius is now applied to header/footer directly */
+}
+
+/* Fade in the inner content slightly after the modal starts expanding */
+.modal-content .modal-header,
+.modal-content .modal-body,
+.modal-content .modal-footer {
+    opacity: 0;
+    transition: opacity 0.3s ease 0.2s;
+}
+.modal-content.is-opening .modal-header,
+.modal-content.is-opening .modal-body,
+.modal-content.is-opening .modal-footer {
+    opacity: 1;
 }
 
 .modal-header {
@@ -669,6 +738,8 @@ body {
     display: flex;
     justify-content: space-between;
     align-items: center;
+    /* Apply top radius since parent overflow is gone */
+    border-radius: var(--radius-lg) var(--radius-lg) 0 0;
 }
 
 .modal-top-actions {
@@ -709,14 +780,14 @@ body {
 
 .modal-settings-panel {
     position: absolute;
-    top: calc(100% + 8px); /* Position BELOW the button */
+    bottom: calc(70% + 8px); /* CHANGED: Position ABOVE the button */
     right: 0;
-    transform: translateY(10px) scale(0.95);
+    transform: translateY(-10px) scale(0.95); /* CHANGED: Animate upwards */
     background-color: var(--color-surface-2);
     border: 1px solid var(--color-border);
     border-radius: var(--radius-lg);
     box-shadow: var(--elevation-3);
-    padding: var(--spacing-md);
+    padding: var(--spacing-lg);
     width: 280px;
     z-index: 1010;
     display: flex;
@@ -811,6 +882,8 @@ body {
     align-items: center;
     gap: var(--spacing-md);
     flex-shrink: 0; /* Prevent footer from shrinking */
+    /* Apply bottom radius since parent overflow is gone */
+    border-radius: 0 0 var(--radius-lg) var(--radius-lg);
 }
 
 /* ===== MODAL CONTENT STYLES ===== */
@@ -936,6 +1009,15 @@ body {
     border: 1px solid var(--color-danger-border);
 }
 
+@keyframes scroll-horizontal {
+    from {
+        transform: translateX(0);
+    }
+    to {
+        /* Move left by half its width (the width of the first set of items) */
+        transform: translateX(-50%);
+    }
+}
 @keyframes spin {
     0% { transform: rotate(0deg); }
     100% { transform: rotate(360deg); }
@@ -1005,11 +1087,6 @@ body {
         width: 260px; /* Slightly smaller on mobile */
     }
 
-    .modal-content {
-        margin: var(--spacing-sm);
-        max-height: calc(100vh - 2rem);
-    }
-    
     .modal-header,
     .modal-body,
     .modal-footer {
@@ -1042,29 +1119,13 @@ body {
         gap: var(--spacing-xs);
     }
 
-    /* Mobile Modal: Settings Panel as Centered Overlay */
-    .modal-settings-panel {
-        position: fixed; /* Fixed to viewport */
-        top: 17%; /* Center vertically */
-        left: 50%; /* Center horizontally */
-        transform: translate(-50%, -50%) scale(0.95); /* Initial transform for mobile */
-        width: calc(100% - var(--spacing-xl)); /* Take up most of the width, with some padding */
-        max-width: 400px; /* Max width for larger mobile devices */
-        max-height: 90vh; /* Don't take up full height, allow some space */
-        overflow-y: auto; /* Enable scrolling if content overflows */
-        border-radius: var(--radius-lg); /* Keep rounded corners */
-        background-color: var(--color-surface); /* Solid background for overlay */
-        box-shadow: var(--elevation-3); /* Add shadow for pop-up effect */
-        z-index: 1020; /* Ensure it's above other modal elements */
-    }
-    .modal-settings-panel:not([hidden]) {
-        transform: translate(-50%, -50%) scale(1); /* Active transform for mobile */
-    }
-
-    /* Mobile Modal: Sticky Footer */
-    .modal-content {
+    /* Mobile Modal: Fullscreen animation target and sticky footer */
+    .modal-content.is-opening {
+        /* On mobile, the modal animates to a full-screen view */
+        top: 0;
+        left: 0;
+        width: 100%;
         height: 100%;
-        max-height: 100%;
         border-radius: 0;
     }
     .modal-footer {

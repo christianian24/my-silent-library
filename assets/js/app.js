@@ -23,6 +23,7 @@ class LibraryApp {
         // Covers are lazy-loaded via data-src; avoid eager preloading to save bandwidth
         this.renderContent();
         this.setupFeaturedPassages();
+        this.renderShowcaseShelf();
     }
     
     setupEventListeners() {
@@ -65,22 +66,23 @@ class LibraryApp {
                 }
 
                 if (card && !e.target.closest('.btn')) {
-                    this.openReadingModal(card.dataset.id);
+                    this.openReadingModal(card.dataset.id, card);
                 }
             });
             this.contentContainer.addEventListener('keydown', (e) => {
-                const card = e.target.closest('.book-card'); // Note: .read-btn is not in use, but this is harmless
-                if (!card) return;
+                const card = e.target.closest('.book-card');
+                if (!card || !card.dataset.id) return;
                 if (e.key === 'Enter' || e.key === ' ') {
                     e.preventDefault();
-                    this.openReadingModal(card.dataset.id);
+                    this.openReadingModal(card.dataset.id, card);
                 }
             });
         }
 
         // Listen for custom events from the search component
         document.addEventListener('search:selection', (e) => {
-            this.openReadingModal(e.detail.contentId);
+            const sourceElement = this.contentContainer.querySelector(`.book-card[data-id="${e.detail.contentId}"]`);
+            this.openReadingModal(e.detail.contentId, sourceElement);
         });
 
         document.addEventListener('search:cleared', () => {
@@ -190,7 +192,52 @@ class LibraryApp {
         }).join('');
 
         bookshelfContainer.innerHTML = sections;
-        this.applyCardStaggerAnimation();
+        this.applyCardStaggerAnimation(bookshelfContainer);
+    }
+
+    renderShowcaseShelf() {
+        const showcaseContainer = document.getElementById('showcaseContainer');
+        if (!showcaseContainer) return;
+
+        // The scroller is now a child of the container
+        let scroller = showcaseContainer.querySelector('.showcase-scroller');
+        if (!scroller) {
+            // If the scroller div isn't in the HTML, create it for robustness
+            scroller = document.createElement('div');
+            scroller.className = 'showcase-scroller';
+            showcaseContainer.appendChild(scroller);
+        }
+
+        // Sort all books alphabetically for a consistent order in the showcase
+        const allBooksSorted = [...this.allContent].sort((a, b) => a.title.localeCompare(b.title));
+
+        // Create a version of the card specifically for the showcase
+        const allItemsHtml = allBooksSorted.map(item => this.createShowcaseCard(item)).join('');
+
+        // Duplicate the content for a seamless, infinite loop
+        scroller.innerHTML = allItemsHtml + allItemsHtml;
+
+        // Set a CSS custom property for the animation duration
+        showcaseContainer.style.setProperty('--item-count', allBooksSorted.length);
+    }
+
+    createShowcaseCard(item) {
+        const spineStyle = this.generateSpineStyle(item);
+        const randomRotation = (Math.random() - 0.5) * 1.5;
+        const rotationStyle = `--book-rotation: ${randomRotation}deg;`;
+        // Use smaller, fixed dimensions for showcase books
+        const heightStyle = `height: 280px;`; // Keep height the same
+        const widthStyle = `width: 75px;`; // Make showcase spines slightly wider
+
+        // Add a class for long titles to adjust font size
+        const longTitleClass = item.title.length > 20 ? 'long-title' : '';
+
+        // These cards are decorative, so they are hidden from screen readers.
+        return `
+            <div class="book-card ${longTitleClass}" style="${spineStyle} ${heightStyle} ${widthStyle} ${rotationStyle}" aria-hidden="true">
+                <span class="spine-title">${this.sanitizeHtml(item.title)}</span>
+            </div>
+        `;
     }
 
     createContentCard(item) {
@@ -208,23 +255,19 @@ class LibraryApp {
         const heightStyle = `height: ${totalHeight}px;`;
 
         // Dynamically adjust width for very long titles
-        const baseWidth = 50;
+        const baseWidth = 60;
         const charsOverWidth = Math.max(0, titleLength - 25); // Start widening for titles > 25 chars
         const extraWidth = charsOverWidth * 1.5; // Add a little width for each char
-        const totalWidth = Math.min(baseWidth + extraWidth, 90); // Cap width at 90px
+        const totalWidth = Math.min(baseWidth + extraWidth, 100); // Cap width at 100px
         const widthStyle = `width: ${totalWidth}px;`;
 
-        // Truncate very long titles for display on the spine
-        const MAX_SPINE_TITLE_LENGTH = 40;
-        let displayTitle = item.title;
-        if (titleLength > MAX_SPINE_TITLE_LENGTH) {
-            displayTitle = item.title.substring(0, MAX_SPINE_TITLE_LENGTH - 3) + '...';
-        }
+        // Add a class for long titles to adjust font size
+        const longTitleClass = titleLength > 25 ? 'long-title' : '';
 
         // Render a book spine card
         return `
-            <article class="book-card" data-id="${item.id}" data-category="${item.category}" role="listitem" aria-label="${item.title}" tabindex="0" style="${spineStyle} ${heightStyle} ${widthStyle} ${rotationStyle}">
-                <span class="spine-title">${this.sanitizeHtml(displayTitle)}</span>
+            <article class="book-card ${longTitleClass}" data-id="${item.id}" data-category="${item.category}" role="listitem" aria-label="${item.title}" tabindex="0" style="${spineStyle} ${heightStyle} ${widthStyle} ${rotationStyle}">
+                <span class="spine-title">${this.sanitizeHtml(item.title)}</span>
             </article>
         `;
     }
@@ -416,26 +459,23 @@ class LibraryApp {
     }
 
     // Add staggered fade-in animation to newly rendered cards
-    applyCardStaggerAnimation() {
-        const cards = document.querySelectorAll('.book-card');
+    applyCardStaggerAnimation(container = document) {
+        // By scoping the query to a container, we prevent re-animating existing cards.
+        const cards = container.querySelectorAll('.book-card:not(.is-entering)');
         let delay = 0;
         cards.forEach(card => {
             card.classList.add('is-entering');
-            card.style.animationDelay = `${delay}ms`;
-            delay += 40; // modest stagger
-            card.addEventListener('animationend', () => {
-                card.classList.remove('is-entering');
-                card.style.animationDelay = '';
-            }, { once: true });
+            card.style.animationDelay = `${delay}ms`; delay += 40; // modest stagger
+            card.addEventListener('animationend', () => { card.classList.remove('is-entering'); card.style.animationDelay = ''; }, { once: true });
         });
     }
 
-    openReadingModal(contentId) {
+    openReadingModal(contentId, sourceElement) {
         const content = this.allContent.find(item => item.id === contentId);
         if (!content) return;
 
         // Delegate opening to the modal module via a single event with full content detail
-        const event = new CustomEvent('openReadingModal', { detail: content });
+        const event = new CustomEvent('openReadingModal', { detail: { content, sourceElement } });
         document.dispatchEvent(event);
     }
     
@@ -445,8 +485,8 @@ class LibraryApp {
         const parser = new DOMParser();
         const doc = parser.parseFromString(dirtyHtml, 'text/html');
 
-        const allowedTags = new Set(['A','P','BR','STRONG','EM','B','I','BLOCKQUOTE','UL','OL','LI','H1','H2','H3','H4','IMG']);
-    const allowedAttrs = new Set(['href','src','alt','title']);
+        const allowedTags = new Set(['A','P','BR','STRONG','EM','B','I','BLOCKQUOTE','UL','OL','LI','H1','H2','H3','H4','IMG', 'SPAN', 'DIV']);
+        const allowedAttrs = new Set(['href','src','alt','title','class']);
 
         function walk(node) {
             const children = Array.from(node.childNodes);
@@ -579,90 +619,6 @@ function setupServiceWorkerUpdateUI() {
 
 // Initialize SW update UI (non-blocking)
 document.addEventListener('DOMContentLoaded', () => { setupServiceWorkerUpdateUI(); });
-
-// Reading controls, TTS, ambient audio, saved panel
-document.addEventListener('DOMContentLoaded', () => {
-    const fontSelect = document.getElementById('fontSelect');
-    const fontSizeRange = document.getElementById('fontSizeRange');
-    const lineHeightRange = document.getElementById('lineHeightRange');
-    const modalContent = document.getElementById('modalContent');
-    // TTS removed; no toggle element
-    // Saved/offline feature removed
-
-    // Font family
-    if (fontSelect && modalContent) fontSelect.addEventListener('change', (e) => {
-        const selectedFont = e.target.value;
-        let fontFamily = "'Inter', sans-serif"; // Default to sans-serif
-        if (selectedFont === 'serif') {
-            fontFamily = "'Playfair Display', serif";
-        } else if (selectedFont === 'jp') {
-            fontFamily = "'Sawarabi Mincho', serif";
-        }
-        modalContent.style.fontFamily = fontFamily;
-    });
-
-    // Font size
-    if (fontSizeRange && modalContent) fontSizeRange.addEventListener('input', (e) => {
-        modalContent.style.fontSize = e.target.value + 'px';
-    });
-
-    // Line height
-    if (lineHeightRange && modalContent) lineHeightRange.addEventListener('input', (e) => {
-        modalContent.style.lineHeight = e.target.value;
-    });
-
-    // TTS removed by user request; no SpeechSynthesis integration.
-
-    // Ambient (placeholder: toggles a CSS class; you can replace with audio file)
-        // Accessibility: announce when modal opens/closes
-    const a11y = document.getElementById('a11yAnnouncements');
-    document.addEventListener('openReadingModal', (ev) => {
-        if (a11y && ev.detail && ev.detail.id) {
-            const item = window.libraryApp.getContentById(ev.detail.id);
-            if (item) a11y.textContent = `Opened ${item.title}`;
-        }
-    });
-
-    const modal = document.getElementById('readingModal');
-    
-    function saveProgress(id, percent) {
-        if (!modalContent || !id) return;
-        try {
-            localStorage.setItem(`readingProgress:${id}`, String(percent));
-        } catch (e) {}
-    }
-
-    // Update progress while reading
-    let progThrottle = null;
-    if (modalContent) {
-        modalContent.addEventListener('scroll', () => {
-            if (progThrottle) clearTimeout(progThrottle);
-            progThrottle = setTimeout(() => {
-                const modalTitle = document.getElementById('modalTitle');
-                const currentId = (modalTitle && modalTitle.dataset && modalTitle.dataset.id) || null;
-                const percent = Math.round((modalContent.scrollTop / (modalContent.scrollHeight - modalContent.clientHeight || 1)) * 100);
-                                if (currentId) saveProgress(currentId, percent);
-            }, 150);
-        });
-    }
-
-    // When modal opens, restore saved progress for the item
-    document.addEventListener('openReadingModal', (e) => {
-        const id = (e.detail && e.detail.id) || (e.detail && e.detail.id) || null;
-        const modalTitle = document.getElementById('modalTitle');
-        if (modalTitle && id) modalTitle.dataset.id = id;
-        // Resume handled by modal.js
-    });
-
-    // Keyboard shortcuts when modal is open
-    document.addEventListener('keydown', (e) => {
-        const open = modal && modal.classList.contains('show');
-        if (!open) return;
-                // Arrow keys for scrolling content
-        if (e.key === 'ArrowDown') { e.preventDefault(); modalContent.scrollBy({ top: 120, behavior: 'smooth' }); }
-        if (e.key === 'ArrowUp') { e.preventDefault(); modalContent.scrollBy({ top: -120, behavior: 'smooth' }); }
-    });
-});
 
 // Handle browser back/forward buttons
 window.addEventListener('popstate', () => {
