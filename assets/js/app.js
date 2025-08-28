@@ -13,11 +13,13 @@ class LibraryApp {
         this.currentPassageIndex = 0;
         this.featuredPassageInterval = null;
     this.contentContainer = null;
+    this.searchResultsContainer = null;
 
     this.init();
     }
     
     init() {
+        this.searchResultsContainer = document.getElementById('searchResultsContainer');
         this.setupEventListeners();
         this.loadContent();
         // Covers are lazy-loaded via data-src; avoid eager preloading to save bandwidth
@@ -79,6 +81,28 @@ class LibraryApp {
             });
         }
 
+        // Event delegation for search results
+        if (this.searchResultsContainer) {
+            const handleSelection = (target) => {
+                const resultItem = target.closest('.search-result-item');
+                if (resultItem && resultItem.dataset.id) {
+                    // This event is caught by another listener in this file to open the modal
+                    // and by nav.js to close the search modal.
+                    document.dispatchEvent(new CustomEvent('search:selection', { 
+                        detail: { contentId: resultItem.dataset.id } 
+                    }));
+                }
+            };
+
+            this.searchResultsContainer.addEventListener('click', (e) => handleSelection(e.target));
+            this.searchResultsContainer.addEventListener('keydown', (e) => {
+                if (e.key === 'Enter' || e.key === ' ') {
+                    e.preventDefault();
+                    handleSelection(e.target);
+                }
+            });
+        }
+
         // Listen for custom events from the search component
         document.addEventListener('search:selection', (e) => {
             const sourceElement = this.contentContainer.querySelector(`.book-card[data-id="${e.detail.contentId}"]`);
@@ -95,6 +119,26 @@ class LibraryApp {
         document.addEventListener('categoryChanged', (e) => {
             this.handleCategoryChange(e.detail.category);
         });
+
+        // Observer to clear search when the modal is closed, ensuring it's always clean.
+        // This handles all close actions: Escape key, clicking overlay, or selecting a book.
+        const searchModal = document.getElementById('searchModal');
+        if (searchModal && searchInput) { // searchInput is defined at the top of this function
+            const observer = new MutationObserver((mutations) => {
+                mutations.forEach((mutation) => {
+                    if (mutation.attributeName === 'hidden') {
+                        const isHidden = searchModal.hasAttribute('hidden');
+                        if (isHidden) {
+                            // The modal has been closed. Clear the input and results.
+                            searchInput.value = '';
+                            this.handleSearch(''); // This clears the results container
+                        }
+                    }
+                });
+            });
+
+            observer.observe(searchModal, { attributes: true });
+        }
     }
     
     loadContent() {
@@ -115,9 +159,24 @@ class LibraryApp {
     }
     
     handleSearch(searchTerm) {
-        this.currentSearch = searchTerm.toLowerCase();
-        this.filterContent();
-        this.renderContent();
+        this.currentSearch = searchTerm.toLowerCase().trim();
+
+        if (!this.searchResultsContainer) return;
+
+        if (!this.currentSearch) {
+            this.searchResultsContainer.innerHTML = '';
+            // When search is cleared, the search modal is empty, but the main page is unaffected.
+            return;
+        }
+
+        // Filter all content for search results
+        const results = this.allContent.filter(item => 
+            item.title.toLowerCase().includes(this.currentSearch) ||
+            item.excerpt.toLowerCase().includes(this.currentSearch) ||
+            item.tags.some(tag => tag.toLowerCase().includes(this.currentSearch))
+        );
+        
+        this.renderSearchResults(results);
     }
     
     filterContent() {
@@ -128,14 +187,9 @@ class LibraryApp {
             filtered = filtered.filter(item => item.category === this.currentCategory);
         }
         
-        // Filter by search term
-        if (this.currentSearch) {
-            filtered = filtered.filter(item => 
-                item.title.toLowerCase().includes(this.currentSearch) ||
-                item.excerpt.toLowerCase().includes(this.currentSearch) ||
-                item.tags.some(tag => tag.toLowerCase().includes(this.currentSearch))
-            );
-        }
+        // Search filtering is now handled separately in `handleSearch` and does not
+        // affect the main bookshelf view. This keeps the main content static while
+        // the user is searching in the modal.
         
         this.filteredContent = filtered;
         this.sortContent();
@@ -193,6 +247,24 @@ class LibraryApp {
 
         bookshelfContainer.innerHTML = sections;
         this.applyCardStaggerAnimation(bookshelfContainer);
+    }
+
+    renderSearchResults(results) {
+        if (!this.searchResultsContainer) return;
+
+        if (results.length === 0) {
+            this.searchResultsContainer.innerHTML = `<div class="search-no-results">No books match your search.</div>`;
+            return;
+        }
+
+        const resultsHtml = results.map(item => `
+            <li class="search-result-item" data-id="${item.id}" tabindex="0" role="button" aria-label="Open ${this.sanitizeHtml(item.title)}">
+                <div class="search-result-title">${this.sanitizeHtml(item.title)}</div>
+                <p class="search-result-excerpt">${this.sanitizeHtml(item.excerpt)}</p>
+            </li>
+        `).join('');
+
+        this.searchResultsContainer.innerHTML = `<ul class="search-results-list">${resultsHtml}</ul>`;
     }
 
     renderShowcaseShelf() {
