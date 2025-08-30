@@ -511,9 +511,29 @@ body {
     background-color: var(--color-surface);
     border-bottom: 1px solid var(--color-border);
     overflow: hidden;
-    /* Add a subtle fade at the edges to make the loop seamless */
-    -webkit-mask-image: linear-gradient(to right, transparent, black 10%, black 90%, transparent);
-    mask-image: linear-gradient(to right, transparent, black 10%, black 90%, transparent);
+    position: relative; /* Needed for pseudo-elements */
+}
+
+/* Add gradient overlays for a smoother fade-out effect at the edges */
+.showcase-wrapper::before,
+.showcase-wrapper::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    width: clamp(50px, 8vw, 150px); /* Responsive fade area */
+    z-index: 2; /* Sit on top of the scrolling content */
+    pointer-events: none; /* Allow clicks to pass through */
+}
+
+.showcase-wrapper::before {
+    left: 0;
+    background: linear-gradient(to right, var(--color-surface), transparent);
+}
+
+.showcase-wrapper::after {
+    right: 0;
+    background: linear-gradient(to left, var(--color-surface), transparent);
 }
 
 .showcase-scroller {
@@ -557,8 +577,10 @@ body {
     flex-direction: column;
     align-items: center;
     gap: var(--spacing-md);
-    /* Add transition for smooth fade-in/out */
-    transition: opacity 0.5s ease-in-out;
+    /* Animate both opacity and height for a super smooth transition */
+    transition: opacity 0.4s ease-in-out, height 0.4s ease-in-out;
+    /* Contain content during height animation */
+    overflow: hidden;
 }
 
 .featured-passage {
@@ -871,6 +893,7 @@ body {
     transition: opacity 0.2s ease, transform 0.2s ease;
 }
 
+
 .modal-settings-panel:not([hidden]) {
     opacity: 1;
     transform: translateY(0) scale(1);
@@ -970,8 +993,8 @@ body {
 
 .metadata-item {
     display: flex;
-    justify-content: space-between;
-    align-items: center;
+    align-items: flex-start; /* Align label to the top of the tags */
+    gap: var(--spacing-md); /* Add space between label and value */
     margin-bottom: var(--spacing-sm);
     font-size: var(--font-size-sm);
 }
@@ -983,19 +1006,30 @@ body {
 .metadata-label {
     font-weight: 600;
     color: var(--color-text-muted);
+    flex-shrink: 0; /* Prevent label from shrinking */
 }
 
 .metadata-value {
     color: var(--color-text);
+    flex-grow: 1; /* Allow the value container to take up remaining space */
+    /* New styles for tag wrapping */
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: flex-end; /* Align tags to the right */
+    gap: var(--spacing-sm); /* Increased gap for more space between tags */
+    text-align: right; /* For fallback */
 }
 
 .metadata-value .tag {
     background-color: var(--color-accent);
     color: var(--color-on-accent);
-    padding: 2px var(--spacing-xs);
+    padding: 1px 3px; /* More balanced padding for better spacing */
     border-radius: var(--radius-sm);
     font-size: var(--font-size-xs);
-    margin-left: var(--spacing-xs);
+    /* Adding a subtle border to define the edge, as you mentioned */
+    border: 1px solid hsla(from var(--color-on-accent) h s l / 0.2);
+    /* margin-left is replaced by gap on the parent */
+    white-space: nowrap; /* Prevent individual tags from breaking */
 }
 
 .modal-content-title {
@@ -1186,12 +1220,6 @@ body {
         font-size: var(--font-size-2xl);
     }
     
-    .metadata-item {
-        flex-direction: column;
-        align-items: flex-start;
-        gap: var(--spacing-xs);
-    }
-
     /* Mobile Modal: Fullscreen animation target and sticky footer */
     .modal-content.is-opening {
         /* On mobile, the modal animates to a full-screen view */

@@ -352,7 +352,7 @@ class LibraryApp {
         hash = Math.abs(hash);
 
         const hue = hash % 360;
-        const styleType = design ? this.getStyleTypeByName(design) : hash % 23; // Now 23 styles
+        const styleType = design ? this.getStyleTypeByName(design) : hash % 33; // Now 33 styles
 
         // Define colors using theme variables for consistency
         const baseSat = 'var(--color-spine-bg-s)';
@@ -427,6 +427,37 @@ class LibraryApp {
             case 22: // Diamond Pattern
                 styleString = `background-image: linear-gradient(135deg, ${c1} 25%, transparent 25%), linear-gradient(225deg, ${c1} 25%, transparent 25%), linear-gradient(45deg, ${c1} 25%, transparent 25%), linear-gradient(315deg, ${c1} 25%, ${c2} 25%); background-size: 20px 20px; color: ${textColor}; text-shadow: 1px 1px 1px ${c3};`;
                 break;
+            // --- NEW DESIGNS ---
+            case 23: // Marbled
+                styleString = `background: radial-gradient(circle at 10% 20%, ${c1} 5%, transparent 50%), radial-gradient(circle at 80% 90%, ${c3} 10%, transparent 60%), ${c2}; color: ${textColor}; text-shadow: 1px 1px 2px rgba(0,0,0,0.5);`;
+                break;
+            case 24: // Wavy
+                styleString = `background: repeating-linear-gradient(160deg, ${c2} 0, ${c2} 10px, ${c1} 10px, ${c1} 20px); color: ${textColor}; text-shadow: 1px 1px 1px ${c3};`;
+                break;
+            case 25: // Crosshatch
+                styleString = `background-image: repeating-linear-gradient(45deg, ${c3} 25%, transparent 25%, transparent 75%, ${c3} 75%, ${c3}), repeating-linear-gradient(45deg, ${c3} 25%, transparent 25%, transparent 75%, ${c3} 75%); background-position: 0 0, 5px 5px; background-size: 10px 10px; background-color: ${c2}; color: ${textColor}; text-shadow: 1px 1px 1px ${c1};`;
+                break;
+            case 26: // Leather-bound
+                styleString = `background: linear-gradient(to bottom, hsl(${hue}, calc(${baseSat} - 10%), calc(${baseLight} - 15%)) 0%, hsl(${hue}, ${baseSat}, calc(${baseLight} - 10%)) 100%); border-top: 2px solid ${gold}; border-bottom: 2px solid ${gold}; color: ${gold}; text-shadow: 1px 1px 2px rgba(0,0,0,0.7);`;
+                break;
+            case 27: // Minimalist Line
+                styleString = `background: linear-gradient(to bottom, ${c2} 0%, ${c2} 95%, ${c1} 95%, ${c1} 100%); color: ${textColor}; text-shadow: 1px 1px 2px rgba(0,0,0,0.4);`;
+                break;
+            case 28: // Zigzag
+                styleString = `background: repeating-linear-gradient(135deg, ${c2} 0, ${c2} 5px, transparent 5px, transparent 10px), repeating-linear-gradient(45deg, ${c1} 0, ${c1} 5px, transparent 5px, transparent 10px); background-color: ${c3}; color: ${textColor}; text-shadow: 1px 1px 2px rgba(0,0,0,0.5);`;
+                break;
+            case 29: // Textured
+                styleString = `background-color: ${c2}; background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='100' height='100' viewBox='0 0 100 100'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.7' numOctaves='10' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100' height='100' filter='url(%23n)' opacity='0.1'/%3E%3C/svg%3E"); color: ${textColor}; text-shadow: 1px 1px 1px ${c3};`;
+                break;
+            case 30: // Bottom Fade
+                styleString = `background: linear-gradient(to top, ${c1} 0%, ${c2} 70%); color: ${textColor}; text-shadow: 1px 1px 2px rgba(0,0,0,0.5);`;
+                break;
+            case 31: // Inset Panel
+                styleString = `background: linear-gradient(to bottom, ${c2} 0%, ${c2} 15%, ${c3} 15%, ${c3} 85%, ${c2} 85%, ${c2} 100%); box-shadow: inset 0 0 5px rgba(0,0,0,0.5); color: ${textColor};`;
+                break;
+            case 32: // Speckled
+                styleString = `background-image: radial-gradient(${c1} 1px, transparent 1px), radial-gradient(${c1} 1px, transparent 1px); background-size: 10px 10px; background-position: 0 0, 5px 5px; background-color: ${c2}; color: ${textColor}; text-shadow: 1px 1px 1px ${c3};`;
+                break;
         }
         return styleString;
     }
@@ -437,8 +468,10 @@ class LibraryApp {
             'faded': 4, 'split': 5, 'central-band': 6,
             'diagonal-stripes': 7, 'polka-dots': 8, 'embossed': 9, 'gradient-fade': 10,
             'double-band': 11, 'checkered': 12, 'thin-stripes': 13, 'gradient-split': 14,
-            'top-fade': 15, 'checkered-small': 16, 'horizontal-stripes': 17, 'center-glow': 18,
-            'corner-fade': 19, 'multi-band': 20, 'side-fade': 21, 'diamond': 22
+            'top-fade': 15, 'checkered-small': 16, 'horizontal-stripes': 17, 'center-glow': 18, 'corner-fade': 19,
+            'multi-band': 20, 'side-fade': 21, 'diamond': 22, 'marbled': 23, 'wavy': 24, 'crosshatch': 25,
+            'leather-bound': 26, 'minimalist-line': 27, 'zigzag': 28, 'textured': 29, 'bottom-fade': 30,
+            'inset-panel': 31, 'speckled': 32
         };
         return map[(name || '').toLowerCase()] || 0; // Default to classic if name is invalid
     }
@@ -497,28 +530,50 @@ class LibraryApp {
 
     cycleFeaturedPassage(direction = 'next') {
         if (this.featuredPassages.length <= 1) return;
-
+    
         const wrapper = document.querySelector('.featured-passage-wrapper');
-        if (!wrapper) return;
-
-        // Add fade-out class
+        // Prevent re-triggering while an animation is in progress
+        if (!wrapper || wrapper.dataset.isAnimating === 'true') return;
+        wrapper.dataset.isAnimating = 'true';
+    
+        // 1. Set current height explicitly to animate FROM it
+        wrapper.style.height = `${wrapper.offsetHeight}px`;
+    
+        // 2. Fade out the content
         wrapper.classList.add('is-fading');
-
-        // Wait for fade-out to complete
-        setTimeout(() => {
-            // Update index
+    
+        const onFadeOut = (e) => {
+            // Only listen for the opacity transition to finish
+            if (e.target !== wrapper || e.propertyName !== 'opacity') return;
+            wrapper.removeEventListener('transitionend', onFadeOut);
+    
+            // 3. Update content while it's invisible
             if (direction === 'next') {
                 this.currentPassageIndex = (this.currentPassageIndex + 1) % this.featuredPassages.length;
-            } else { // 'prev'
+            } else {
                 this.currentPassageIndex = (this.currentPassageIndex - 1 + this.featuredPassages.length) % this.featuredPassages.length;
             }
-
-            // Show new content
             this.showCurrentPassage();
-
-            // Remove fade-out class to trigger fade-in
-            wrapper.classList.remove('is-fading');
-        }, 500); // Match CSS animation duration
+    
+            // 4. Measure new height and animate TO it, while fading in
+            // Use rAF to ensure the DOM has updated with the new content before measuring
+            requestAnimationFrame(() => {
+                const newHeight = wrapper.scrollHeight;
+                wrapper.style.height = `${newHeight}px`;
+                wrapper.classList.remove('is-fading');
+    
+                // 5. Clean up after the second animation (height + fade-in) is complete
+                const onFadeIn = (ev) => {
+                    if (ev.target !== wrapper || ev.propertyName !== 'height') return;
+                    wrapper.removeEventListener('transitionend', onFadeIn);
+                    wrapper.style.height = ''; // Reset to auto for responsiveness
+                    delete wrapper.dataset.isAnimating;
+                };
+                wrapper.addEventListener('transitionend', onFadeIn);
+            });
+        };
+    
+        wrapper.addEventListener('transitionend', onFadeOut);
     }
 
     startFeaturedPassageCycle() {
@@ -557,7 +612,7 @@ class LibraryApp {
         const parser = new DOMParser();
         const doc = parser.parseFromString(dirtyHtml, 'text/html');
 
-        const allowedTags = new Set(['A','P','BR','STRONG','EM','B','I','BLOCKQUOTE','UL','OL','LI','H1','H2','H3','H4','IMG', 'SPAN', 'DIV']);
+        const allowedTags = new Set(['A','P','BR','STRONG','EM','B','I','U','BLOCKQUOTE','UL','OL','LI','H1','H2','H3','H4','IMG', 'SPAN', 'DIV']);
         const allowedAttrs = new Set(['href','src','alt','title','class']);
 
         function walk(node) {
@@ -573,13 +628,24 @@ class LibraryApp {
                         // remove disallowed attributes
                         Array.from(child.attributes).forEach(attr => {
                             const name = attr.name.toLowerCase();
-                            if (!allowedAttrs.has(name)) { child.removeAttribute(attr.name); return; }
-                            // remove style or event handler attributes
-                            if (name === 'style' || name.startsWith('on')) { child.removeAttribute(attr.name); return; }
-                    // basic href/src sanitization (block dangerous protocols)
-                    if ((name === 'href' || name === 'src') && /^(javascript|data):/i.test(attr.value.trim())) {
-                        child.removeAttribute(attr.name);
-                    }
+                            const value = attr.value.trim();
+
+                            // 1. Disallow dangerous attributes like event handlers first.
+                            if (name.startsWith('on') || name === 'style') {
+                                child.removeAttribute(attr.name);
+                                return;
+                            }
+
+                            // 2. Disallow dangerous protocols in links/sources.
+                            if ((name === 'href' || name === 'src') && /^(javascript|data):/i.test(value)) {
+                                child.removeAttribute(attr.name);
+                                return;
+                            }
+
+                            // 3. If the attribute is not in the general allowlist, remove it.
+                            if (!allowedAttrs.has(name)) {
+                                child.removeAttribute(attr.name);
+                            }
                         });
                         walk(child);
                     }

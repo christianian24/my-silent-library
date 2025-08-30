@@ -177,9 +177,8 @@ class ReadingModal {
     open(detail) {
         if (!detail || !this.modal) return;
 
-        // Handle both old calls (content object) and new calls ({content, sourceElement})
-        const content = detail.content || detail;
-        const sourceElement = detail.sourceElement || null;
+        // The detail object should contain { content, sourceElement }
+        const { content, sourceElement } = detail;
         
         // --- FIX: Restore previous source element on navigation ---
         // If the modal is already open and we're navigating to new content,
@@ -685,7 +684,8 @@ document.addEventListener('DOMContentLoaded', () => {
                 clearInterval(checkApp);
                 const content = window.libraryApp.getContentById(contentId);
                 if (content) {
-                    window.readingModal.open(content);
+                    const sourceElement = document.querySelector(`.book-card[data-id="${contentId}"]`);
+                    window.readingModal.open({ content, sourceElement });
                 }
             }
         }, 100);

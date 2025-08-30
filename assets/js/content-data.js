@@ -9,7 +9,7 @@
  * - category: Type of content (novels, notes, quotes)
  * - spineDesign: Design style for the book spine
  * New Spine Designs
-        Here is the full list of all 23 available spine designs you can now use:
+        Here is the full list of all 33 available spine designs you can now use:
 
         classic
         banded
@@ -34,12 +34,22 @@
         multi-band
         side-fade
         diamond
+        marbled
+        wavy
+        crosshatch
+        leather-bound
+        minimalist-line
+        zigzag
+        textured
+        bottom-fade
+        inset-panel
+        speckled
         
  * - excerpt: Short description or preview
  * - content: Full content (can be HTML or markdown-like text)
  * - date: Publication date
  * - tags: Array of tags for filtering
- * - downloadUrl: URL to downloadable file (optional)
+ * - downloadUrl: URL to downloadable file (optional only on novels)
  * - wordCount: Approximate word count
  * - readingTime: Estimated reading time in minutes
  */
@@ -85,22 +95,22 @@ const LIBRARY_CONTENT = {
             id: 'note-000',
             title: 'I tried.',
             category: 'notes',
-            spineDesign: 'split',
+            spineDesign: 'multi-band',
             excerpt: 'How learning to truly see the world around us can transform our writing and our understanding of human nature.',
-            content: `<h1>I tried.</h1><p class="quote-meta">Fragments of Me • 2025</p><p>I tried to be the safe place. The soft landing. The quiet in someone else’s storm. The light in the dark—even when it meant dimming my own so they wouldn’t feel blind.</p><p>I tried to believe that if I was kind enough, patient enough, constant enough… they would finally stay. Finally choose me. Finally see that behind every “I’m fine” was a silent scream. Behind every understanding smile was a heart begging to be heard. Behind every act of love was a quiet prayer that maybe, this time, I wouldn’t be forgotten.</p><p>I carried the weight of people who never asked me how heavy it was. I was the calm for people who never noticed how often I drowned in their storms. I stayed strong for people who never realized how much it hurt to pretend.</p><p>And still, I gave. And gave. And gave—until all I had left were faint echoes of myself: exhausted, stretched too thin, convinced that love was sacrifice, mistaking abandonment for a test of loyalty.</p><p>Even when they pushed me away, broke the parts of me they once claimed to cherish, and left without explanation, I stayed. Hands outstretched. Hoping they’d turn around. Hoping love would be enough to anchor someone who never wanted to stay.</p><p>But it wasn’t. And maybe it never could be.</p><p>Because I tried to build a home in people who only ever saw me as a temporary shelter. And now I’m standing in the ruins of what I thought was love, realizing the only person I never gave enough to… was me.</p><p>And in the quiet that follows the collapse, I am left picking up the pieces: fragments of dreams I once shared, versions of myself I no longer recognize, love that was real to me even if it was never enough for them.</p><p>I’m learning, slowly, painfully, that healing isn’t always loud or poetic. Sometimes it’s messy. Sometimes it’s just waking up and choosing not to call, not to chase, not to explain your worth to someone who never tried to understand it.</p><p>I’m learning that love should never feel like begging. That affection shouldn’t come with conditions. That being needed is not the same as being loved.</p><p>And maybe—for once—I’m done trying for everyone else. Maybe it’s finally time to try for me.</p>`,
+            content: `<h1>I Tried</h1><p class="note-meta">Fragments of Me • 2025</p><p>I tried to be the safe place. The soft landing. The quiet in someone else’s storm. The light in the dark even when it meant dimming my own so they wouldn’t feel blind.<br><br>I tried to believe that if I was kind enough, patient enough, constant enough… they would finally stay. Finally choose me. Finally see that behind every “I’m fine” was a silent scream. Behind every understanding smile was a heart begging to be heard. Behind every act of love was a quiet prayer that maybe, this time, I wouldn’t be forgotten.<br><br>I carried the weight of people who never asked me how heavy it was. I was the calm for people who never noticed how often I drowned in their storms. I stayed strong for people who never realized how much it hurt to pretend.<br><br>And still, I gave. And gave. And gave until all I had left were faint echoes of myself: exhausted, stretched too thin, convinced that love was sacrifice, mistaking abandonment for a test of loyalty.<br><br>Even when they pushed me away, broke the parts of me they once claimed to cherish, and left without explanation, I stayed. Hands outstretched. Hoping they’d turn around. Hoping love would be enough to anchor someone who never wanted to stay.<br><br>But it wasn’t. And maybe it never could be.<br><br>Because I tried to build a home in people who only ever saw me as a temporary shelter. And now I’m standing in the ruins of what I thought was love, realizing the only person I never gave enough to… was me.<br><br>And in the quiet that follows the collapse, I am left picking up the pieces: fragments of dreams I once shared, versions of myself I no longer recognize, love that was real to me even if it was never enough for them.<br><br>I’m learning, slowly, painfully, that healing isn’t always loud or poetic. Sometimes it’s messy. Sometimes it’s just waking up and choosing not to call, not to chase, not to explain your worth to someone who never tried to understand it.<br><br>I’m learning that love should never feel like begging. That affection shouldn’t come with conditions. That being needed is not the same as being loved.<br><br>And maybe for once I’m done trying for everyone else. Maybe it’s finally time to try for me.</p>`,
             date: '2024-02-10',
             tags: ['writing', 'realization', 'life-lessons'],
-            wordCount: 800,
-            readingTime: 7,
+            wordCount: 394,
+            readingTime: 2,
         },
 
         {
             id: 'note-001',
             title: 'Choosing Through the Pain',
             category: 'notes',
-            spineDesign: 'embossed',
+            spineDesign: 'diamond',
             excerpt: 'A raw reflection on how love persists, even through pain and brokenness.',
-            content: `<h1>Choosing Through the Pain</h1><p class="quote-meta">Heart in the Ache • 2025</p><blockquote class="quote-block"><p>"Love is when nothing feels okay, when everything is breaking you apart, yet your heart still chooses the same person over and over again."</p><cite>— Me</cite></blockquote><p>We often imagine love as comfort, safety, and ease. But sometimes, love reveals itself most in the ache—the choice to keep holding onto someone even when it hurts. It's not about perfection or peace, but about the persistence of the heart against all odds.</p><blockquote class="quote-block"><p>"Love is not just about joy. Sometimes, it's the stubborn longing for the same soul, even in the middle of the storm."</p><cite>— Me</cite></blockquote><p>This kind of love is not weakness. It is the quiet strength to care beyond pain, to choose beyond reason. It’s messy, imperfect, and deeply human. And though it can break you, it also proves the depth of what it means to truly feel alive.</p>`,
+            content: `<h1>Choosing Through the Pain</h1><p class="quote-meta">Heart in the Ache • 2025</p><blockquote class="quote-block"><p>"Love is when nothing feels okay, when everything is breaking you apart, yet your heart still chooses the same person over and over again."</p><cite>— Me</cite></blockquote><br><p>We often imagine love as comfort, safety, and ease. But sometimes, love reveals itself most in the ache—the choice to keep holding onto someone even when it hurts. It's not about perfection or peace, but about the persistence of the heart against all odds.</p><blockquote class="quote-block"><p>"Love is not just about joy. Sometimes, it's the stubborn longing for the same soul, even in the middle of the storm."</p><cite>— Me</cite></blockquote><br><p>This kind of love is not weakness. It is the quiet strength to care beyond pain, to choose beyond reason. It’s messy, imperfect, and deeply human. And though it can break you, it also proves the depth of what it means to truly feel alive.</p>`,
             date: '2025-08-22',
             tags: ['love', 'pain', 'loyalty', 'reflection', 'emotions'],
             wordCount: 295,
@@ -113,27 +123,123 @@ const LIBRARY_CONTENT = {
             id: 'note-002',
             title: 'On Choosing Without Being Chosen',
             category: 'notes',
-            spineDesign: 'gradient-fade',
+            spineDesign: 'striped',
             excerpt: 'Sometimes the bravest love is the one that expects nothing in return.',
-            content: `<h1>On Choosing Without Being Chosen</h1><p class="note-meta">Quiet Courage • 2025</p><div class="note-block"><p>Love doesn’t always mean being chosen. Sometimes, it’s about choosing someone fully, knowing they may never choose you back.</p><p>It’s about honesty—confessing not to win, but to free yourself from silence. Because silence leaves you with endless <em>what ifs</em>.</p><p>Even when it hurts, even when it feels one-sided, there’s dignity in loving openly. Love has never been about what you receive—it’s about what you’re willing to give.</p></div>`,
+            content: '<h1>On Choosing Without Being Chosen</h1><p class="note-meta">Quiet Courage • 2025</p><p>Love does not always come with a return.<br><br>Sometimes, it is about giving fully to someone<br>who may never give the same in return.<br><br>It is about honesty.<br>Confessing is not about winning their heart.<br>It is about freeing yourself from silence.<br>Silence leaves questions that never end.<br>It leaves you asking what ifs every day.<br><br>Even when it hurts.<br>Even when it feels one-sided.<br>There is dignity in loving openly.<br><br>Love is measured not by what you receive.<br>It is measured by what you are willing to give.<br>It is measured by the courage to stay vulnerable<br>even when the outcome is uncertain.<br><br>This is the quiet strength of choosing without being chosen.</p>',
             date: '2025-08-22',
-            tags: ['love', 'truth', 'reflection', 'pain'],
+            tags: ['love', 'truth', 'reflection', 'pain', 'courage', 'heartache', 'quiet-strength'],
             wordCount: 92,
             readingTime: 1,
         },
         
         {
-            id: 'note-003',
-            title: 'The Choice That Never Came',
+            id:'note-003',
+            title:'Loyalty Shown in Boundaries',
+            category:'notes',
+            spineDesign:'polka-dots',
+            excerpt:'Loyalty is not complicated—it is shown in daily decisions, boundaries, and respect.',
+            content:`<h1>Loyalty Shown in Boundaries</h1><p class="quote-meta">Trust and Boundaries • 2025</p><p>A loyal woman is shown by what she allows and what she refuses.</p><br><p>She does not spend her free time entertaining men who hope for her attention.<br>She does not excuse questionable behavior by calling them brothers.<br>She does not leave you to feel uneasy and then blame you for being insecure.</p><br><p>When a woman respects the relationship, she sets clear boundaries.<br>She tells her friends what is off limits.<br>She chooses time with you over time with men who wait for your mistakes.<br>She values peace in the relationship more than validation from outside.</p><br><p>This is not about control. It is about respect.<br>You should not compete with men who only stay close because they want a chance.<br>You should not question if she is protecting what you both built.<br>You should feel safe knowing she does not keep backup options.</p><br><p>Loyalty is not complicated.<br>It is shown in daily decisions.<br>It is choosing your partner even when no one is watching.<br>It is protecting trust before it breaks.</p>`,
+            date:'2025-08-31',
+            tags: ['loyalty', 'relationships', 'respect', 'boundaries', 'love', 'trust', 'reflection'],
+            wordCount:220,
+            readingTime:2
+        },
+
+
+        {
+            id: 'note-004',
+            title: 'The Heart That Refuses to Stop',
             category: 'notes',
             spineDesign: 'checkered-small',
-            excerpt: 'The ache of realizing you were never the choice, only the option left behind.',
-            content: `<h1>The Choice That Never Came</h1><p class="quote-meta">Reflections on Love • 2025</p>The hardest part isn’t that you left—it’s knowing I was never chosen in the first place. You loved me in moments, in fragments, but when it came to choosing, it was never me. And no matter how much I gave, I was always the almost, the what-if, the one you walked past on your way to someone else.`,
-            date: '2025-08-22',
-            tags: ['love', 'choice', 'loss', 'pain', 'truth'],
-            wordCount: 83,
-            readingTime: 1
+            excerpt: 'Sometimes love is not about waiting to receive—it is about refusing to stop giving.',
+            content: "<h1>The Heart That Refuses to Stop</h1><p class=\"quote-meta\">The Cost of Loving Alone • 2025</p><p>Waiting for love that may never come is not strength, it is choice.</p><br><p>You know she does not love you back.</p><p>You know her silence is an answer.</p><p>Still, you stay.</p><p>Still, you wait.</p><br><p>The question is not why you wait.</p><p>The question is what you are waiting for.</p><br><p>It is not hope that keeps you there.</p><p>It is not the belief she will change her mind.</p><p>It is something deeper.</p><br><p>You did not fall in love with someone who could return your love.</p><p>You fell in love with someone who needed to be loved.</p><br><p>That is why you remain,</p><p>even when it hurts,</p><p>even when nothing changes.</p><br><p>Because your heart is not waiting for her love.</p><p>Because Your heart is simply refusing to stop giving yours.</p>",
+            date: '2025-08-30',
+            tags: ['love', 'unrequited', 'patience', 'heart', 'reflections', 'loyalty', 'quiet-heartache', 'emotional-truth'],           
+            wordCount: 148,
+            readingTime: 2
+        },
+
+        {
+            id: 'note-005',
+            title: 'A Love at the Wrong Time',
+            category: 'notes',
+            spineDesign: 'leather-bound',
+            excerpt: 'Meeting the love of your life at the wrong time—learning to carry it silently.',
+            content: "<h1>A Love at the Wrong Time</h1><p class=\"quote-meta\">Silent Forever • 2025</p><div class='note-block'><p>I never thought I would find someone who could make me feel this way.</p><br><p>Before, I believed my future was only me.</p><p>Living my life, happy, chasing my dreams,</p><p>no tears, no one disturbing my peace.</p><p>Love was never something I planned to build my life around.</p><br><p>But then the universe shifted its path,</p><p>and I met you.</p><br><p>You were different.</p><p>With you, everything felt real.</p><p>It felt like home.</p><br><p>For the first time in my life, I wanted something permanent.</p><p>Not a fling, not a temporary escape.</p><p>I wanted to imagine a home with someone.</p><p>I saw us growing old, gray hair, wrinkled faces,</p><p>arguing about silly things, laughing at them later,</p><p>cooking together, holding each other when life was heavy.</p><br><p>With you, I was ready to stay.</p><p>With you, I wasn’t afraid of commitment.</p><p>I wanted it.</p><p>Because I saw a life worth building a life with you.</p><br><p>But life has its cruel way of reminding us that not everything lasts.</p><p>We had to let each other go.</p><p>And it broke something inside me that I don’t know will ever heal.</p><br><p>Because how do you accept it?</p><p>How do you accept meeting the love of your life at the wrong time?</p><p>How do you move on from the person who made you believe in forever?</p><br><p>I hate that I never said what I should have said.</p><p>And I know you don’t know this,</p><p>but a part of me will always love you in silence.</p><p>Even now, I still see your smile,</p><p>and in my head, I still hear you saying, “I love you.”</p><br><p>Maybe in another lifetime,</p><p>we would have had our happy ending.</p><p>But not in this one.</p><br><p>So I’ll carry you with me always.</p><p>You’ll stay in my chest every time I see something that reminds me of us.</p><p>And the mark close to my heart will remind me too</p><p>that you were the one who made me want to settle,</p><p>even if forever was never ours.</p></div>",
+            date: '2025-08-31',
+            tags: ['love', 'heartache', 'loss', 'reflection', 'unrequited', 'quiet-heartache', 'emotional-truth'],
+            wordCount: 360,
+            readingTime: 3
+        },
+
+        {
+            id:'note-006',
+            title:'Love That Arrives Slowly',
+            category:'notes',
+            spineDesign:'crosshatch',
+            excerpt:'Some love does not arrive suddenly. It comes after you heal and build yourself.',
+            content:`<h1>Love That Arrives Slowly</h1><p class="quote-meta">Love comes after you heal • 2025</p><p>Some love does not arrive suddenly.<br><br>It does not come to fill a gap or rescue you.<br>It comes after you build yourself.<br>After long nights alone.<br>After facing your wounds.<br>After learning to heal.<br>It comes when you are whole enough to walk beside someone who is also whole.<br><br>This love is not driven by need or desperation.<br>It comes when you stop chasing temporary affection.<br>It comes when you start wanting something steady.<br>It comes when you know yourself.<br>Your values.<br>Your needs.<br>Your worth.<br>It comes when you meet someone who respects you and matches your pace.<br><br>It stays through ordinary days.<br>Through fading excitement.<br>Through reality.<br>It does not complete you.<br>It walks with you.<br>It does not rescue you.<br>It accompanies you.<br><br>This love arrives when you are ready.<br>Ready to give and receive without conditions.<br>Ready to hold a hand out of choice, not need.<br>It asks nothing from you except presence, honesty, and a willingness to grow together.</p>`,
+            date:'2025-08-31',
+            tags:['love','self-growth','relationships'],
+            wordCount:174,
+            readingTime:2
+        },
+
+        {
+            id:'note-007',
+            title:'Love That Matches',
+            category:'notes',
+            spineDesign:'gilded',
+            excerpt:'Sometimes I wonder when someone will love me the way I love them.',
+            content:`<h1>Love That Matches</h1><p class="quote-meta">Waiting for a love that matches yours • 2025</p><p>Sometimes I wonder when someone will love me the way I love them.<br><br>The kind of love that is not half effort.<br>Not seasonal.<br>Whole and real.<br><br>When I love, I give everything.<br>My time, my patience, my attention.<br>Even the smallest details that I know will make the other person happy.<br><br>But it often feels like I am the one who runs out.<br>While they do not give the same depth in return.<br><br>It is hard sometimes.<br>You question if loving too much is a mistake.<br><br>But I do not want to lessen the way I love just because others cannot match it.<br>I still want to believe that someone will come.<br>Someone who will receive my love and give it back fully.<br>Without fear.<br>Without holding back.<br><br>Even when I feel tired or sad, I choose to hope.<br>Because I believe that somewhere, there is someone who will see my value.<br>Someone who will love me, not to fill a space in their life,<br>but to choose me every day in every way.</p>`,
+            date:'2025-08-31',
+            tags:['love','self-worth','relationships'],
+            wordCount:192,
+            readingTime:2
+        },
+
+        {
+            id:'note-008',
+            title:'Unloving the Imagined',
+            category:'notes',
+            spineDesign:'speckled',
+            excerpt:'How to let go of love that existed only in your mind.',
+            content:`<h1>Unloving the Imagined</h1><p class="quote-meta">Letting go of love that never was • 2025</p><p>How do you unlove something that never existed?<br><br>No hands were held.<br>No lips were kissed.<br>No promises made.<br>No vows broken.<br><br>Yet the longing remains.<br>The ache is real.<br>The memories exist only in your mind.<br><br>You smiled.<br>You moved.<br>You existed,<br>but not with me.<br>I built a love from dreams I could not name.<br>I imagined moments that never happened.<br>I gave feelings that were never returned.<br><br>It was not betrayal.<br>It was not blindness.<br>It was timing, misaligned.<br>It was two lives moving in different rhythms.<br><br>Still, the absence leaves weight.<br>The mind holds onto what the heart created.<br>It remembers what could have been.<br>It aches for what never was.<br><br>Unloving is not forgetting.<br>It is choosing to stop building something in your mind.<br>It is letting the imagined go.<br>It is accepting that some love exists only as a lesson, not a story.<br><br>You cannot hold it.<br>You cannot touch it.<br>You cannot demand it.<br>But you can honor it by moving forward,<br>by keeping the memory without letting it control your life.<br><br>How do you unlove what was never yours?<br>You do not force it.<br>You let it fade with time.<br>You replace imagination with reality.<br>You allow yourself to be ready for the love that is real.</p>`,
+            date:'2025-08-31',
+            tags:['love','letting-go','self-growth'],
+            wordCount:233,
+            readingTime:2
+        },
+
+        {
+            id:'note-009',
+            title:'The Value of Risk',
+            category:'notes',
+            spineDesign:'banded',
+            excerpt:'Taking the risk is the only way to end uncertainty and know the answer.',
+            content:`<h1>The Value of Risk</h1><p class="quote-meta">Facing fear to know the answer • 2025</p><p>Some people say, "Take the risk or lose the chance."<br><br>But taking a risk is not always simple.<br>Sometimes you want it, but fear holds you back.<br>Fear of consequences.<br>Fear of change.<br>Fear of rejection.<br>Fear that the outcome could alter everything.<br><br>If you never make a move, nothing will change.<br>The chance will remain a question mark.<br>The feelings you hide will remain unanswered.<br><br>Every risk carries the possibility of pain.<br>Not everyone will feel the same.<br>Not everyone will respond the way you hope.<br>You must be ready to face that.<br><br>Still, fear should not keep you from trying.<br>Taking the risk is the only way to end the uncertainty.<br>It is the only way to know if the chance was real.<br>It is the only way to avoid looking back and asking "what if."<br><br>Life moves forward only when you act.<br>Regret is heavier than failure.<br>The cost of doing nothing is greater than the cost of trying.<br><br>Sometimes the risk is not about winning.<br>It is about knowing.<br>It is about freeing yourself from silence.<br>It is about choosing to live fully, even when the outcome is uncertain.</p>`,
+            date:'2025-08-31',
+            tags:['risk','fear','self-growth'],
+            wordCount:228,
+            readingTime:2
+        },
+
+        {
+            id:'note-010',
+            title:'Effort and Boundaries',
+            category:'notes',
+            spineDesign:'horizontal-stripes',
+            excerpt:'Persistence requires reciprocity and respect in love.',
+            content:`<h1>Effort and Boundaries</h1><p class="quote-meta">Love needs mutual respect • 2025</p><p>Men do not give up easily on someone they truly want.<br><br>But effort without acknowledgment wears a heart down.<br>If she continues to act like your actions mean nothing,<br>even patience has a limit.<br><br>Trying becomes painful when it is one-sided.<br>Every gift of time, attention, and care asks for respect in return.<br>When that respect is absent, exhaustion sets in.<br><br>Persistence is not weakness.<br>It is a measure of commitment.<br>But commitment without reciprocity cannot last forever.<br><br>At some point, trying stops.<br>The heart steps back to protect itself.<br>Love without boundaries becomes emptiness.<br>True connection requires choice, effort, and mutual respect.</p>`,
+            date:'2025-08-31',
+            tags:['love','boundaries','relationships'],
+            wordCount:152,
+            readingTime:1
         }
+
+
+
+
 
     ],
     
@@ -190,7 +296,22 @@ const LIBRARY_CONTENT = {
             tags: ['love', 'truth', 'pain', 'reality', 'reflection'],
             wordCount: 310,
             readingTime: 1
+        },
+
+        {
+            id:'quote-004',
+            title:'Time and Attention',
+            category:'quotes',
+            spineDesign:'split',
+            excerpt:'Some people talk to you in their free time and some people free their time to talk to you.',
+            content:`<h1>Time and Attention</h1><p class="quote-meta">Knowing who truly values you • 2025</p><blockquote class="quote-block"><p>Some people talk to you in <u>their free time</u>and some people <u>free their time</u> to talk to you.<br>Make sure you know the difference.</p><blockquote class="quote-block">`,
+            date:'2025-08-31',
+            tags:['relationships','attention','self-worth'],
+            wordCount:24,
+            readingTime:1
         }
+
+
          
     ]
 };
