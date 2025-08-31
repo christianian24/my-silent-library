@@ -121,6 +121,15 @@ body {
     font-size: var(--fs-sm);
 }
 
+/* Special class for designs with foil text */
+.book-card.has-foil-text .spine-title {
+    background: var(--foil-gradient);
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+    text-shadow: none; /* Override default text shadow */
+}
+
 /* Focus styles for keyboard navigation */
 /* 
   Use :focus-visible to only show the outline for keyboard users, not on mouse click.

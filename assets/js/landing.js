@@ -1,22 +1,27 @@
+/**
+ * Landing Page Specific JavaScript
+ * Handles entry and exit animations.
+ */
 document.addEventListener('DOMContentLoaded', () => {
-    const container = document.getElementById('landingContainer');
+    const wrapper = document.querySelector('.landing-wrapper');
+    const enterButton = document.getElementById('enterBtn');
 
-    function navigateToLibrary() {
-        // Set a flag in sessionStorage to trigger the fade-in on the main page
-        sessionStorage.setItem('fromLanding', 'true');
+    // Animate elements with a staggered fade-in
+    const elementsToAnimate = document.querySelectorAll('.hero-icon, .hero-title, .hero-subtitle, .hero-button, .landing-footer');
+    elementsToAnimate.forEach((el, index) => {
+        el.style.animationDelay = `${200 + index * 150}ms`;
+        el.classList.add('fade-in');
+    });
 
-        // Add fade-out class to the body
-        document.body.classList.add('fade-out');
-
-        // Wait for the fade-out transition to complete before redirecting
-        setTimeout(() => {
-            // Redirect to library.html (the renamed index.html)
-            window.location.href = 'library.html';
-        }, 1000); // This duration should match the transition in landing.css
-    }
-
-    // Allow clicking anywhere on the container to continue
-    if (container) {
-        container.addEventListener('click', navigateToLibrary);
+    // Smooth exit transition
+    if (enterButton && wrapper) {
+        enterButton.addEventListener('click', (e) => {
+            e.preventDefault();
+            const destination = enterButton.href;
+            wrapper.classList.add('is-exiting');
+            setTimeout(() => {
+                window.location.href = destination;
+            }, 500); // Match the animation duration in CSS
+        });
     }
 });

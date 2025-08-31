@@ -35,31 +35,6 @@
     </div>
 
     <script src="assets/js/theme.js" defer></script>
-    <script>
-        document.addEventListener('DOMContentLoaded', () => {
-            const wrapper = document.querySelector('.landing-wrapper');
-            const enterButton = document.getElementById('enterBtn');
-
-            // Animate elements with a staggered fade-in
-            const elementsToAnimate = document.querySelectorAll('.hero-icon, .hero-title, .hero-subtitle, .hero-button, .landing-footer');
-            elementsToAnimate.forEach((el, index) => {
-                // Start with a base delay, then stagger
-                el.style.animationDelay = `${200 + index * 150}ms`;
-                el.classList.add('fade-in');
-            });
-
-            // Smooth exit transition
-            if (enterButton && wrapper) {
-                enterButton.addEventListener('click', (e) => {
-                    e.preventDefault();
-                    const destination = enterButton.href;
-                    wrapper.classList.add('is-exiting');
-                    setTimeout(() => {
-                        window.location.href = destination;
-                    }, 500); // Match the animation duration in CSS
-                });
-            }
-        });
-    </script>
+    <script src="assets/js/landing.js" defer></script>
 </body>
 </html>
