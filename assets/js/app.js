@@ -12,6 +12,7 @@ class LibraryApp {
         this.featuredPassages = [];
         this.currentPassageIndex = 0;
         this.featuredPassageInterval = null;
+        this.passageCycleTime = 10000; // Time in ms for featured passage to change
         this.contentContainer = null;
         this.searchResultsContainer = null;
 
@@ -50,23 +51,6 @@ class LibraryApp {
             });
         }
         
-        // Featured Passage Navigation
-        const prevPassageBtn = document.getElementById('prevPassage');
-        const nextPassageBtn = document.getElementById('nextPassage');
-
-        if (prevPassageBtn) {
-            prevPassageBtn.addEventListener('click', () => {
-                this.cycleFeaturedPassage('prev');
-                this.startFeaturedPassageCycle(); // Reset timer on manual click
-            });
-        }
-        if (nextPassageBtn) {
-            nextPassageBtn.addEventListener('click', () => {
-                this.cycleFeaturedPassage('next');
-                this.startFeaturedPassageCycle(); // Reset timer on manual click
-            });
-        }
-
         // Event Delegation for content container (contentGrid or shelf)
         if (this.contentContainer) {
             this.contentContainer.addEventListener('click', (e) => {
@@ -1203,25 +1187,41 @@ class LibraryApp {
             this.showCurrentPassage();
             this.startFeaturedPassageCycle();
         } else {
-            const passageEl = document.getElementById('featuredPassage');
-            if (passageEl) {
-                passageEl.firstChild.nodeValue = "The silence of this library is a story in itself.";
-                const sourceEl = document.getElementById('featuredPassageSource');
-                if (sourceEl) sourceEl.textContent = '';
+            // Fallback if no passages are available
+            const passageContainer = document.getElementById('featuredPassage');
+            if (passageContainer) {
+                // Self-heal the HTML structure if needed, replacing "Loading..." text.
+                passageContainer.innerHTML = `
+                    <span id="featuredPassageText">The silence of this library is a story in itself.</span>
+                    <cite id="featuredPassageSource"></cite>
+                `;
             }
         }
     }
 
     showCurrentPassage() {
-        const passageEl = document.getElementById('featuredPassage');
-        const sourceEl = document.getElementById('featuredPassageSource');
-    
-        if (!passageEl || !sourceEl || this.featuredPassages.length === 0) return;
+        const passageContainer = document.getElementById('featuredPassage');
+        if (!passageContainer || this.featuredPassages.length === 0) return;
+
+        // Find or create the necessary elements for robustness.
+        // This makes the component self-healing if the initial HTML is missing the required spans.
+        let passageTextEl = document.getElementById('featuredPassageText');
+        let sourceEl = document.getElementById('featuredPassageSource');
+
+        if (!passageTextEl || !sourceEl) {
+            passageContainer.innerHTML = ''; // Clear "Loading passage..." or old content
+            passageTextEl = document.createElement('span');
+            passageTextEl.id = 'featuredPassageText';
+            passageContainer.appendChild(passageTextEl);
+            sourceEl = document.createElement('cite');
+            sourceEl.id = 'featuredPassageSource';
+            passageContainer.appendChild(sourceEl);
+        }
     
         const item = this.featuredPassages[this.currentPassageIndex];
         const passageText = item.excerpt || "No excerpt available.";
     
-        passageEl.firstChild.nodeValue = ` ${passageText.trim()} `;
+        passageTextEl.textContent = passageText.trim();
         sourceEl.textContent = `— ${item.title}`;
     }
 
@@ -1261,7 +1261,10 @@ class LibraryApp {
     
                 // 5. Clean up after the second animation (height + fade-in) is complete
                 const onFadeIn = (ev) => {
-                    if (ev.target !== wrapper || ev.propertyName !== 'height') return;
+                    // We listen for the 'opacity' transition to finish, as it's guaranteed
+                    // to run, unlike 'height' which might not change. Since both have the
+                    // same duration, this reliably cleans up after the animation.
+                    if (ev.target !== wrapper || ev.propertyName !== 'opacity') return;
                     wrapper.removeEventListener('transitionend', onFadeIn);
                     wrapper.style.height = ''; // Reset to auto for responsiveness
                     delete wrapper.dataset.isAnimating;
@@ -1279,7 +1282,7 @@ class LibraryApp {
             clearInterval(this.featuredPassageInterval);
         }
         // Start a new timer to cycle every 5 seconds
-        this.featuredPassageInterval = setInterval(() => this.cycleFeaturedPassage('next'), 5000);
+        this.featuredPassageInterval = setInterval(() => this.cycleFeaturedPassage('next'), this.passageCycleTime);
     }
 
     // Add staggered fade-in animation to newly rendered cards
