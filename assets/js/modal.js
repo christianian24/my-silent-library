@@ -100,6 +100,17 @@ class ReadingModal {
         }
     }
     
+    clearModalContent() {
+        const titleElement = document.getElementById('modalTitle');
+        if (titleElement) titleElement.textContent = '';
+
+        const contentElement = document.getElementById('modalContent');
+        if (contentElement) contentElement.innerHTML = '';
+
+        const downloadBtn = document.getElementById('modalDownload');
+        if (downloadBtn) downloadBtn.style.display = 'none';
+    }
+
     // Centralized helper to reliably close the panel and remove the listener.
     closeSettingsPanel() {
         if (this.settingsPanel && !this.settingsPanel.hidden) {
@@ -194,9 +205,9 @@ class ReadingModal {
         this.sourceElement = sourceElement;
         this.isOpen = true;
         
-        // Update modal content
-        this.updateModalContent(content);
-        
+        // Clear out old content immediately to prevent flash of old content
+        this.clearModalContent();
+
         // --- Animation Start ---
         if (this.sourceElement) {
             const fromRect = this.sourceElement.getBoundingClientRect();
@@ -215,7 +226,14 @@ class ReadingModal {
         this.modal.classList.add('show');
         // Force a reflow before adding the class that triggers the animation
         requestAnimationFrame(() => {
+            // Add class to trigger the animation
             this.modalContentWrapper.classList.add('is-opening');
+
+            // Defer heavy content update until after the animation has started
+            this.updateModalContent(content);
+
+            // Restore reading progress after content is loaded
+            this.restoreProgress(content.id);
         });
         // --- Animation End ---
 
@@ -227,9 +245,6 @@ class ReadingModal {
 
         // Update URL without page reload
         this.updateURL(content.id);
-
-        // Restore reading progress
-        this.restoreProgress(content.id);
 
         // Add body scroll lock
         document.body.style.overflow = 'hidden';
