@@ -12,14 +12,27 @@ class LibraryApp {
         this.featuredPassages = [];
         this.currentPassageIndex = 0;
         this.featuredPassageInterval = null;
-    this.contentContainer = null;
-    this.searchResultsContainer = null;
+        this.contentContainer = null;
+        this.searchResultsContainer = null;
 
-    this.init();
+        this.spineStyleMap = {
+            'banded': 0, 'gilded': 1, 'gilded-chevron': 2, 'gilded-dots': 3,
+            'double-band': 4, 'checkered-gilded-corners': 5, 'gilded-checkers': 6, 'diamond': 7,
+            'crosshatch': 8, 'leather-bound': 9, 'zigzag': 10, 'gilded-texture': 11, 'ornate-speckle': 12,
+            'art-deco': 13, 'cosmic': 14, 'tooled-leather': 15, 'decorated-vellum': 16, 'embossed-star-atlas': 17,
+            'raised-bands': 18, 'silk-brocade': 19, 'inlaid-wood': 20,
+            'geometric-mosaic': 21, 'moonbeam-deco': 22, 'sunburst-deco': 23, 'geometric-weave': 24, 'gilded-watercolor': 25,
+            'gilded-border': 26, 'crosshatch-linen': 27, 'double-band-classic': 28, 'embossed-leather': 29,
+            'divider-bands': 30, 'ornamental-frame': 31, 'luxury-foil': 32, 'gilded-corners': 33,
+            'marbled-ink': 34, 'tartan-plaid': 35, 'stitched-leather': 36, 'filigree-bands': 37
+        };
+
+        this.init();
     }
     
     init() {
         this.searchResultsContainer = document.getElementById('searchResultsContainer');
+        this.contentContainer = document.getElementById('bookshelfContainer');
         this.setupEventListeners();
         this.loadContent();
         // Covers are lazy-loaded via data-src; avoid eager preloading to save bandwidth
@@ -55,18 +68,9 @@ class LibraryApp {
         }
 
         // Event Delegation for content container (contentGrid or shelf)
-        this.contentContainer = document.getElementById('bookshelfContainer');
         if (this.contentContainer) {
             this.contentContainer.addEventListener('click', (e) => {
-                const readBtn = e.target.closest('.read-btn');
-                const card = e.target.closest('.book-card'); // Note: .read-btn is not in use, but this is harmless
-
-                if (readBtn) {
-                    e.stopPropagation();
-                    this.openReadingModal(readBtn.dataset.id);
-                    return;
-                }
-
+                const card = e.target.closest('.book-card');
                 if (card && !e.target.closest('.btn')) {
                     this.openReadingModal(card.dataset.id, card);
                 }
@@ -352,7 +356,7 @@ class LibraryApp {
         hash = Math.abs(hash);
 
         const hue = hash % 360;
-        const styleType = design ? this.getStyleTypeByName(design) : hash % 37; // Now 37 styles
+        const styleType = design ? this.getStyleTypeByName(design) : hash % Object.keys(this.spineStyleMap).length;
 
         // Define colors using theme variables for consistency
         const baseSat = 'var(--color-spine-bg-s)';
@@ -370,7 +374,6 @@ class LibraryApp {
         let className = '';
 
     switch (styleType) {
-    // Default (banded) handled outside
         case 1: // Gilded
             styleString = `
                 background: linear-gradient(to bottom,
@@ -388,30 +391,69 @@ class LibraryApp {
             `;
             break;
 
-        case 2: // Striped
+        case 2: { // Gilded Chevron
+            const chevronSize = '0.5em';
             styleString = `
-                background: repeating-linear-gradient(
-                    90deg, ${c2}, ${c2} 0.6em, ${c1} 0.6em, ${c1} 0.75em
-                );
+                background-color: ${c2}; /* Base color for pattern */
+                background-image:
+                    /* Top and Bottom Bands (top layer) */
+                    linear-gradient(to bottom,
+                        ${c3} 0%, ${c3} 5%,
+                        ${gold} 5%, ${gold} 7%,
+                        ${c3} 7%, ${c3} 15%,
+                        transparent 15%, transparent 85%, /* Transparent middle section */
+                        ${c3} 85%, ${c3} 93%,
+                        ${gold} 93%, ${gold} 95%,
+                        ${c3} 95%, ${c3} 100%),
+                    /* Chevron Pattern (bottom layers) */
+                    repeating-linear-gradient(
+                        -45deg,
+                        transparent, transparent 0.15em, ${c1} 0.15em, ${c1} 0.35em
+                    ),
+                    repeating-linear-gradient(
+                        45deg,
+                        transparent, transparent 0.15em, ${c1} 0.15em, ${c1} 0.35em
+                    );
+                background-repeat: no-repeat, repeat, repeat;
+                background-size: 
+                    100% 100%,
+                    ${chevronSize} ${chevronSize}, ${chevronSize} ${chevronSize};
+                background-position: 0 0; /* All layers default to top-left */
                 color: ${textColor};
                 text-shadow: 0 1px 2px rgba(0,0,0,0.6);
                 border-left: 1px solid rgba(255,255,255,0.15);
                 border-right: 1px solid rgba(0,0,0,0.3);
             `;
             break;
+        }
 
-        case 3: // Polka Dots
+        case 3: { // Gilded Dots
+            const dotSize = '1.25em';
             styleString = `
-                background: radial-gradient(${c1} 15%, transparent 16%),
-                            radial-gradient(${c1} 15%, transparent 16%), ${c2};
-                background-size: 1.25em 1.25em;
-                background-position: 0 0, 0.625em 0.625em;
+                background-color: ${c2}; /* Base color for the middle */
+                background-image:
+                    /* Top and Bottom Bands (top layer) */
+                    linear-gradient(to bottom,
+                        ${c3} 0%, ${c3} 5%,
+                        ${gold} 5%, ${gold} 7%,
+                        ${c3} 7%, ${c3} 15%,
+                        transparent 15%, transparent 85%, /* Transparent middle section */
+                        ${c3} 85%, ${c3} 93%,
+                        ${gold} 93%, ${gold} 95%,
+                        ${c3} 95%, ${c3} 100%),
+                    /* Polka Dot Pattern (bottom layers) */
+                    radial-gradient(${c1} 15%, transparent 16%),
+                    radial-gradient(${c1} 15%, transparent 16%);
+                background-repeat: no-repeat, repeat, repeat;
+                background-size: 100% 100%, ${dotSize} ${dotSize}, ${dotSize} ${dotSize};
+                background-position: 0 0, 0 0, calc(${dotSize} / 2) calc(${dotSize} / 2);
                 color: ${textColor};
                 text-shadow: 0 1px 2px rgba(0,0,0,0.6);
                 border-left: 1px solid rgba(255,255,255,0.15);
                 border-right: 1px solid rgba(0,0,0,0.3);
             `;
             break;
+        }
 
         case 4: // Double Band
             styleString = `
@@ -430,15 +472,36 @@ class LibraryApp {
             `;
             break;
 
-        case 5: // Checkered
-        case 6: // Checkered (Small)
-            const size = (styleType === 5 ? `1.25em` : `0.75em`);
+        case 5: { // Checkered with Gilded Corners
+            const size = '1.25em';
+            const cornerSize = '0.8em';
+            const cornerThickness = '0.15em';
             styleString = `
-                background-image: linear-gradient(45deg, ${c3} 25%, transparent 25%),
-                                linear-gradient(-45deg, ${c3} 25%, transparent 25%),
-                                linear-gradient(45deg, transparent 75%, ${c3} 75%),
-                                linear-gradient(-45deg, transparent 75%, ${c3} 75%);
-                background-size: ${size} ${size};
+                background-image: 
+                    /* Top-left corner */
+                    linear-gradient(to right, ${gold} ${cornerThickness}, transparent ${cornerThickness}),
+                    linear-gradient(to bottom, ${gold} ${cornerThickness}, transparent ${cornerThickness}),
+                    /* Top-right corner */
+                    linear-gradient(to left, ${gold} ${cornerThickness}, transparent ${cornerThickness}),
+                    linear-gradient(to bottom, ${gold} ${cornerThickness}, transparent ${cornerThickness}),
+                    /* Bottom-left corner */
+                    linear-gradient(to right, ${gold} ${cornerThickness}, transparent ${cornerThickness}),
+                    linear-gradient(to top, ${gold} ${cornerThickness}, transparent ${cornerThickness}),
+                    /* Bottom-right corner */
+                    linear-gradient(to left, ${gold} ${cornerThickness}, transparent ${cornerThickness}),
+                    linear-gradient(to top, ${gold} ${cornerThickness}, transparent ${cornerThickness}),
+                    /* Checkered Pattern */
+                    linear-gradient(45deg, ${c3} 25%, transparent 25%),
+                    linear-gradient(-45deg, ${c3} 25%, transparent 25%),
+                    linear-gradient(45deg, transparent 75%, ${c3} 75%),
+                    linear-gradient(-45deg, transparent 75%, ${c3} 75%);
+                background-repeat: no-repeat, no-repeat, no-repeat, no-repeat, no-repeat, no-repeat, no-repeat, no-repeat, repeat, repeat, repeat, repeat;
+                background-size: ${cornerSize} ${cornerSize}, ${cornerSize} ${cornerSize}, ${cornerSize} ${cornerSize}, ${cornerSize} ${cornerSize}, ${cornerSize} ${cornerSize}, ${cornerSize} ${cornerSize}, ${cornerSize} ${cornerSize}, ${cornerSize} ${cornerSize}, ${size} ${size}, ${size} ${size}, ${size} ${size}, ${size} ${size};
+                background-position: 
+                    /* Corners */
+                    top left, top left, top right, top right, bottom left, bottom left, bottom right, bottom right,
+                    /* Checkered Pattern (default position) */
+                    0 0, 0 0, 0 0, 0 0;
                 background-color: ${c2};
                 color: ${textColor};
                 text-shadow: 0 1px 2px rgba(0,0,0,0.7);
@@ -446,6 +509,44 @@ class LibraryApp {
                 border-right: 1px solid rgba(0,0,0,0.3);
             `;
             break;
+        }
+
+        case 6: { // Gilded Checkers
+            const size = '0.75em';
+            styleString = `
+                background-color: ${c2}; /* Base color for the checkered middle */
+                background-image: 
+                    /* Top and Bottom Bands (top layer) */
+                    linear-gradient(to bottom,
+                        ${c3} 0%, ${c3} 5%,      /* Top-most band */
+                        ${gold} 5%, ${gold} 7%,      /* Top gold line */
+                        ${c3} 7%, ${c3} 15%,     /* Band below gold line */
+                        transparent 15%, transparent 85%, /* Transparent middle section */
+                        ${c3} 85%, ${c3} 93%,     /* Band above bottom gold line */
+                        ${gold} 93%, ${gold} 95%,    /* Bottom gold line */
+                        ${c3} 95%, ${c3} 100%),   /* Bottom-most band */
+                    /* Checkered Pattern (layers below the bands) */
+                    linear-gradient(45deg, ${c3} 25%, transparent 25%),
+                    linear-gradient(-45deg, ${c3} 25%, transparent 25%),
+                    linear-gradient(45deg, transparent 75%, ${c3} 75%),
+                    linear-gradient(-45deg, transparent 75%, ${c3} 75%);
+                
+                background-size: 
+                    100% 100%, /* Bands cover full element */
+                    ${size} ${size}, 
+                    ${size} ${size}, 
+                    ${size} ${size}, 
+                    ${size} ${size};
+                background-repeat: no-repeat, repeat, repeat, repeat, repeat;
+                background-position: 0 0, 0 0, 0 0, 0 0, 0 0; /* Explicitly position all layers */
+                
+                color: ${textColor};
+                text-shadow: 0 1px 2px rgba(0,0,0,0.6);
+                border-left: 1px solid rgba(255,255,255,0.15);
+                border-right: 1px solid rgba(0,0,0,0.3);
+            `;
+            break;
+        }
 
         case 7: // Diamond Pattern
             styleString = `
@@ -480,8 +581,8 @@ class LibraryApp {
                 background: linear-gradient(to bottom,
                     hsl(${hue}, calc(${baseSat} - 10%), calc(${baseLight} - 15%)) 0%,
                     hsl(${hue}, ${baseSat}, calc(${baseLight} - 10%)) 100%);
-                border-top: 2px solid ${gold};
-                border-bottom: 2px solid ${gold};
+                border-top: 6px solid ${gold};
+                border-bottom: 6px solid ${gold};
                 border-left: 1px solid rgba(255,255,255,0.15);
                 border-right: 1px solid rgba(0,0,0,0.3);
                 color: ${gold};
@@ -500,32 +601,71 @@ class LibraryApp {
         `;
         break;
 
-    case 11: // Textured (optimized)
+    case 11: { // Gilded Texture
+        const cornerSize = '0.8em';
+        const cornerThickness = '0.15em';
         styleString = `
             background-color: ${c2};
-            background-image: radial-gradient(${c3} 1px, transparent 1px);
-            background-size: 0.5em 0.5em;
-            opacity: 0.9;
+            background-image:
+                /* Corners (top layer) */
+                linear-gradient(to right, ${gold} ${cornerThickness}, transparent ${cornerThickness}),
+                linear-gradient(to bottom, ${gold} ${cornerThickness}, transparent ${cornerThickness}),
+                linear-gradient(to left, ${gold} ${cornerThickness}, transparent ${cornerThickness}),
+                linear-gradient(to bottom, ${gold} ${cornerThickness}, transparent ${cornerThickness}),
+                linear-gradient(to right, ${gold} ${cornerThickness}, transparent ${cornerThickness}),
+                linear-gradient(to top, ${gold} ${cornerThickness}, transparent ${cornerThickness}),
+                linear-gradient(to left, ${gold} ${cornerThickness}, transparent ${cornerThickness}),
+                linear-gradient(to top, ${gold} ${cornerThickness}, transparent ${cornerThickness}),
+                /* Texture (bottom layer) */
+                radial-gradient(${c3} 1px, transparent 1px);
+            background-repeat: no-repeat, no-repeat, no-repeat, no-repeat, no-repeat, no-repeat, no-repeat, no-repeat, repeat;
+            background-size: 
+                ${cornerSize} ${cornerSize}, ${cornerSize} ${cornerSize}, ${cornerSize} ${cornerSize}, ${cornerSize} ${cornerSize},
+                ${cornerSize} ${cornerSize}, ${cornerSize} ${cornerSize}, ${cornerSize} ${cornerSize}, ${cornerSize} ${cornerSize},
+                0.5em 0.5em;
+            background-position: 
+                top left, top left, top right, top right, 
+                bottom left, bottom left, bottom right, bottom right,
+                0 0;
+            color: ${gold}; /* Use gold text to match corners */
+            text-shadow: 0 1px 2px rgba(0,0,0,0.7);
+            border-left: 1px solid rgba(255,255,255,0.15);
+            border-right: 1px solid rgba(0,0,0,0.3);
+        `;
+        break;
+    }
+
+    case 12: { // Ornate Speckle
+        styleString = `
+            background-color: ${c2};
+            background-image: 
+                /* Corner Dots (top-most layer) */
+                radial-gradient(circle at 10% 10%, ${gold} 0.12em, transparent 0.18em),
+                radial-gradient(circle at 90% 10%, ${gold} 0.12em, transparent 0.18em),
+                radial-gradient(circle at 10% 90%, ${gold} 0.12em, transparent 0.18em),
+                radial-gradient(circle at 90% 90%, ${gold} 0.12em, transparent 0.18em),
+                /* Gilded Bands (middle layer) */
+                linear-gradient(to bottom,
+                    ${c3} 0%, ${c3} 5%,
+                    ${gold} 5%, ${gold} 7%,
+                    ${c3} 7%, ${c3} 15%,
+                    transparent 15%, transparent 85%, /* Transparent middle section */
+                    ${c3} 85%, ${c3} 93%,
+                    ${gold} 93%, ${gold} 95%,
+                    ${c3} 95%, ${c3} 100%),
+                /* Speckle Pattern (bottom layers) */
+                radial-gradient(${c1} 0.1em, transparent 0.1em),
+                radial-gradient(${c1} 0.1em, transparent 0.1em);
+            background-size: auto, auto, auto, auto, 100% 100%, 0.6em 0.6em, 0.6em 0.6em;
+            background-position: top left, top right, bottom left, bottom right, 0 0, 0 0, 0.3em 0.3em;
+            background-repeat: no-repeat, no-repeat, no-repeat, no-repeat, no-repeat, repeat, repeat;
             color: ${textColor};
             text-shadow: 0 1px 2px rgba(0,0,0,0.7);
             border-left: 1px solid rgba(255,255,255,0.15);
             border-right: 1px solid rgba(0,0,0,0.3);
         `;
         break;
-
-    case 12: // Speckled
-        styleString = `
-            background-image: radial-gradient(${c1} 0.1em, transparent 0.1em),
-                              radial-gradient(${c1} 0.1em, transparent 0.1em);
-            background-size: 0.6em 0.6em;
-            background-position: 0 0, 0.3em 0.3em;
-            background-color: ${c2};
-            color: ${textColor};
-            text-shadow: 0 1px 2px rgba(0,0,0,0.6);
-            border-left: 1px solid rgba(255,255,255,0.15);
-            border-right: 1px solid rgba(0,0,0,0.3);
-        `;
-        break;
+    }
 
     case 13: // Art Deco
         styleString = `
@@ -572,35 +712,96 @@ class LibraryApp {
         `;
         break;
 
-    case 16: // Vellum
+    case 16: { // Decorated Vellum
         const vellumBg = `hsl(40, 25%, 92%)`;
         const vellumText = `hsl(40, 15%, 20%)`;
         const vellumMottle = `hsla(40, 20%, 85%, 0.5)`;
+        const inkColor = vellumText;
+        const cornerSize = '0.8em';
+        const cornerThickness = '0.15em';
         styleString = `
             background-color: ${vellumBg};
-            background-image: radial-gradient(${vellumMottle} 0.1em, transparent 0.1em);
-            background-size: 0.3em 0.3em;
+            background-image:
+                /* Corner Brackets (top layer) */
+                linear-gradient(to right, ${inkColor} ${cornerThickness}, transparent ${cornerThickness}),
+                linear-gradient(to bottom, ${inkColor} ${cornerThickness}, transparent ${cornerThickness}),
+                linear-gradient(to left, ${inkColor} ${cornerThickness}, transparent ${cornerThickness}),
+                linear-gradient(to bottom, ${inkColor} ${cornerThickness}, transparent ${cornerThickness}),
+                linear-gradient(to right, ${inkColor} ${cornerThickness}, transparent ${cornerThickness}),
+                linear-gradient(to top, ${inkColor} ${cornerThickness}, transparent ${cornerThickness}),
+                linear-gradient(to left, ${inkColor} ${cornerThickness}, transparent ${cornerThickness}),
+                linear-gradient(to top, ${inkColor} ${cornerThickness}, transparent ${cornerThickness}),
+                /* Vellum Mottle (bottom layer) */
+                radial-gradient(${vellumMottle} 0.1em, transparent 0.1em);
+            background-repeat: no-repeat, no-repeat, no-repeat, no-repeat, no-repeat, no-repeat, no-repeat, no-repeat, repeat;
+            background-size: 
+                ${cornerSize} ${cornerSize}, ${cornerSize} ${cornerSize}, ${cornerSize} ${cornerSize}, ${cornerSize} ${cornerSize},
+                ${cornerSize} ${cornerSize}, ${cornerSize} ${cornerSize}, ${cornerSize} ${cornerSize}, ${cornerSize} ${cornerSize},
+                0.3em 0.3em;
+            background-position: 
+                top left, top left, top right, top right, 
+                bottom left, bottom left, bottom right, bottom right,
+                0 0;
             color: ${vellumText};
             border: 1px solid #d1c7b8;
+            box-shadow: inset 0 0 0.5em hsla(40, 20%, 85%, 0.8); /* Inner shadow for depth */
             text-shadow: 0 1px 1px rgba(255,255,255,0.6);
         `;
         break;
+    }
 
-    case 17: // Linen Wrap
-        const linenColor = `hsl(${hue}, 15%, 50%)`;
-        const linenTexture = `
-            repeating-linear-gradient(45deg, hsla(0,0%,100%,0.05), hsla(0,0%,100%,0.05) 0.05em, transparent 0.05em, transparent 0.25em),
-            repeating-linear-gradient(-45deg, hsla(0,0%,100%,0.05), hsla(0,0%,100%,0.05) 0.05em, transparent 0.05em, transparent 0.25em)
-        `;
+    case 17: { // Embossed Star Atlas
+        const darkSky = `hsl(${hue}, 50%, 10%)`;
+        const starColor = `hsla(0, 0%, 100%, 0.9)`;
+        const faintStarColor = `hsla(0, 0%, 100%, 0.5)`;
+        const constellationColor = `hsla(50, 100%, 80%, 0.4)`;
+        const nebulaColor = `hsla(${(hue + 180) % 360}, 50%, 20%, 0.3)`;
+        const bandColor = `hsl(${hue}, 40%, 5%)`;
+        const bandShadow = `hsla(0, 0%, 0%, 0.3)`;
+        const bandHighlight = `hsla(0, 0%, 100%, 0.08)`; // Subtle highlight for the top edge
         styleString = `
-            background-color: ${linenColor};
-            background-image: ${linenTexture};
-            color: hsl(${hue}, 10%, 90%);
-            text-shadow: 0 1px 2px rgba(0,0,0,0.4);
-            border-left: 1px solid rgba(255,255,255,0.15);
-            border-right: 1px solid rgba(0,0,0,0.3);
+            background-color: ${darkSky};
+            background-image:
+                /* Embossed Gilded Bands (top layer) */
+                linear-gradient(to bottom,
+                    /* Top band */
+                    ${bandColor} 0%, ${bandColor} 8%,
+                    ${bandHighlight} 8%, ${bandHighlight} 8.2%, /* Highlight above gold */
+                    ${gold} 8.2%, ${gold} 10%,
+                    ${bandShadow} 10%, ${bandShadow} 10.2%, /* Shadow below gold */
+                    ${bandColor} 10.2%, ${bandColor} 15%,
+                    transparent 15%, transparent 85%, /* Transparent middle section */
+                    /* Bottom band */
+                    ${bandColor} 85%, ${bandColor} 90%,
+                    ${bandHighlight} 90%, ${bandHighlight} 90.2%, /* Highlight above gold */
+                    ${gold} 90.2%, ${gold} 92%,
+                    ${bandShadow} 92%, ${bandShadow} 92.2%, /* Shadow below gold */
+                    ${bandColor} 92.2%, ${bandColor} 100%),
+                /* Starfield layers below */
+                radial-gradient(0.08em 0.08em at 20% 15%, ${starColor}, transparent),
+                radial-gradient(0.1em 0.1em at 50% 50%, ${starColor}, transparent),
+                radial-gradient(0.06em 0.06em at 90% 70%, ${starColor}, transparent),
+                radial-gradient(0.05em 0.05em at 80% 25%, ${faintStarColor}, transparent),
+                radial-gradient(0.04em 0.04em at 30% 85%, ${faintStarColor}, transparent),
+                radial-gradient(0.05em 0.05em at 10% 60%, ${faintStarColor}, transparent),
+                radial-gradient(0.06em 0.06em at 70% 90%, ${faintStarColor}, transparent),
+                linear-gradient(125deg, transparent 48%, ${constellationColor} 49%, ${constellationColor} 50%, transparent 51%),
+                linear-gradient(25deg, transparent 48%, ${constellationColor} 49%, ${constellationColor} 50%, transparent 51%),
+                linear-gradient(-30deg, transparent 30%, ${constellationColor} 31%, ${constellationColor} 32%, transparent 33%),
+                radial-gradient(ellipse at 70% 30%, ${nebulaColor} 0%, transparent 60%);
+            background-repeat: no-repeat; /* Apply to all layers */
+            background-size: 
+                100% 100%, /* 1. Bands */
+                auto, auto, auto, auto, auto, auto, auto, /* 7 stars (use their intrinsic size) */
+                100% 100%, 100% 100%, 100% 100%, /* 3 constellations */
+                100% 100%; /* 1 nebula */
+            color: hsl(50, 80%, 90%);
+            text-shadow: 0 0 0.3em hsl(50, 100%, 80%);
+            border-left: 1px solid rgba(255,255,255,0.2);
+            border-right: 1px solid rgba(0,0,0,0.4);
         `;
         break;
+    }
 
     case 18: // Raised Bands
         styleString = `
@@ -714,22 +915,39 @@ class LibraryApp {
     `;
     break;
 
-    case 25: // Pinstripe Elegance
-    styleString = `
-        background-color: ${c2};
-        background-image: repeating-linear-gradient(
-            to bottom,
-            ${c1},
-            ${c1} 0.08em,
-            transparent 0.08em,
-            transparent 0.25em
-        );
-        border-left: 1px solid rgba(255,255,255,0.15);
-        border-right: 1px solid rgba(0,0,0,0.25);
-        color: ${textColor};
-        text-shadow: 0 1px 2px rgba(0,0,0,0.6);
-    `;
-    break;
+    case 25: { // Gilded Watercolor
+        const bgColor = `hsl(40, 30%, 95%)`;
+        const textColor = `hsl(${hue}, 20%, 20%)`;
+        const ink1 = `hsla(${hue}, 50%, 70%, 0.4)`;
+        const ink2 = `hsla(${(hue + 40) % 360}, 55%, 65%, 0.35)`;
+        const ink3 = `hsla(${(hue - 20) % 360}, 45%, 75%, 0.45)`;
+        const bandColor = `hsl(40, 25%, 90%)`;
+        styleString = `
+            background-color: ${bgColor};
+            background-image:
+                /* Gilded Bands (top layer) */
+                linear-gradient(to bottom,
+                    ${bandColor} 0%, ${bandColor} 5%,
+                    ${gold} 5%, ${gold} 7%,
+                    ${bandColor} 7%, ${bandColor} 15%,
+                    transparent 15%, transparent 85%, /* Transparent middle section */
+                    ${bandColor} 85%, ${bandColor} 93%,
+                    ${gold} 93%, ${gold} 95%,
+                    ${bandColor} 95%, ${bandColor} 100%),
+                /* Watercolor Blooms */
+                radial-gradient(ellipse at 20% 15%, ${ink1} 0%, transparent 50%),
+                radial-gradient(ellipse at 80% 30%, ${ink2} 0%, transparent 40%),
+                radial-gradient(ellipse at 50% 80%, ${ink3} 0%, transparent 60%),
+                radial-gradient(ellipse at 90% 95%, ${ink1} 0%, transparent 50%);
+            background-repeat: no-repeat;
+            background-size: 100% 100%;
+            color: ${textColor};
+            text-shadow: 0 1px 1px hsla(0, 0%, 100%, 0.6);
+            border: 1px solid hsl(40, 20%, 88%);
+            box-shadow: inset 0 0 0.4em hsla(40, 20%, 90%, 0.7);
+        `;
+        break;
+    }
 
     case 26: // Gilded Border
     styleString = `
@@ -890,6 +1108,8 @@ class LibraryApp {
         const plaid2 = `hsla(${(hue + 20) % 360}, 35%, 35%, 0.5)`;
         styleString = `
             background-color: ${c3};
+            border-top: 2px dashed hsla(35, 20%, 70%, 0.8);
+            border-bottom: 2px dashed hsla(35, 20%, 70%, 0.8);
             background-image:
                 repeating-linear-gradient(${c2} 0, ${c2} 0.5em, transparent 0.5em, transparent 2.5em),
                 repeating-linear-gradient(90deg, ${plaid1} 0, ${plaid1} 0.5em, transparent 0.5em, transparent 2.5em),
@@ -902,7 +1122,7 @@ class LibraryApp {
         `;
         break;
 
-    case 36: // Stitched Leather (was 37)
+    case 36: // Stitched Leather 
         styleString = `
             background: linear-gradient(to bottom,
                 hsl(${hue}, calc(${baseSat} - 10%), calc(${baseLight} - 15%)) 0%,
@@ -949,18 +1169,8 @@ class LibraryApp {
     }
 
     getStyleTypeByName(name) {
-        const map = {
-            'banded': 0, 'gilded': 1, 'striped': 2, 'polka-dots': 3,
-            'double-band': 4, 'checkered': 5, 'checkered-small': 6, 'diamond': 7,
-            'crosshatch': 8, 'leather-bound': 9, 'zigzag': 10, 'textured': 11,
-            'speckled': 12, 'art-deco': 13, 'cosmic': 14, 'tooled-leather': 15, 'vellum': 16,
-            'linen-wrap': 17, 'raised-bands': 18, 'silk-brocade': 19, 'inlaid-wood': 20,
-            'geometric-mosaic': 21, 'moonbeam-deco': 22, 'sunburst-deco': 23, 'geometric-weave': 24, 'pinstripe-elegance': 25,
-            'gilded-border': 26, 'crosshatch-linen': 27, 'double-band-classic': 28, 'embossed-leather': 29,
-            'divider-bands': 30, 'ornamental-frame': 31, 'luxury-foil': 32, 'gilded-corners': 33,
-            'marbled-ink': 34, 'tartan-plaid': 35, 'stitched-leather': 36,
-        };
-        return map[(name || '').toLowerCase()] ?? 0; // Default to 'banded' if name is invalid
+        // Default to 'banded' if name is invalid
+        return this.spineStyleMap[(name || '').toLowerCase()] ?? 0;
     }
 
     getCategoryDescription(cat) {
@@ -1161,6 +1371,13 @@ class LibraryApp {
         return this.filteredContent;
     }
     
+    getSpineStyles(options = {}) {
+        return Object.keys(this.spineStyleMap).map(name => ({
+            name: name,
+            id: this.spineStyleMap[name]
+        }));
+    }
+
     refreshContent() {
         this.loadContent();
         this.filterContent();

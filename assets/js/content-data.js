@@ -12,22 +12,22 @@
 
         banded
         gilded
-        striped
-        polka-dots
+        gilded-chevron
+        gilded-dots
         double-band
-        checkered
-        checkered-small
+        checkered-gilded-corners
+        gilded-checkers
         diamond
         crosshatch
         leather-bound
         zigzag
-        textured
-        speckled
+        gilded-texture
+        ornate-speckle
         art-deco
         cosmic
         tooled-leather
-        vellum
-        linen-wrap
+        decorated-vellum
+        embossed-star-atlas
         raised-bands
         silk-brocade
         inlaid-wood
@@ -35,7 +35,7 @@
         moonbeam-deco
         sunburst-deco
         geometric-weave
-        pinstripe-elegance
+        gilded-watercolor
         gilded-border
         crosshatch-linen
         double-band-classic
@@ -55,7 +55,7 @@
  * - downloadUrl: URL to downloadable file (optional only on novels)
  * - wordCount: Approximate word count
  * - readingTime: Estimated reading time in minutes
- */
+*/
 
 const LIBRARY_CONTENT = {
     novels: 
@@ -64,7 +64,7 @@ const LIBRARY_CONTENT = {
             id: "novel-000",
             title: "Where the Jacarandas Bloom",
             category: "novels",
-            spineDesign: "ornamental-frame",
+            spineDesign: "gilded-watercolor",
             excerpt: "A story of two lifelong best friends, Zev and Celise, who have secretly been in love for years. After a tragic accident forces their feelings into the open, they must navigate the aftermath of shared trauma and learn that the hardest words to say are often the ones that matter most.",
             content: "<h1>Jacarandas Bloom</h1><p class=\"chapter-meta\">Chapter 1: Zev's POV</p><p>The sleeves of my hoodie are frayed at the edges, the fabric worn thin from years of nervous fidgeting. The left cuff has a small hole forming near the seam, and a coffee stain from last Tuesday when my hands shook too much to hold the cup steady. I pull the sleeves down over my hands now, the familiar softness a comfort against my anxiety. The fabric smells faintly of lavender detergent and something else—maybe hope, maybe fear. It's hard to tell the difference anymore.</p><p>I'm walking the same route I've taken a thousand times before, but today everything feels different. Heavier. Like the air itself knows what I'm planning to do. My backpack feels heavier too, though it's just the usual things—keys, charger, and one folded confession I've carried for too long.</p><p>Mrs. Chen's bookstore on Maple Street looks exactly the same as it did when Celise and I were eight, pressing our noses against the rain-streaked windows to peer at the new releases we couldn't afford. The owner, Mrs. Chen, still has that handwritten sign in the window: \"Books are dreams you hold in your hands.\" Celise always said that was the most beautiful thing she'd ever read. I never told her I thought the same thing about the way she looked when she read—lips slightly parted, completely lost in whatever world lived between those pages.</p><p>I should have told her a lot of things. The wind picks up, carrying the scent of approaching rain and something floral— jacaranda, maybe, though the trees won't bloom until spring. It reminds me of her perfume, light and sweet, the kind that lingers just long enough to make you lean closer without realizing you're doing it.</p><p>My phone buzzes in my pocket. A text from her: \"Wouldn't miss it, See you at 6 under our tree!!❤️\" — her reply to the one I sent a few minutes ago, confirming our 6 PM meeting. The heart emoji makes my chest tight. She uses them for everyone—her mom, her sister, the barista at the coffee shop who always remembers her order. It doesn't mean anything. I know this. But I save the message anyway, like I save all of them, because sometimes late at night I scroll through our conversations and pretend the casual affection in her words means more than it does.</p><p>The bus stop where we used to wait every morning during our senior year of high school is empty now. We're college sophomores now, but I still find myself walking past this place. I sit on the same bench where she used to do her homework, legs tucked under her, hair falling like a curtain across her face. I was always finding excuses to sit close enough to help—reaching over to point out a mistake in her calculus, leaning in to read a passage from her English essay. Any reason to be near her, to breathe in that faint sweetness that seemed to follow her everywhere.</p><p>\"You're so patient with me,\" she'd say, bumping my shoulder with hers. \"I don't know what I'd do without you, Zev.\" I wanted to tell her she'd never have to find out.</p><p>I reach into my backpack and feel the crinkled edges of the letter I've been carrying for three weeks. Twenty-seven drafts, each one thrown away, each one not quite right. This one isn't right either, but it's the closest I've come to saying what I mean:</p><blockquote><p>Celise,</p><p>I've been trying to write this for longer than you know. There are things I should have said years ago, things that have been living in the spaces between our conversations, in the moments when you laugh and I forget how to breathe.</p><p>I love you. Not the way friends love each other, but the way the ocean loves the shore—constantly, desperately, like I can't exist without touching some part of you. I love the way you hum when you're concentrating, and how you always order extra fries because you know I'll steal half of them.</p><p>I love that you see magic in ordinary things, and somehow, you've made me believe in it too.</p><p>I know I'm not brave enough to say this out loud, and I know this might change everything between us. But I can't keep pretending that what I feel for you is anything less than everything. You are my everything, Celise. You always have been.</p><p>If you're reading this, it means I finally found the courage to give it to you. Or maybe the universe decided for me. Either way, I needed you to know.</p><p>I love you.<br>Always, Zev</p></blockquote><p>I slip the letter into my backpack and zip it shut carefully, like it might fall apart if I move too fast. If I can't say it out loud, maybe this letter can do it for me.</p><p>The bench under the jacaranda tree is our spot—has been since we were fourteen and Celise declared it the most romantic place in the entire city. \"Look how the branches make a ceiling,\" she'd said, spinning with her arms outstretched. \"It's like nature's cathedral.\" I'd watched her turn in circles until she was dizzy, and when she stumbled, I caught her elbow to steady her. For just a second, she was close enough that I could count the freckles across her nose, close enough that all I would have had to do was lean down and— But I didn't. I never do.</p><p>The tree is bare now, winter-thin branches reaching toward a sky that's gone gray at the edges. Storm clouds gathering, the way they always seem to when something important is about to happen. Or maybe that's just in movies. Maybe real life doesn't give you that kind of poetry.</p><p>I check my phone again. 5:52 p.m. Eight more minutes. I'm early, like always. I find a spot on the bench across from our usual meeting place, close enough to see the jacaranda tree but not quite at our bench yet. Celise runs on what she calls \"fashionably late time,\" which usually means five to ten minutes after we agree to meet. It's one of the few things about her that drives me crazy, but I've learned to factor it into my expectations.</p><p>My hands are shaking, and I shove them deeper into my hoodie pocket, feeling the worn softness of the fabric against my knuckles. There's a hole forming near the left seam, small enough that I can poke my thumb through it. Celise noticed it last week, traced the edge with her fingertip. \"You need a new sweatshirt,\" she'd said, but she was smiling when she said it. \"This one's falling apart.\" \"I like this one,\" I'd told her, which was true. I like it because it was what I was wearing the first time she hugged me— really hugged me, not just the quick side-squeeze she gives everyone. I was seventeen and heartbroken over some girl I barely even remember now, and Celise had just sat beside me on the curb outside school without saying a word. Then, after a long silence, she'd wrapped her arms around me, warm and sure, like she could hold all the cracked pieces together if she just held tight enough. She didn't let go until I stopped shaking. And maybe that was the moment I realized: it was always her.</p><p>I see the bench across the street—our bench—waiting beneath the jacaranda tree. I check my phone again. 5:58 p.m. Two more minutes. That's when I see her.</p><p>Celise appears around the corner, walking toward our meeting spot from the other direction. Even from across the street, I can see the burgundy sweater, the cream cardigan. My heart races—this is it. This is when I finally tell her everything. I stand up, raising my hand in a small wave. She sees me and waves back, that radiant smile breaking across her face. I shift the strap of my backpack on my shoulder, fingers brushing the zipper. The letter is still there.</p><p>Time to be brave. Time to cross this street and change everything.</p><p>I step off the curb into the crosswalk. And then—</p><p>Headlights. Brakes.</p><p>The world tilts.</p>",
             date: "2025-08-16",
@@ -98,7 +98,7 @@ const LIBRARY_CONTENT = {
             id: 'note-000',
             title: 'I tried.',
             category: 'notes',
-            spineDesign: 'speckled',
+            spineDesign: 'embossed-star-atlas',
             excerpt: 'How learning to truly see the world around us can transform our writing and our understanding of human nature.',
             content: `<h1>I Tried</h1><p class="note-meta">Fragments of Me • 2025</p><p>I tried to be the safe place. The soft landing. The quiet in someone else’s storm. The light in the dark even when it meant dimming my own so they wouldn’t feel blind.<br><br>I tried to believe that if I was kind enough, patient enough, constant enough… they would finally stay. Finally choose me. Finally see that behind every “I’m fine” was a silent scream. Behind every understanding smile was a heart begging to be heard. Behind every act of love was a quiet prayer that maybe, this time, I wouldn’t be forgotten.<br><br>I carried the weight of people who never asked me how heavy it was. I was the calm for people who never noticed how often I drowned in their storms. I stayed strong for people who never realized how much it hurt to pretend.<br><br>And still, I gave. And gave. And gave until all I had left were faint echoes of myself: exhausted, stretched too thin, convinced that love was sacrifice, mistaking abandonment for a test of loyalty.<br><br>Even when they pushed me away, broke the parts of me they once claimed to cherish, and left without explanation, I stayed. Hands outstretched. Hoping they’d turn around. Hoping love would be enough to anchor someone who never wanted to stay.<br><br>But it wasn’t. And maybe it never could be.<br><br>Because I tried to build a home in people who only ever saw me as a temporary shelter. And now I’m standing in the ruins of what I thought was love, realizing the only person I never gave enough to… was me.<br><br>And in the quiet that follows the collapse, I am left picking up the pieces: fragments of dreams I once shared, versions of myself I no longer recognize, love that was real to me even if it was never enough for them.<br><br>I’m learning, slowly, painfully, that healing isn’t always loud or poetic. Sometimes it’s messy. Sometimes it’s just waking up and choosing not to call, not to chase, not to explain your worth to someone who never tried to understand it.<br><br>I’m learning that love should never feel like begging. That affection shouldn’t come with conditions. That being needed is not the same as being loved.<br><br>And maybe for once I’m done trying for everyone else. Maybe it’s finally time to try for me.</p>`,
             date: '2024-02-10',
@@ -111,7 +111,7 @@ const LIBRARY_CONTENT = {
             id: 'note-001',
             title: 'Choosing Through the Pain',
             category: 'notes',
-            spineDesign: 'inlaid-wood',
+            spineDesign: 'tartan-plaid',
             excerpt: 'A raw reflection on how love persists, even through pain and brokenness.',
             content: `<h1>Choosing Through the Pain</h1><p class="quote-meta">Heart in the Ache • 2025</p><blockquote class="quote-block"><p>"Love is when nothing feels okay, when everything is breaking you apart, yet your heart still chooses the same person over and over again."</p><cite>— Me</cite></blockquote><br><p>We often imagine love as comfort, safety, and ease. But sometimes, love reveals itself most in the ache—the choice to keep holding onto someone even when it hurts. It's not about perfection or peace, but about the persistence of the heart against all odds.</p><blockquote class="quote-block"><p>"Love is not just about joy. Sometimes, it's the stubborn longing for the same soul, even in the middle of the storm."</p><cite>— Me</cite></blockquote><br><p>This kind of love is not weakness. It is the quiet strength to care beyond pain, to choose beyond reason. It’s messy, imperfect, and deeply human. And though it can break you, it also proves the depth of what it means to truly feel alive.</p>`,
             date: '2025-08-22',
@@ -125,7 +125,7 @@ const LIBRARY_CONTENT = {
             id: 'note-002',
             title: 'On Choosing Without Being Chosen',
             category: 'notes',
-            spineDesign: 'striped',
+            spineDesign: 'gilded-chevron',
             excerpt: 'Sometimes the bravest love is the one that expects nothing in return.',
             content: '<h1>On Choosing Without Being Chosen</h1><p class="note-meta">Quiet Courage • 2025</p><p>Love does not always come with a return.<br><br>Sometimes, it is about giving fully to someone<br>who may never give the same in return.<br><br>It is about honesty.<br>Confessing is not about winning their heart.<br>It is about freeing yourself from silence.<br>Silence leaves questions that never end.<br>It leaves you asking what ifs every day.<br><br>Even when it hurts.<br>Even when it feels one-sided.<br>There is dignity in loving openly.<br><br>Love is measured not by what you receive.<br>It is measured by what you are willing to give.<br>It is measured by the courage to stay vulnerable<br>even when the outcome is uncertain.<br><br>This is the quiet strength of choosing without being chosen.</p>',
             date: '2025-08-22',
@@ -138,7 +138,7 @@ const LIBRARY_CONTENT = {
             id:'note-003',
             title:'Loyalty Shown in Boundaries',
             category:'notes',
-            spineDesign:'tartan-plaid',
+            spineDesign:'checkered-gilded-corners',
             excerpt:'Loyalty is not complicated—it is shown in daily decisions, boundaries, and respect.',
             content:`<h1>Loyalty Shown in Boundaries</h1><p class="quote-meta">Trust and Boundaries • 2025</p><p>A loyal woman is shown by what she allows and what she refuses.</p><br><p>She does not spend her free time entertaining men who hope for her attention.<br>She does not excuse questionable behavior by calling them brothers.<br>She does not leave you to feel uneasy and then blame you for being insecure.</p><br><p>When a woman respects the relationship, she sets clear boundaries.<br>She tells her friends what is off limits.<br>She chooses time with you over time with men who wait for your mistakes.<br>She values peace in the relationship more than validation from outside.</p><br><p>This is not about control. It is about respect.<br>You should not compete with men who only stay close because they want a chance.<br>You should not question if she is protecting what you both built.<br>You should feel safe knowing she does not keep backup options.</p><br><p>Loyalty is not complicated.<br>It is shown in daily decisions.<br>It is choosing your partner even when no one is watching.<br>It is protecting trust before it breaks.</p>`,
             date:'2025-08-31',
@@ -216,7 +216,7 @@ const LIBRARY_CONTENT = {
             id:'note-009',
             title:'The Value of Risk',
             category:'notes',
-            spineDesign:'checkered-small',
+            spineDesign:'gilded-checkers',
             excerpt:'Taking the risk is the only way to end uncertainty and know the answer.',
             content:`<h1>The Value of Risk</h1><p class="quote-meta">Facing fear to know the answer • 2025</p><p>Some people say, "Take the risk or lose the chance."<br><br>But taking a risk is not always simple.<br>Sometimes you want it, but fear holds you back.<br>Fear of consequences.<br>Fear of change.<br>Fear of rejection.<br>Fear that the outcome could alter everything.<br><br>If you never make a move, nothing will change.<br>The chance will remain a question mark.<br>The feelings you hide will remain unanswered.<br><br>Every risk carries the possibility of pain.<br>Not everyone will feel the same.<br>Not everyone will respond the way you hope.<br>You must be ready to face that.<br><br>Still, fear should not keep you from trying.<br>Taking the risk is the only way to end the uncertainty.<br>It is the only way to know if the chance was real.<br>It is the only way to avoid looking back and asking "what if."<br><br>Life moves forward only when you act.<br>Regret is heavier than failure.<br>The cost of doing nothing is greater than the cost of trying.<br><br>Sometimes the risk is not about winning.<br>It is about knowing.<br>It is about freeing yourself from silence.<br>It is about choosing to live fully, even when the outcome is uncertain.</p>`,
             date:'2025-08-31',
@@ -304,7 +304,7 @@ const LIBRARY_CONTENT = {
             id: 'quote-000',
             title: 'On Life and Realization',
             category: 'quotes',
-            spineDesign: 'vellum',
+            spineDesign: 'decorated-vellum',
             excerpt: 'The tragedy of life is realizing too late that you already had what you were searching for.',
             content: `<h1>On Life and Realization</h1><p class="quote-meta">Collected Thoughts • 2025</p><blockquote class="quote-block"><p>"The tragedy of life is that you don’t notice the small moments until they’re already gone—and by then, you realize they were the very things you were searching for all along."</p><cite>— The Fool</cite></blockquote>`,
             date: '2024-02-12',
@@ -368,3 +368,15 @@ const LIBRARY_CONTENT = {
 };
 
 /// Update 8/22/2025
+
+/**
+ * Developer utility to log available spine designs.
+ * This helps keep the header comment in this file up-to-date.
+ * It will only run if the libraryApp is available on the window.
+ */
+document.addEventListener('DOMContentLoaded', () => {
+    if (window.libraryApp && typeof window.libraryApp.getSpineStyles === 'function') {
+        const styles = window.libraryApp.getSpineStyles({}).map(s => s.name).sort();
+        console.log("Available Spine Designs:", styles);
+    }
+});
