@@ -288,6 +288,19 @@ const LIBRARY_CONTENT = {
             tags:['love','commitment','respect'],
             wordCount:444,
             readingTime:2
+        },
+
+        {
+            id:'note-015',
+            title:'Worth the Change',
+            category:'notes',
+            spineDesign:'tooled-leather',
+            excerpt:'Red flags do not define a heart that loves deeply.',
+            content:`<h1>Worth the Change</h1><p class="quote-meta">Love makes you want to grow • 2025</p><p>I want to be honest with you. I know I am not perfect. I know I come with flaws that are hard to ignore.<br>I vape. I drink. I have piercings.<br>And maybe to some people, those things are enough for them to say I am not worth their time.<br>Maybe to some, I am already a red flag before I even get the chance to explain who I really am.<br><br>But I want you to know this: I am not my habits.<br>I am not my piercings, my choices, or the mistakes I’ve made.<br>I am someone who values love deeply.<br>I am someone who believes in loyalty, in patience, and in respect.<br>I have never treated anyone I love with disrespect, and I never will.<br>I would rather break myself than break the trust of someone who gave me their heart.<br><br>And if it’s you, I want you to know that I am willing to change.<br>Not because you demand it, but because you give me a reason to want to be better.<br>If you told me you are not comfortable with the way I live now, I would work on myself.<br>If you asked me to let go of habits that harm me, I would try with everything in me.<br>Not out of fear of losing you, but out of love.<br>Because you are the kind of person who makes me want to grow.<br><br>I cannot stand here and promise you a perfect love, because I am not perfect.<br>But what I can promise is effort.<br>I can promise honesty.<br>I can promise patience.<br>I can promise you my presence through the hardest days, and my loyalty when everything feels uncertain.<br>I can promise to choose you, again and again, even when life makes it hard.<br><br>If I love you, I will not love you halfway.<br>I will risk it all.<br>I will stay even when there are no assurances.<br>I will prove that love is not measured by how easy things are, but by how much you are willing to fight for it.<br><br>So maybe I have red flags.<br>Maybe I am not the safe, clean choice.<br>But my heart is not a red flag.<br>My heart is steady, it is loyal, it is yours if you want it.<br>And if you let me in, I will spend every day proving that you did not make a mistake in choosing me.<br><br>Because to me, you are worth the change.<br>You are worth the fight.<br>You are worth everything.</p>`,
+            date:'2025-08-31',
+            tags:['love','growth','honesty'],
+            wordCount:493,
+            readingTime:2
         }
 
 

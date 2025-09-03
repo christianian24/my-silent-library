@@ -226,14 +226,16 @@ class ReadingModal {
         this.modal.classList.add('show');
         // Force a reflow before adding the class that triggers the animation
         requestAnimationFrame(() => {
-            // Add class to trigger the animation
+            // This class triggers the animation in your CSS.
             this.modalContentWrapper.classList.add('is-opening');
 
-            // Defer heavy content update until after the animation has started
-            this.updateModalContent(content);
-
-            // Restore reading progress after content is loaded
-            this.restoreProgress(content.id);
+            // CRITICAL FIX: Defer the heavy DOM update with a small timeout.
+            // This allows the browser's main thread to focus on starting the
+            // CSS transition smoothly, preventing the initial "lag" or "jank".
+            setTimeout(() => {
+                this.updateModalContent(content);
+                this.restoreProgress(content.id);
+            }, 50); // 50ms is usually enough and is imperceptible to the user.
         });
         // --- Animation End ---
 
