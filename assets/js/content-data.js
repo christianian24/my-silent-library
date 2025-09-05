@@ -8,7 +8,7 @@
  * - title: Title of the work
  * - category: Type of content (novels, notes, quotes)
  * - spineDesign: Design style for the book spine
- * New Spine Designs - Here is the full list of all 37 available spine designs:
+ * New Spine Designs - Here is the full list of all 38 available spine designs:
 
         banded
         gilded
@@ -47,7 +47,7 @@
         marbled-ink
         tartan-plaid
         stitched-leather
-        
+        filigree-bands
  * - excerpt: Short description or preview
  * - content: Full content (can be HTML or markdown-like text)
  * - date: Publication date
@@ -301,7 +301,21 @@ const LIBRARY_CONTENT = {
             tags:['love','growth','honesty'],
             wordCount:493,
             readingTime:2
+        },
+
+        {
+            id:'qoute-016',
+            title:'It Happens',
+            category:'notes',
+            spineDesign:'split',
+            excerpt:'Acceptance is part of living.',
+            content:`<h1>It Happens</h1><p class="quote-meta">Letting go of control • 2025</p><p>Sometimes you just have to accept it <br>it's okay, it happens, it’s life.<br><br>Not everything will go as planned.<br>Not every answer will make sense.<br>But that does not mean you failed.<br><br>Acceptance is not giving up.<br>It is choosing peace over resistance.<br>It is learning to move forward without carrying what you cannot change.<br><br>Life keeps moving, and so can you.</p>`,
+            date:'2025-08-31',
+            tags:['acceptance','life','peace'],
+            wordCount:85,
+            readingTime:1
         }
+
 
 
 
@@ -373,7 +387,23 @@ const LIBRARY_CONTENT = {
             tags:['relationships','attention','self-worth'],
             wordCount:24,
             readingTime:1
+        },
+
+        {
+            id:'quote-005',
+            title:'Sorry for Existing',
+            category:'quotes',
+            spineDesign:'split',
+            excerpt:'Sometimes love means stepping back.',
+            content:`<h1>Sorry for Existing</h1><p class="quote-meta">When presence feels heavy • 2025</p><p>i give you some space for now,<br>i will not bother you until you feel better,<br>i think my presence makes you stress,<br>sorry for existing in your life.</p>`,
+            date:'2025-08-31',
+            tags:['love','space','silence'],
+            wordCount:38,
+            readingTime:1
         }
+
+
+
 
 
          
