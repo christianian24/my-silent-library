@@ -304,17 +304,31 @@ const LIBRARY_CONTENT = {
         },
 
         {
-            id:'qoute-016',
+            id:'note-016',
             title:'It Happens',
             category:'notes',
-            spineDesign:'split',
+            spineDesign:'gilded-watercolor',
             excerpt:'Acceptance is part of living.',
             content:`<h1>It Happens</h1><p class="quote-meta">Letting go of control • 2025</p><p>Sometimes you just have to accept it <br>it's okay, it happens, it’s life.<br><br>Not everything will go as planned.<br>Not every answer will make sense.<br>But that does not mean you failed.<br><br>Acceptance is not giving up.<br>It is choosing peace over resistance.<br>It is learning to move forward without carrying what you cannot change.<br><br>Life keeps moving, and so can you.</p>`,
             date:'2025-08-31',
             tags:['acceptance','life','peace'],
             wordCount:85,
             readingTime:1
+        },
+
+        {
+            id:'note-017',
+            title:'The Ache Inside',
+            category:'notes',
+            spineDesign:'luxury-foil',
+            excerpt:'Sometimes the hardest pain is the one without words.',
+            content:`<h1>The Ache Inside</h1><p class="quote-meta">The weight of unspoken feelings • 2025</p><p>I don’t really know how to explain what I’m feeling right now.<br>All I know is that I just want to cry.<br>It’s like the weight of everything I’ve been holding in is finally too much,<br>but I still can’t let it out the way I need to.<br>I want to feel okay again,<br>but the truth is, I can’t even remember what that feels like anymore.<br><br>I look back and wonder when exactly I lost that sense of peace.<br>Was it a single moment that broke me,<br>or was it a slow build-up of little cracks that I kept ignoring until they became too heavy to carry?<br>Every day feels like I’m just moving, just breathing, but not really living.<br>I laugh, I smile, I talk like everything’s fine,<br>but inside, there’s this quiet ache that never seems to go away.<br><br>Sometimes I tell myself it’s just a phase,<br>that I’ll wake up one day and the emptiness will be gone.<br>But other times, I fear that this is simply who I’ve become.<br>Someone who forgot what it feels like to be genuinely happy.<br>Someone who’s always pretending to be okay just to make it through.<br><br>And maybe that’s what hurts the most.<br>Not just the pain itself,<br>but the fact that I don’t even know how to explain it,<br>how to put it into words,<br>or how to make it stop.<br>I just know that I’m tired.<br>I just know that I miss the version of me who didn’t feel this way.</p>`,
+            date:'2025-08-31',
+            tags:['pain','healing','loneliness'],
+            wordCount:318,
+            readingTime:2
         }
+
 
 
 
@@ -393,14 +407,28 @@ const LIBRARY_CONTENT = {
             id:'quote-005',
             title:'Sorry for Existing',
             category:'quotes',
-            spineDesign:'split',
+            spineDesign:'gilded-texture',
             excerpt:'Sometimes love means stepping back.',
             content:`<h1>Sorry for Existing</h1><p class="quote-meta">When presence feels heavy • 2025</p><p>i give you some space for now,<br>i will not bother you until you feel better,<br>i think my presence makes you stress,<br>sorry for existing in your life.</p>`,
             date:'2025-08-31',
             tags:['love','space','silence'],
             wordCount:38,
             readingTime:1
+        },
+
+        {
+            id:'quote-006',
+            title:'Always Listen',
+            category:'quotes',
+            spineDesign:'ornate-speckle',
+            excerpt:'No problem is too small to be heard.',
+            content:`<h1>Always Listen</h1><p class="quote-meta">A promise of presence • 2025</p><p>please never be scared to<br>tell or talk about your<br>problems to me. I will<br>ALWAYS listen to you no<br>matter how busy l am.</p>`,
+            date:'2025-08-31',
+            tags:['love','care','presence'],
+            wordCount:34,
+            readingTime:1
         }
+
 
 
 
