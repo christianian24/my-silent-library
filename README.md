@@ -1,93 +1,92 @@
-# My Silent Library
+```markdown
+# My Silent Library 📚🤫
 
-[![Live Demo](https://img.shields.io/badge/Live-Demo-brightgreen?style=for-the-badge&logo=vercel)](https://your-live-demo-url.com) <!-- Replace with your actual demo link -->
+[![GitHub repo size](https://img.shields.io/github/repo-size/christianian24/my-silent-library?style=flat-square)](https://github.com/christianian24/my-silent-library)
+[![GitHub stars](https://img.shields.io/github/stars/christianian24/my-silent-library?style=flat-square)](https://github.com/christianian24/my-silent-library/stargazers)
+[![GitHub forks](https://img.shields.io/github/forks/christianian24/my-silent-library?style=flat-square)](https://github.com/christianian24/my-silent-library/network)
+[![GitHub issues](https://img.shields.io/github/issues/christianian24/my-silent-library?style=flat-square)](https://github.com/christianian24/my-silent-library/issues)
+[![License: MIT](https://img.shields.io/badge/License-MIT-green.svg?style=flat-square)](LICENSE)
 
-A beautifully designed, quiet digital space for reading and organizing thoughts, quotes, and stories. This project is a front-end application with a strong focus on a clean user experience, modern aesthetics, and accessibility.
-
-![My Silent Library Screenshot](https://via.placeholder.com/800x450.png/1a1a1a/ffffff?text=My+Silent+Library+Screenshot)
-*Replace this placeholder with a screenshot of your application.*
-
----
-
-## ✨ Features
-
-My Silent Library is built with a rich set of features to provide an immersive and comfortable reading experience.
-
-- **🎨 Elegant & Responsive Design**: A clean, minimalist interface that looks and works great on desktops, tablets, and mobile devices.
-- **🌗 Dark & Light Modes**: Seamlessly switch between themes for comfortable reading, day or night. The user's preference is saved locally.
-- **📚 Content Organization**: Browse content through well-defined categories like Novels, Notes, and Quotes.
-- **🔍 Powerful Search**: A fast, client-side search modal allows you to instantly find content by title, tag, or keyword.
-- **👓 Accessible Reading Experience**: The reading modal offers robust accessibility options:
-  - **Font Style**: Choose between modern sans-serif, classic serif, and Japanese Mincho fonts.
-  - **Font Size**: Adjust the text size for optimal readability.
-  - **Line Height**: Customize line spacing to reduce eye strain.
-- **📖 Featured Passages**: Discover interesting snippets from the library with a rotating featured passage on the main page.
-- **🎞️ Animated Showcase**: An engaging, horizontally-scrolling showcase of book spines adds a dynamic and visually appealing touch to the library.
-- **✈️ Offline Access**: (PWA-ready) An `offline.html` page ensures users know they can still access previously visited works even without an internet connection.
+[![Website](https://img.shields.io/website?down_color=red&down_message=offline&style=flat-square&up_color=blue&up_message=online&url=https%3A%2F%2Fchristianian24.github.io%2Fmy-silent-library%2F)](https://christianian24.github.io/my-silent-library/)
 
 ---
 
-## 🚀 Getting Started
+## Technologies Used
 
-No complex setup is required to run this project locally.
-
-1.  **Clone the repository:**
-    ```bash
-    git clone https://github.com/your-username/my-silent-library.git
-    ```
-
-2.  **Navigate to the project directory:**
-    ```bash
-    cd my-silent-library
-    ```
-
-3.  **Open `index.html` in your browser:**
-    You can simply open the `index.html` file directly in a modern web browser, or use a live server extension in your code editor (like VS Code's Live Server) for the best experience with automatic reloads.
+[![HTML5](https://img.shields.io/badge/HTML5-E34F26?style=flat-square&logo=html5&logoColor=white)](https://developer.mozilla.org/en-US/docs/Web/HTML)  
+[![CSS3](https://img.shields.io/badge/CSS3-1572B6?style=flat-square&logo=css3&logoColor=white)](https://developer.mozilla.org/en-US/docs/Web/CSS)  
+[![JavaScript](https://img.shields.io/badge/JavaScript-F7DF1E?style=flat-square&logo=javascript&logoColor=black)](https://developer.mozilla.org/en-US/docs/Web/JavaScript)
 
 ---
 
-## 🛠️ Technologies Used
+## Overview
 
-This project is built with web standards and a focus on a vanilla JavaScript architecture.
-
-- **HTML5**: Semantic markup for structure and accessibility.
-- **CSS3**:
-  - **CSS Variables (Tokens)**: For a maintainable and scalable design system (`tokens.css`).
-  - **Flexbox & Grid**: For modern, responsive layouts.
-  - **Custom Properties**: Used extensively for theming and dynamic styling.
-- **JavaScript (ES6+)**:
-  - **Modular Code**: Logic is split into separate files for concerns like `theme`, `nav`, `modal`, `search`, etc.
-  - **DOM Manipulation**: To dynamically render content, handle user interactions, and manage application state.
-  - **No Frameworks**: Built with pure, vanilla JavaScript to keep it lightweight and fast.
+**My Silent Library** is a minimalist web application designed to offer a quiet, distraction-free space for users to explore and share meaningful thoughts, inspiring quotes, and personal stories. It’s a digital sanctuary for reflection and calm.
 
 ---
 
-## 🏛️ Project Structure
+## 🌟 Features
 
-The codebase is organized logically to make it easy to navigate and maintain.
+- **Minimalist & Clean Design** — Focus on content without distractions.
+- **Responsive Layout** — Works beautifully on desktop, tablet, and mobile.
+- **Content Organization** — Separate sections for thoughts, quotes, and stories.
+- **Easy Navigation** — Simple interface to browse and contribute.
+- **Open Source** — Fully accessible and customizable.
 
-```
-MySilentLibrary/
-├── assets/
-│   ├── css/
-│   │   ├── landing.css
-│   │   ├── style.css
-│   │   └── tokens.css
-│   └── js/
-│       ├── app.js
-│       ├── content-data.js
-│       ├── landing.js
-│       ├── lazy-loader.js
-│       ├── modal.js
-│       ├── nav.js
-│       ├── search.js
-│       └── theme.js
-├── index.html          # Landing page
-├── library.html        # Main application page
-├── offline.html        # Offline fallback page
-└── README.md           # You are here!
+---
+
+## 🎨 Live Demo
+
+Explore the project live here:  
+[https://christianian24.github.io/my-silent-library/](https://christianian24.github.io/my-silent-library/)
+
+---
+
+## 🛠️ Installation & Usage
+
+To run this project locally:
+
+```bash
+git clone https://github.com/christianian24/my-silent-library.git
+cd my-silent-library
 ```
 
+Open the `index.html` file in your preferred web browser.  
+No additional setup or dependencies required.
+
 ---
 
-Feel free to contribute, open issues, or suggest features!
+## 🤝 Contributing
+
+Contributions are welcome! Please follow these steps:
+
+1. Fork the repository.
+2. Create a new branch (`git checkout -b feature/your-feature`).
+3. Make your changes.
+4. Commit your changes (`git commit -m 'Add some feature'`).
+5. Push to the branch (`git push origin feature/your-feature`).
+6. Open a Pull Request.
+
+Please ensure your code follows the existing style and includes clear commit messages.
+
+---
+
+## 📄 License
+
+This project is licensed under the [MIT License](LICENSE).
+
+---
+
+## 📫 Contact
+
+For questions or feedback, open an issue or contact me on GitHub:  
+[christianian24](https://github.com/christianian24)
+
+---
+
+Thank you for visiting **My Silent Library** — a peaceful place for your mind and soul. 🌿
+
+---
+
+*Made with ❤️ by christianian24*
+```
