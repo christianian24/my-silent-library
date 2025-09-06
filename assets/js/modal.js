@@ -503,28 +503,27 @@ class ReadingModal {
     }
     
     navigateContent(direction) {
-        if (!this.currentContent) return;
-        
-        // Use the currently filtered content from libraryApp
-        const currentFilteredContent = window.libraryApp ? window.libraryApp.getFilteredContent() : [];
-        if (currentFilteredContent.length === 0) return;
-        
-        const currentIndex = currentFilteredContent.findIndex(item => item.id === this.currentContent.id);
+        // Use the masterOrderedList created in app.js for consistent, category-first navigation.
+        if (!this.currentContent || typeof masterOrderedList === 'undefined' || masterOrderedList.length <= 1) {
+            return; // No content, list not found, or not enough items to navigate.
+        }
+
+        const currentIndex = masterOrderedList.findIndex(item => item.id === this.currentContent.id);
         if (currentIndex === -1) return;
         
         let nextIndex;
         if (direction === 'next') {
-            nextIndex = (currentIndex + 1) % currentFilteredContent.length;
+            // Calculate the next index, wrapping around to the start if at the end.
+            nextIndex = (currentIndex + 1) % masterOrderedList.length;
         } else {
-            nextIndex = currentIndex === 0 ? currentFilteredContent.length - 1 : currentIndex - 1;
+            // Calculate the previous index, wrapping around to the end if at the start.
+            nextIndex = (currentIndex - 1 + masterOrderedList.length) % masterOrderedList.length;
         }
         
-        const nextContent = currentFilteredContent[nextIndex];
+        const nextContent = masterOrderedList[nextIndex];
         if (nextContent) {
-            // Find the new source element on the shelf
+            // Find the new source element on the shelf for the animation.
             const nextSourceElement = document.querySelector(`.book-card[data-id="${nextContent.id}"]`);
-            // To create a smooth cross-fade, we just update the content.
-            // For simplicity here, we'll just re-open. A future enhancement could be a cross-fade.
             this.open({ content: nextContent, sourceElement: nextSourceElement || this.sourceElement });
         }
     }

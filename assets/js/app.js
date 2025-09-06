@@ -3,6 +3,21 @@
  * Handles content rendering, navigation, and core functionality
  */
 
+// --- Create a master navigation list for consistent modal navigation ---
+
+// 1. Define the strict order of categories for navigation, as per user request.
+const CATEGORY_ORDER = ['notes', 'quotes', 'novels'];
+
+// 2. A helper to sort items by date, descending (newest first).
+const sortItemsByDate = (items) => [...items].sort((a, b) => new Date(b.date) - new Date(a.date));
+
+// 3. Create the master list by processing categories in the defined order.
+// This list will be the single source of truth for the modal's "Next" and "Previous" buttons.
+const masterOrderedList = CATEGORY_ORDER.flatMap(categoryKey => {
+    const items = LIBRARY_CONTENT[categoryKey] || [];
+    return sortItemsByDate(items);
+});
+
 class LibraryApp {
     constructor() {
         this.currentCategory = 'all';
